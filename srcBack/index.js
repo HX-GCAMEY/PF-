@@ -5,8 +5,8 @@ const port = process.env.PORT || 8000;
 
 MongoClient.connect(process.env.FLYMATE_DB_URI, {
   poolSize: 50,
-  writeConcern: { wtimeout: 2500 },
-  useNewUrlParser: true
+  writeConcern: {wtimeout: 2500},
+  useNewUrlParser: true,
 });
 
 app.listen(port, () => {

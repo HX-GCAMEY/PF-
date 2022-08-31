@@ -2,7 +2,7 @@ const Router = require("express");
 
 const router = new Router();
 
-router.route("/register");
+router.route("/register").get();
 router.route("/login");
 router.route("/logout");
 router.route("/delete");
