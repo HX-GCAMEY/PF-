@@ -8,9 +8,17 @@ import Profile from '../Profile/Profile';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
+//store= conexion con redux
+import store from "../../Redux/Store/index";
+import {Provider} from "react-redux";
+
+
+
 const Main = () => {
     const Stack = createNativeStackNavigator()
     return (
+        <Provider store={store}>
         <NavigationContainer>
            <Stack.Navigator>
             <Stack.Screen name='Home' component={HomePage}></Stack.Screen>
@@ -19,6 +27,7 @@ const Main = () => {
            </Stack.Navigator>
            <FootBar />
         </NavigationContainer>  
+        </Provider>
     )
 }
 
