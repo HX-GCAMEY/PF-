@@ -1,12 +1,12 @@
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import flights from "../Reducers/flights";
+import flightsReducers from "../Reducers/flights";
 
 
 
 const reducer = combineReducers({
-    flights
+    flightsReducers
 });
 
 const configureStore = () => {
