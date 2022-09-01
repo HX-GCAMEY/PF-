@@ -1,3 +1,4 @@
+
 import {
     GET_FLIGHTS,
     GET_FLIGHTS_ERROR,
@@ -5,12 +6,13 @@ import {
 } from "../Constants/flights";
 
 
-export function getFlights(){
-    return async function(dispatch){
-        let res = await Axios.get("http://localhost:8000/flights");
+export function getFlights() {
+    return async function (dispatch) {
+        const res = await globalThis.fetch.get("http://localhost:8000/flights");
+        const json = await res.json()
         dispatch({
             type: GET_FLIGHTS,
-            payload: res.data
+            payload: json.data
         })
     }
 }

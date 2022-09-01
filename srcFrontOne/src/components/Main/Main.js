@@ -11,22 +11,23 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //store= conexion con redux
 import store from "../../Redux/Store/index";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 
+const configStore = store()
 
 
 const Main = () => {
     const Stack = createNativeStackNavigator()
     return (
-        <Provider store={store}>
-        <NavigationContainer>
-           <Stack.Navigator>
-            <Stack.Screen name='Home' component={HomePage}></Stack.Screen>
-            <Stack.Screen name='About' component={About}></Stack.Screen>
-            <Stack.Screen name='Profile' component={Profile}></Stack.Screen>
-           </Stack.Navigator>
-           <FootBar />
-        </NavigationContainer>  
+        <Provider store={configStore}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name='Home' component={HomePage}></Stack.Screen>
+                    <Stack.Screen name='About' component={About}></Stack.Screen>
+                    <Stack.Screen name='Profile' component={Profile}></Stack.Screen>
+                </Stack.Navigator>
+                <FootBar />
+            </NavigationContainer>
         </Provider>
     )
 }
