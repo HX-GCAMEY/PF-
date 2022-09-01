@@ -73,10 +73,6 @@ export default class FlightsDAO {
             arrivalCity: arrivalCity,
           },
         },
-        {
-          $project: {},
-        },
-        {$sort: {DEFAULT_SORT}},
       ];
       return await flights.aggregate(pipeline).next();
     } catch (error) {
