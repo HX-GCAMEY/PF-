@@ -1,4 +1,4 @@
-import FlightsDAO from "../../DAO/flightsDAO";
+import FlightsDAO from "../../DAO/flightsDAO.js";
 
 export default class FlightsControler {
   static async apiGetFlights(req, res, next) {

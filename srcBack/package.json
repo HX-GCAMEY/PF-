@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon -L ./index.js"
   },
@@ -28,9 +29,7 @@
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
-
     "bson": "^4.7.0",
-
     "chai": "^4.1.2",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
