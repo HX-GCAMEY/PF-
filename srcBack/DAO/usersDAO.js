@@ -72,4 +72,29 @@ export default class UsersDAO {
       return {error: e};
     }
   }
+
+  static async getUserSession(email) {
+    try {
+      return session.findOne({user_id: email});
+    } catch (error) {
+      console.error(`Error occurred while retrieving user session, ${error}`);
+      return null;
+    }
+  }
+
+  static async deleteUser(email) {
+    try {
+      await users.deleteOne({email});
+      await session.deleteOne({user_id: email});
+      if (!(await this.getUser(email)) && !(await this.getUserSession(email))) {
+        return {succes: true};
+      } else {
+        console.error(`${email} could not be deleted`);
+        return {error: `${email} could not be deleted`};
+      }
+    } catch (error) {
+      console.error(`An error ocurred while deleting user, ${error}`);
+      return {error: error};
+    }
+  }
 }
