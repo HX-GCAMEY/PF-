@@ -4,13 +4,15 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import flights from "../Reducers/flights";
 
 
-
 const reducer = combineReducers({
     flights
 });
 
 const configureStore = () => {
-    return createStore(reducer)
+    return createStore(
+        reducer,
+        composeWithDevTools(applyMiddleware(thunk))
+    )
 }
 
 export default configureStore;

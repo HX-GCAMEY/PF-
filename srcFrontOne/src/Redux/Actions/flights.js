@@ -1,4 +1,4 @@
-
+import axios from 'axios'
 import {
     GET_FLIGHTS,
     GET_FLIGHTS_ERROR,
@@ -8,15 +8,13 @@ import {
 
 export function getFlights() {
     return async function (dispatch) {
-        const res = await globalThis.fetch.get("http://localhost:8000/flights");
-        const json = await res.json()
+        const res = await axios.get("http://192.168.0.3:5000/api/flights");
         dispatch({
             type: GET_FLIGHTS,
-            payload: json.data
+            payload: res.data
         })
     }
 }
-
 
 export const getSuccess = payload => {
     return {

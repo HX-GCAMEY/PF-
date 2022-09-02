@@ -113,11 +113,10 @@ const SearchForm = () => {
       {errors.depart && <Text>depart is required.</Text>}
 
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-      <Text>{flights.flights}</Text>
+      {/* <Text>{flights.flights}</Text> */}
     </View>
   )
 }
-
 
 
 export default SearchForm
