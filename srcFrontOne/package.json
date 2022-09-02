@@ -28,7 +28,8 @@
     "react-router-native": "^6.3.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "@react-native-community/datetimepicker": "6.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

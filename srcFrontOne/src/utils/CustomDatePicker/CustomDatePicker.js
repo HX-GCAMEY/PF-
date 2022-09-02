@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+
 import { Text, View, SafeAreaView, Button } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import styles from './styles'
 
 
 const CustomDatePicker = ({ toDatePicker }) => {
+
   const [datePickerDepart, setDatePickerDepart] = useState(false)
   const [date, setDate] = useState(new Date())
 
@@ -12,6 +14,7 @@ const CustomDatePicker = ({ toDatePicker }) => {
     setDatePickerDepart(true)
   }
   const onDateSelectedDepart = (e, value) => {
+
     toDatePicker(date)
     setDate(value)
     setDatePickerDepart(false)
@@ -86,3 +89,4 @@ export default CustomDatePicker;
 //     </View>
 //   )
 // }
+

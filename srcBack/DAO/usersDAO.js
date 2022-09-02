@@ -14,6 +14,10 @@ export default class UsersDAO {
     }
   }
 
+  static async getUser(email) {
+    return await users.findOne({email: email});
+  }
+
   static async addUser(userInfo) {
     try {
       await users.insertOne({
