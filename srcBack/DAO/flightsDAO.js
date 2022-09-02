@@ -1,7 +1,7 @@
 let flights;
 let flymate;
 
-const DEFAULT_SORT = [["price", -1]];
+const DEFAULT_SORT = [["defaultFare", -1]];
 
 export default class FlightsDAO {
   static async injectDB(conn) {
@@ -29,7 +29,7 @@ export default class FlightsDAO {
     return response;
   }
 
-  static async getFlights({filters = null, page = 0, flightsPerPage = 4} = {}) {
+  static async getFlights({filters = null, page = 0, flightsPerPage = 3} = {}) {
     let queryParams = {};
     let {query = {}, project = {}, sort = DEFAULT_SORT} = queryParams;
     let cursor;
@@ -45,8 +45,8 @@ export default class FlightsDAO {
 
     const displayCursor = cursor
       .limit(flightsPerPage)
-      .skip(page * 5)
-      .limit(5);
+      .skip(page * 3)
+      .limit(3);
 
     try {
       const flightList = await displayCursor.toArray();
@@ -73,6 +73,7 @@ export default class FlightsDAO {
             arrivalCity: arrivalCity,
           },
         },
+        {$sort: DEFAULT_SORT},
       ];
       return await flights.aggregate(pipeline).next();
     } catch (error) {

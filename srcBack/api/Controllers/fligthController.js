@@ -2,7 +2,7 @@ import FlightsDAO from "../../DAO/flightsDAO.js";
 
 export default class FlightsControler {
   static async apiGetFlights(req, res, next) {
-    const FLIGHTS_PER_PAGE = 5;
+    const FLIGHTS_PER_PAGE = 3;
     const {flightList, totalFlights} = await FlightsDAO.getFlights();
     let response = {
       flights: flightList,
@@ -33,7 +33,7 @@ export default class FlightsControler {
   }
 
   static async apiGetFlightsPage(req, res, next) {
-    const FLIGHTS_PER_PAGE = 5;
+    const FLIGHTS_PER_PAGE = 3;
     let page;
     try {
       page = req.query.page ? parseInt(req.query.page, 10) : 0;
@@ -48,7 +48,6 @@ export default class FlightsControler {
     let response = {
       flights: flightList,
       page: page,
-
       entries_per_page: FLIGHTS_PER_PAGE,
       total_results: totalFlights,
     };
