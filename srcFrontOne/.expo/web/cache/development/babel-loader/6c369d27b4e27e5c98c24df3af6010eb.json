@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { default as SimpleGrid } from \"./SimpleGrid\";","map":{"version":3,"mappings":"AAAA,SAASA,OAAO,IAAIC,UAApB","names":["default","SimpleGrid"],"sources":["index.tsx"],"sourcesContent":["export { default as SimpleGrid } from './SimpleGrid';\nexport type { ISimpleGridProps } from './types';\n"]},"metadata":{},"sourceType":"module"}

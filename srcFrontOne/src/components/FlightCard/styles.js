@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginHorizontal: 21,
         margin: 15,
-        height: 78,
+        //height: 78,
+        height: 156,
         width: 349,
     },
     departurePlace: {
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
         position: "absolute",
-        top: 20,
+        top: 90,
         left: 166,
     },
     departureTime: {
@@ -29,12 +30,12 @@ const styles = StyleSheet.create({
     },
     destinationTime: {
         position: "absolute",
-        top: 43,
+        top: 113,
         left: 166,
     },
     fare: {
         position: "absolute",
-        top: 33,
+        top: 75,
         left: 258,
     },
 })
