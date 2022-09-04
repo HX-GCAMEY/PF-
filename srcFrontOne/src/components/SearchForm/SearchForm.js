@@ -40,7 +40,7 @@ const SearchForm = () => {
   //   }
   // }
   // console.log('fsfssfsfsfsfs', a)
-  console.log('VUELOS', flights.flights)
+  //console.log('VUELOS', flights.flights)
   return (
     <View style={styles.inputContainer} >
       <Controller
