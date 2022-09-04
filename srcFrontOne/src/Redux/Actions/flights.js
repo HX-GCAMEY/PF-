@@ -8,7 +8,7 @@ import {
 
 export function getFlights() {
     return async function (dispatch) {
-        const res = await axios.get("http://192.168.0.3:5000/api/flights");
+        const res = await axios.get("http://192.168.0.214:5000/api/flights");
         dispatch({
             type: GET_FLIGHTS,
             payload: res.data
