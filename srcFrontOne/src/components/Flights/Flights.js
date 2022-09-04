@@ -10,35 +10,34 @@ import FlightCard from "../FlightCard/FlightCard";
 
 const Flights = () => {
 
-    /*let dispatch  = useDispatch();
-    let allFlights = useSelector((state) => state.flights);
+    let dispatch = useDispatch();
+    let allFlights = useSelector((state) => state.flightsReducers.flights);
     console.log(allFlights)
 
     useEffect(() => {
         dispatch(getFlights())
-    }, [dispatch]);*/
-    
+    }, [dispatch]);
+
 
     return (
         <ScrollView style={styles.container}>
-            <SearchForm/>
-            <FlightCard departure={'EZE'} departureTime={'1.30'} destination={'MIA'} destinationTime={'18.04'} fare={'USD 913'}/>
-            <FlightCard departure={'EZE'} departureTime={'1.30'} destination={'MIA'} destinationTime={'13.30'} fare={'USD 1100'}/>
-            <FlightCard departure={'EZE'} departureTime={'5.30'} destination={'MIA'} destinationTime={'16.00'} fare={'USD 967'}/>
-            <FlightCard departure={'EZE'} departureTime={'13.40'} destination={'MIA'} destinationTime={'01.10'} fare={'USD 899'}/>
-            <FlightCard departure={'EZE'} departureTime={'7.40'} destination={'MIA'} destinationTime={'18.04'} fare={'USD 1115'}/>
-            {/*
-            EL MAP NO FUNCIONA --> FLAT LIST
-            { allFlights && allFlights.map(f => 
-                <FlightCard 
-                key={f.id} 
-                departure={f.departureCity} 
-                departureTime={f.departureTime} 
-                destination={f.arrivalCity}
-                destinationTime={f.arrivalTime}
-                fare={f.defaultFare}
+            {/* <SearchForm/> */}
+            {/* <FlightCard departure={'EZE'} departureTime={'1.30'} destination={'MIA'} destinationTime={'18.04'} fare={'USD 913'} />
+            <FlightCard departure={'EZE'} departureTime={'1.30'} destination={'MIA'} destinationTime={'13.30'} fare={'USD 1100'} />
+            <FlightCard departure={'EZE'} departureTime={'5.30'} destination={'MIA'} destinationTime={'16.00'} fare={'USD 967'} />
+            <FlightCard departure={'EZE'} departureTime={'13.40'} destination={'MIA'} destinationTime={'01.10'} fare={'USD 899'} />
+            <FlightCard departure={'EZE'} departureTime={'7.40'} destination={'MIA'} destinationTime={'18.04'} fare={'USD 1115'} /> */}
+
+            {allFlights.flights[0] && allFlights.flights.map(f =>
+                <FlightCard
+                    key={f._id}
+                    departure={f.departure.city}
+                    departureTime={f.departure.time}
+                    destination={f.arrival.city}
+                    destinationTime={f.arrival.time}
+                    fare={f.defaultFare}
                 />
-            )}*/}
+            )}
         </ScrollView>
     )
 }
