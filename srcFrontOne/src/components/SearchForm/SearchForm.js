@@ -11,7 +11,7 @@ import flymateLogo from '../../images/flymateLogo.png'
 import logoImage from '../../images/logoImage.png'
 const SearchForm = () => {
   const navigation = useNavigation()
-  // const flights = useSelector((store) => store.flights);
+  const flights = useSelector((state) => state.flightsReducers.flights);
   const dispatch = useDispatch()
 
   const [depart, setDepart] = useState('')
@@ -47,8 +47,8 @@ const SearchForm = () => {
 
 
   useEffect(() => {
-    setInformation([])
-    // dispatch(getFlights())
+    // setInformation([])
+    dispatch(getFlights())
   }, [])
 
   const filterData = (data) => {
@@ -61,9 +61,10 @@ const SearchForm = () => {
     setInformation([])
     Item()
     setInformation(filterData(flightsData))
-    console.log(depart, arrival)
+    // console.log(depart, arrival)
     // navigation.navigate('About')
   }
+  console.log(flights)
 
   return (
     <NativeBaseProvider>
