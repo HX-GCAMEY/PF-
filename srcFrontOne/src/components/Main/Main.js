@@ -12,6 +12,7 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 //store= conexion con redux
 import store from "../../Redux/Store/index";
 import { Provider } from "react-redux";
+import Flights from '../Flights/Flights';
 
 const configStore = store()
 
