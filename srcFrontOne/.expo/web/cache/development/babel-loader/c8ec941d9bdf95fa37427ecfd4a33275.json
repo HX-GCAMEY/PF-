@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { default as Factory } from \"./component\";","map":{"version":3,"mappings":"AAAA,SAASA,OAAO,IAAIC,OAApB","names":["default","Factory"],"sources":["index.tsx"],"sourcesContent":["export { default as Factory } from './component';\nexport type { FactoryComponentProps } from './types';\n"]},"metadata":{},"sourceType":"module"}
