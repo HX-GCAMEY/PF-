@@ -1,0 +1,26 @@
+.order {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.botonSubmit {
+  margin: 20px;
+}
+
+.form {
+  top: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-size: 20px;
+
+  margin-top: 70px;
+}

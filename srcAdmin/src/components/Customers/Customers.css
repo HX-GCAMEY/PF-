@@ -1,0 +1,47 @@
+/* .Table {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+ */
+
+.botonIcons {
+  display: flex;
+  gap: 10px;
+}
+.botonIcons > * {
+  height: 20px;
+  width: 20px;
+}
+
+.botonIcons > *:hover {
+  cursor: pointer;
+}
+
+.centrando {
+}
+.centrar {
+  text-align: center;
+}
+
+.Table2 {
+}
+@media screen and (max-width: 1200px) {
+  .Table2 {
+    width: 100%;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Table2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

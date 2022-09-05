@@ -1,0 +1,9 @@
+.form2 input::placeholder {
+  position: relative;
+  text-align: end;
+  top: -3px;
+}
+
+#pickers::placeholder {
+  text-align: center;
+}
