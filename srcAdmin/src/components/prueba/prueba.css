@@ -1,0 +1,20 @@
+.aintInput {
+  width: 40px;
+}
+
+.modal {
+  width: 40px;
+}
+
+.aintForm {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#floating_outlined::placeholder {
+  position: relative;
+  text-align: end;
+  top: -3px;
+}
