@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, ScrollView, SafeAreaView, FlatList, Pressable, Image } from "react-native";
+import { Text, View, ScrollView, SafeAreaView, FlatList, Pressable, Image, Modal, TouchableOpacity } from "react-native";
 import { connect, useDispatch, useSelector } from "react-redux"
 import { getFlights } from "../../Redux/Actions/flights"
 import { LinearGradient } from "expo-linear-gradient"
 import styles from "./styles";
 import { useNavigation } from '@react-navigation/native';
-import { Select, Center, Box, CheckIcon, NativeBaseProvider, Button } from "native-base";
+import { Select, Center, Box, CheckIcon, NativeBaseProvider, Button, Row } from "native-base";
 import { flightsData } from './flightsData'
-import flymateLogo from '../../images/flymateLogo.png'
-import logoImage from '../../images/logoImage.png'
+import AntDesign from "react-native-vector-icons/AntDesign";
+
+
 const SearchForm = () => {
   const navigation = useNavigation()
   const flights = useSelector((state) => state.flightsReducers.flights);
@@ -17,6 +18,8 @@ const SearchForm = () => {
   const [depart, setDepart] = useState('')
   const [arrival, setArrival] = useState('')
   const [information, setInformation] = useState([])
+  const [view, setView] = useState(false);
+
 
   const Item = () => {
     {
@@ -26,10 +29,14 @@ const SearchForm = () => {
             key={el._id}
             style={styles.rendInput}
             onPress={() => navigation.navigate('About')} >
-            <Text>Date: {el.departure.date}</Text>
-            <Text>Depart: {el.departure.airport}</Text>
-            <Text>Arrival: {el.arrival.airport}</Text>
-            <Text>Price: $ {el.defaultFare}</Text>
+             <LinearGradient colors={['#07C5C5', '#0184A0']} style={styles.container}>
+              <View style={{ top: 0, left: 0, right: 0, position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={styles.date}>Date: {el.departure.date}</Text>
+            <Text style={styles.departureCard}>Depart: {el.departure.airport}</Text>
+            <Text style={styles.arrivalCard}>Arrival: {el.arrival.airport}</Text>
+            <Text style={styles.price}>Price: $ {el.defaultFare}</Text>
+              </View>
+              </LinearGradient>
           </Pressable>
         )
       }
@@ -61,26 +68,22 @@ const SearchForm = () => {
     setInformation([])
     Item()
     setInformation(filterData(flightsData))
-    // console.log(depart, arrival)
-    // navigation.navigate('About')
+    setView(true)
   }
-  console.log(flights)
-
+  
   return (
     <NativeBaseProvider>
       <SafeAreaView style={styles.inputContainer} >
-        <LinearGradient style={{ minHeight: 700 }} colors={['#07C5C5', '#0184A0']}>
-          <View style={styles.imageContainter} >
-            <Image source={flymateLogo} style={styles.image} />
-            {/* <Image source={logoImage} /> */}
-          </View>
-          <Text style={[styles.textInputs, { marginTop: 100 }]} >departure</Text>
+        <LinearGradient style={{ height: 250, marginTop: 30, marginLeft: 34, width: 300, borderRadius: 10, }} colors={['#07C5C5', '#0184A0']}>
+          <Text style={[styles.textInputs, { marginTop: 30 }]} >→ Departure:</Text>
           <Center>
             <Box maxW="500">
               <Select
                 selectedValue={depart}
                 onValueChange={(value) => setDepart(value)}
                 minWidth="250"
+                borderColor={'black'}
+                placeholderTextColor={'black'}
                 accessibilityLabel="Choose Airport"
                 placeholder="Choose Airport"
                 _selectedItem={{
@@ -111,13 +114,15 @@ const SearchForm = () => {
               </Select>
             </Box>
           </Center>
-          <Text style={[styles.textInputs, { marginTop: 10 }]} >arrival</Text>
+          <Text style={[styles.textInputs, { marginTop: 10 }]} >← Arrival:</Text>
           <Center>
             <Box maxW="500" >
               <Select
                 selectedValue={arrival}
                 onValueChange={(value) => setArrival(value)}
                 minWidth="250"
+                placeholderTextColor={'black'}
+                borderColor={'black'}
                 accessibilityLabel="Choose Airport"
                 placeholder="Choose Airport"
                 _selectedItem={{
@@ -149,16 +154,32 @@ const SearchForm = () => {
             </Box>
           </Center>
           <View style={{ marginBottom: 500 }} >
-            <Button style={{ width: 200, alignSelf: 'center', marginTop: 20 }} alignItems='center' title="Find it!" onPress={onSubmit}>Find it!</Button>
-            <View style={{ marginTop: 20 }} >
-              {/* <ScrollView> */}
-              <FlatList
-                data={information}
-                renderItem={renderItem}
-                keyExtractor={flight => flight._id}
-              />
-              {/* </ScrollView> */}
-            </View>
+            <Button style={{ width: 100, height:40, alignSelf: 'center', marginTop: 10, color: '#ffff', backgroundColor:'#252440' }} alignItems='center' title="Find it!" onPress={onSubmit}>Find it!</Button>
+            <Modal
+                animationType='slide'
+                onDismiss={() => console.log('close')}
+                onShow={() => {}}
+                transparent
+                visible={view}
+            >
+              <View style={{flex: 1, backgroundColor: '#E4E4E6', }}>
+              <View  style={{height: '100%', width:'100%', backgroundColor:'#E4E4E6'}}>
+              <View  style={{height: 45, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingHorizontal: 5}}>
+                <TouchableOpacity onPress={() => setView(false)}>
+                <AntDesign name='closecircle' size={28} />
+                </TouchableOpacity>
+              </View>
+              <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+                    <FlatList
+                    data={information}
+                    renderItem={renderItem}
+                    keyExtractor={flight => flight._id}
+                  />
+                  
+                </View>
+              </View>
+              </View>
+            </Modal>
           </View>
         </LinearGradient>
       </SafeAreaView>
