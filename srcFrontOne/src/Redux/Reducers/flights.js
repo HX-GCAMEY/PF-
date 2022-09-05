@@ -1,7 +1,8 @@
 import{
     GET_FLIGHTS,
     GET_FLIGHTS_SUCCESS,
-    GET_FLIGHTS_ERROR
+    GET_FLIGHTS_ERROR,
+    SEARCH_FLIGHT
 } from "../Constants/flights";
 
 const initialState ={
@@ -33,6 +34,11 @@ export default flightsReducers = (state = initialState, action ) => {
                 ...state,
                 isFetching: false,
                 error: true
+            }
+        case SEARCH_FLIGHT: 
+            return{
+                ...state,
+                flights: action.payload
             }
         default: 
         return state  
