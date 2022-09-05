@@ -16,11 +16,13 @@ export default class FlightsControler {
 
   static async apiGetFlightsByRoute(req, res, next) {
     try {
-      let {departureCity, arrivalCity} = req.query;
+      let {departureCity, arrivalCity, departureDate} = req.query;
       let flight = await FlightsDAO.getFlightsByRoute(
         departureCity,
-        arrivalCity
+        arrivalCity,
+        departureDate
       );
+      console.log("Console log", departureCity, departureDate, arrivalCity);
       if (!flight) {
         res.status(404).json({error: "Not found"});
         return;
