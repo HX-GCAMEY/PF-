@@ -62,7 +62,7 @@ export default class UserController {
       if (!insertResult.success) {
         errors.email = insertResult.error;
       }
-      console.log(insertResult);
+
       const userFromDB = await UsersDAO.getUser(userFromBody.email);
       if (!userFromDB) {
         errors.general = "Internal error, please try again later";
@@ -119,7 +119,10 @@ export default class UserController {
 
   static async logout(req, res) {
     try {
-      const userJwt = req.get("Authorization").slice("Bearer ".length);
+      const {user} = req.body;
+      const loggedUser = await UsersDAO.getUserSession(user);
+      const userJwt = loggedUser.jwt;
+      console.log("JWT", userJwt);
       const userObj = await User.decoded(userJwt);
       var {error} = userObj;
       if (error) {

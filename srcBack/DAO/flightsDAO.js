@@ -1,7 +1,7 @@
 let flights;
 let flymate;
 
-const DEFAULT_SORT = [["defaultFare", -1]];
+const DEFAULT_SORT = {defaultFare: -1};
 
 export default class FlightsDAO {
   static async injectDB(conn) {
@@ -60,17 +60,23 @@ export default class FlightsDAO {
     }
   }
 
-  static async getFlightsByRoute(departureCity, arrivalCity) {
+  static async getFlightsByRoute(
+    departureCity,
+    arrivalCity,
+    departureDate,
+    arrivalDate
+  ) {
     try {
       const pipeline = [
         {
           $match: {
-            departureCity: departureCity,
+            "departure.city": departureCity,
+            "departure.date": departureDate,
           },
         },
         {
           $match: {
-            arrivalCity: arrivalCity,
+            "arrival.city": arrivalCity,
           },
         },
         {$sort: DEFAULT_SORT},
