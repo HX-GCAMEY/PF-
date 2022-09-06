@@ -1,8 +1,10 @@
 import React from "react";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import HomePage from "../HomePage/HomePage";
 import Profile from "../Profile/Profile";
 import About from "../About/About";
+import Detail from "../Detail/Detail";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import styles from "./styles";
@@ -39,7 +41,6 @@ const FootBar = () => {
             <Feather name="user" color={color} size={size}/>
           )
         }}/>
-      
       </Tab.Navigator>
     )
 }

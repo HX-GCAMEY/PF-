@@ -97,7 +97,7 @@ const SearchForm = () => {
         <Pressable
           key={el._id}
           style={styles.rendInput}
-          onPress={() => navigation.navigate('About')} >
+          onPress={() => navigation.navigate('Detail')} >
           <LinearGradient colors={['#07C5C5', '#0184A0']} style={styles.container}>
             <View style={{ top: 0, left: 0, right: 0, position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
               <Text style={styles.date}>Date: {el.departure.date}</Text>
