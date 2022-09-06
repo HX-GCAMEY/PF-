@@ -1,5 +1,6 @@
 import React from 'react';
 import FootBar from '../FootBar/FootBar';
+import Detail from '../Detail/Detail';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -41,7 +42,7 @@ const Auth = () => {
                 <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="NewPassword" component={NewPassword} />
-
+                <Stack.Screen name="Detail" component={Detail}/>
             </Stack.Navigator>
         </NavigationContainer>
         </Provider>

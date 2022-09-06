@@ -1,4 +1,4 @@
-const IP_URL = "192.168.0.3"
+const IP_URL = "192.168.0.214"
 
 import axios from 'axios'
 import {
