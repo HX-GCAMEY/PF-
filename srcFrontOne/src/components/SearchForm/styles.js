@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderLeftWidth: 0,
     borderRightWidth: 0,
-    height: 70,
+    height: 100
   },
   input: {
     height: 40,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 16,
     fontWeight: 'bold',
-    
+
   },
   rendInput: {
     borderWidth: 0,
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
     height: 100,
     width: 370,
   },
-  date:{
+  date: {
     fontSize: 18,
     fontWeight: "bold",
     position: "absolute",
     top: 10,
     left: 20,
   },
-  departureCard:{
+  departureCard: {
     fontSize: 15,
     fontWeight: "bold",
     position: "absolute",
@@ -79,6 +79,61 @@ const styles = StyleSheet.create({
   },
   select: {
     color: 'orange'
+  },
+  MainContainer: {
+    borderRadius: 10,
+    flex: 0,
+    flexDirection: 'row',
+    padding: 0,
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    marginTop: 10,
+    maxHeight: 100,
+
+  },
+
+  text: {
+    borderRadius: 10,
+    fontSize: 18,
+    fontStyle: 'bold',
+    color: '#7f12e5',
+    marginBottom: 45,
+    textAlign: 'center',
+    backgroundColor: '#fc766aa0'
+  },
+
+  // Style for iOS ONLY...
+  datePicker: {
+    justifyContent: 'center',
+    width: 320,
+    height: 0,
+    display: 'flex',
+    flexDirection: 'row'
+  },
+
+  buttonDate: {
+    fontSize: 6,
+    width: 180,
+    height: 40,
+    alignSelf: 'center',
+    marginTop: -30,
+    color: '#ffff',
+    backgroundColor: '#252440',
+    marginLeft: 50
+  },
+  buttonDisabled: {
+    fontSize: 6,
+    width: 180,
+    height: 40,
+    alignSelf: 'center',
+    marginTop: -30,
+    color: '#ffff',
+    backgroundColor: '#2524404a',
+    marginLeft: 50
+  },
+  checkbox: {
+    marginTop: 20,
+    marginLeft: 15
   }
 })
 

@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 0,
     alignItems: 'center',
-    backgroundColor: '#ed982aae',
-    marginTop: 67,
+    backgroundColor: 'transparent',
+    marginTop: 10,
     maxHeight: 100,
 
   },
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontStyle: 'bold',
     color: '#7f12e5',
-    marginBottom: 10,
+    marginBottom: 67,
     textAlign: 'center',
     backgroundColor: '#fc766aa0'
   },
@@ -32,6 +32,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row'
   },
+  button: {
+    width: 100,
+    height: 40,
+    alignSelf: 'center',
+    marginTop: 10,
+    color: '#ffff',
+    backgroundColor: '#252440'
+  }
 
 
 });
