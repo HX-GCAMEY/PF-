@@ -1,31 +1,51 @@
 import React from 'react';
-// import { View, Text } from 'react-native';
-// import styles from './styles';
 import FootBar from '../FootBar/FootBar';
-// import HomePage from '../HomePage/HomePage';
-// import About from '../About/About';
-// import Profile from '../Profile/Profile';
-import { NavigationContainer, StackActions } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
+
+//////////////////////////////////////////////////////////////
+import LoginScreen from '../Authentication/Login/LoginScreen';
+import SignUp from '../Authentication/SignUp/SignUp';
+import ConfirmEmail from '../Authentication/ConfirmEmail/ConfirmEmail';
+import ForgotPassword from '../Authentication/ForgotPassword/ForgotPassword';
+import NewPassword from '../Authentication/NewPassword/NewPassword';
 
 //store= conexion con redux
 import store from "../../Redux/Store/index";
 import { Provider } from "react-redux";
-import Flights from '../Flights/Flights';
+
 
 const configStore = store()
 
+const Stack = createNativeStackNavigator()
 
-const Main = () => {
-    // const Stack = createNativeStackNavigator()
-    return (
+// const Main = () => {
+//     return (
+//         <NavigationContainer>
+//            <FootBar />
+//         </NavigationContainer>
+//     )
+// }
+
+
+const Auth = () => {
+    return(
         <Provider store={configStore}>
         <NavigationContainer>
-           <FootBar />
+            <Stack.Navigator>
+                <Stack.Screen name="HomePage" component={FootBar}  options={{ headerShown: false }}/>
+                <Stack.Screen name="Login" component={LoginScreen}/>
+                <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
+                <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+                <Stack.Screen name="NewPassword" component={NewPassword} />
+
+            </Stack.Navigator>
         </NavigationContainer>
         </Provider>
     )
 }
 
-export default Main;
+export default Auth;

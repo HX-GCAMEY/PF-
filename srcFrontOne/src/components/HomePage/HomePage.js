@@ -7,7 +7,7 @@ import slides from "./slides";
 import Cards from "./cards";
 import SearchForm from "../SearchForm/SearchForm";
 
-const HomePage = () => {
+const HomePage = ({navigation}) => {
 
 
     const width = Dimensions.get("window").width;
@@ -56,7 +56,7 @@ const HomePage = () => {
                     </View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}>Discover</Text>
                 </View>
-                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} />
+                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")}/>
                 <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
             </View>
             <View style={{ widht: 30 }}>
