@@ -22,12 +22,11 @@ export default class FlightsControler {
         arrivalCity,
         departureDate
       );
-      console.log("Console log", departureCity, departureDate, arrivalCity);
       if (!flight) {
         res.status(404).json({error: "Not found"});
         return;
       }
-      res.json({flight});
+      res.json(flight);
     } catch (error) {
       console.log(`api, ${error}`);
       res.status(500).json({error: error});
@@ -53,6 +52,12 @@ export default class FlightsControler {
       entries_per_page: FLIGHTS_PER_PAGE,
       total_results: totalFlights,
     };
+    res.json(response);
+  }
+
+  static async apiGetCities(req, res){
+    const citiesList = await FlightsDAO.getCities();
+    let response = citiesList;
     res.json(response);
   }
 }

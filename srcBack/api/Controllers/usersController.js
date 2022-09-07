@@ -122,7 +122,6 @@ export default class UserController {
       const {user} = req.body;
       const loggedUser = await UsersDAO.getUserSession(user);
       const userJwt = loggedUser.jwt;
-      console.log("JWT", userJwt);
       const userObj = await User.decoded(userJwt);
       var {error} = userObj;
       if (error) {
@@ -176,7 +175,6 @@ export default class UserController {
     try {
       await UsersDAO.updateProfile(req.body.email, req.body.profile);
       const userFromDB = await UsersDAO.getUser(req.body.email);
-      console.log(userFromDB);
       const updatedUser = new User(userFromDB);
 
       res.json({

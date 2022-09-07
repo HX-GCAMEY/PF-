@@ -63,11 +63,10 @@ export default class FlightsDAO {
   static async getFlightsByRoute(
     departureCity,
     arrivalCity,
-    departureDate,
-    arrivalDate
+    departureDate
   ) {
     try {
-      const pipeline = [
+      let pipeline = [
         {
           $match: {
             "departure.city": departureCity,
@@ -81,10 +80,21 @@ export default class FlightsDAO {
         },
         {$sort: DEFAULT_SORT},
       ];
-      return await flights.aggregate(pipeline).next();
+     return await flights.aggregate(pipeline).next();
     } catch (error) {
       console.error(`Unable to issue find flights, ${error}`);
       throw error;
+    }
+  }
+
+  static async getCities(){
+    let cities;
+    try {
+      cities = await flights.distinct("departure.city")
+      return cities;
+    } catch (error) {
+      console.error(`Unable to issue find command, ${error}`);
+      return cities = [];
     }
   }
 }
