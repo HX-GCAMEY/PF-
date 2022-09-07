@@ -5,9 +5,9 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         backgroundColor: "#FFFFFF",
         position: "absolute",
-        height: 510,
         width: 430,
-        bottom: 0,
+        height: 696,
+        top: 140,
     },
     title: {
         fontSize: 20,
@@ -47,6 +47,23 @@ const styles = StyleSheet.create({
     },
     baggagesInfoText: {
         fontSize: 14,
+    },
+    flightInfo: {
+        borderColor: "#0399AB",
+        borderWidth: 3,
+        marginLeft: 60,
+        marginTop: 21,
+        borderRadius: 15,
+        height: 253,
+        width: 304,
+        padding: 24,
+    },
+    flightDepartureInfo: {
+        top: 25,
+    },
+    flightArrivalInfo: {
+        left: 170,
+        bottom: 120,
     }
 })
 
