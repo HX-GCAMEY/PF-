@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions, ScrollView } from "react-native";
 import styles from "./styles";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Feather from "react-native-vector-icons/Feather"
@@ -47,6 +47,7 @@ const HomePage = ({navigation}) => {
 
 
     return (
+        <ScrollView showsVerticalScrollIndicator={true}>
         <SafeAreaView style={{ flex: 1, paddingHorizontal: 0, backgroundColor: '#C1DEE7' }}>
             <View style={styles.header}>
                 <View>
@@ -56,7 +57,7 @@ const HomePage = ({navigation}) => {
                     </View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}>Discover</Text>
                 </View>
-                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")}/>
+                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -50 }} onPress={() => navigation.navigate("Login")}/>
                 <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
             </View>
             <View style={{ widht: 30 }}>
@@ -84,6 +85,7 @@ const HomePage = ({navigation}) => {
             </View>
 
         </SafeAreaView>
+        </ScrollView>
     )
 }
 
