@@ -35,7 +35,6 @@ export function getCities() {
 export function getFlightsByRoute(departure, arrival, date) {
     return async function (dispatch) {
         const res = await axios.get(`http://${IP_URL}:5000/api/flights/search?departureCity=${departure}&arrivalCity=${arrival}&departureDate=${date}`);
-        console.log('action GETBYROUTE', res.data)
         dispatch({
             type: GET_FLIGHTS_BY_ROUTE,
             payload: res.data

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions } from "react-native";
 import styles from "./styles";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
@@ -6,10 +6,11 @@ import Feather from "react-native-vector-icons/Feather"
 import slides from "./slides";
 import Cards from "./cards";
 import SearchForm from "../SearchForm/SearchForm";
+import { useSelector } from 'react-redux'
 
-const HomePage = ({navigation}) => {
+const HomePage = ({ navigation }) => {
 
-
+    const flights = useSelector((state) => state.flightsReducers.flights.flights);
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height;
 
@@ -54,17 +55,17 @@ const HomePage = ({navigation}) => {
                     <View>
                         <SearchForm />
                     </View>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}>Discover</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                 </View>
-                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")}/>
+                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")} />
                 <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
             </View>
             <View style={{ widht: 30 }}>
             </View>
             <CategoryList />
-            <View style={{ paddingHorizontal: 3 }}>
+            <View style={{ paddingHorizontal: 0, paddingVertical: -10 }}>
                 <FlatList
-                    data={slides}
+                    data={flights}
                     renderItem={({ item }) => <Cards style={{ width: ANCHO_CONTENEDOR }} item={item} />}
                     horizontal
                     showsHorizontalScrollIndicator
