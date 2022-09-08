@@ -48,43 +48,45 @@ const HomePage = ({ navigation }) => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, paddingHorizontal: 0, backgroundColor: '#C1DEE7' }}>
-            <View style={styles.header}>
-                <View>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 40, color: '#0183A0' }}>User</Text>
+        <ScrollView showsVerticalScrollIndicator={true}>
+            <SafeAreaView style={{ flex: 1, paddingHorizontal: 0, backgroundColor: '#C1DEE7' }}>
+                <View style={styles.header}>
                     <View>
-                        <SearchForm />
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 40, color: '#0183A0' }}>User</Text>
+                        <View>
+                            <SearchForm />
+                        </View>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                     </View>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
+                    <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")} />
+                    <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
                 </View>
-                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")} />
-                <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
-            </View>
-            <View style={{ widht: 30 }}>
-            </View>
-            <CategoryList />
-            <View style={{ paddingHorizontal: 0, paddingVertical: -10 }}>
-                <FlatList
-                    data={flights}
-                    renderItem={({ item }) => <Cards style={{ width: ANCHO_CONTENEDOR }} item={item} />}
-                    horizontal
-                    showsHorizontalScrollIndicator
-                    pagingEnabled
-                    decelerationRate={0}
-                    snapToInterval={ANCHO_CONTENEDOR}
-                    bounces={false}
-                    onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
-                        useNativeDriver: false
-                    }).current}
-                    scrollEventThrottle={45}
-                    onViewableItemsChanged={itemsChanged.current}
-                    viewabilityConfig={viewConfig.current}
-                    ref={slidesRef}
-                />
+                <View style={{ widht: 30 }}>
+                </View>
+                <CategoryList />
+                <View style={{ paddingHorizontal: 0, paddingVertical: -10 }}>
+                    <FlatList
+                        data={flights}
+                        renderItem={({ item }) => <Cards style={{ width: ANCHO_CONTENEDOR }} item={item} />}
+                        horizontal
+                        showsHorizontalScrollIndicator
+                        pagingEnabled
+                        decelerationRate={0}
+                        snapToInterval={ANCHO_CONTENEDOR}
+                        bounces={false}
+                        onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
+                            useNativeDriver: false
+                        }).current}
+                        scrollEventThrottle={45}
+                        onViewableItemsChanged={itemsChanged.current}
+                        viewabilityConfig={viewConfig.current}
+                        ref={slidesRef}
+                    />
 
-            </View>
+                </View>
 
-        </SafeAreaView>
+            </SafeAreaView>
+        </ScrollView>
     )
 }
 
