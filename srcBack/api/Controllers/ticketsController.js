@@ -1,11 +1,11 @@
-import ticketsDAO from "../../DAO/ticketsDAO.js";
+// import ticketsDAO from "../../DAO/ticketsDAO.js";
 
 export class Ticket {
-  constructor({email}) {
+  constructor({ email }) {
     this.email = email;
   }
 }
 
 export default class UserController {
-  static async purchase(req, res) {}
+  static async purchase(req, res) { }
 }

@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 40,
     alignSelf: 'center',
-    marginTop: -30,
+    marginTop: 0,
     color: '#ffff',
     backgroundColor: '#252440',
     marginLeft: 50
@@ -134,6 +134,31 @@ const styles = StyleSheet.create({
   checkbox: {
     marginTop: 20,
     marginLeft: 15
+  },
+  searchBar: {
+    fontSize: 2,
+    height: 40,
+    width: 250,
+    marginTop: 5
+  },
+  dropdown: {
+    width: 250,
+    top: 47,
+    zIndex: 1,
+    position: 'absolute',
+    backgroundColor: 'white',
+    // display: 'flex',
+    flexDirection: 'column',
+    border: 1,
+  },
+  dropdownRow: {
+    display: 'flex',
+    cursor: 'pointer',
+    textAlign: 'start',
+    margin: 2,
+    borderRadius: 40,
+    zIndex: 10,
+    alignSelf: 'flex-start'
   }
 })
 
