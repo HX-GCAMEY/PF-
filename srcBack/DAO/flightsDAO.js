@@ -29,6 +29,36 @@ export default class FlightsDAO {
     return response;
   }
 
+  static async getAllFlights({filters = null} = {}) {
+
+    let queryParams = {};
+    let {query = {}, project = {}, sort = DEFAULT_SORT} = queryParams;
+    let cursor;
+    try {
+      cursor = await flights
+        .find(query)
+        .project(project)
+        .sort(sort);
+    } catch (error) {
+      console.error(`Unable to issue find command, ${error}`);
+      return {flightList: []};
+    }
+
+    const displayCursor = cursor
+      .limit(0);
+
+    try {
+      const flightList = await displayCursor.toArray();
+      return {flightList};
+    } catch (error) {
+      console.error(
+        `Unable to convert cursor to array or problem counting documents, ${error}`
+      );
+      return {flightsList: []};
+    }
+
+  }
+
   static async getFlights({filters = null, page = 0, flightsPerPage = 3} = {}) {
     let queryParams = {};
     let {query = {}, project = {}, sort = DEFAULT_SORT} = queryParams;
@@ -66,21 +96,17 @@ export default class FlightsDAO {
     departureDate
   ) {
     try {
-      let pipeline = [
+      const pipeline = [
         {
           $match: {
             "departure.city": departureCity,
-            "departure.date": departureDate,
-          },
-        },
-        {
-          $match: {
             "arrival.city": arrivalCity,
+            "departure.date": departureDate,
           },
         },
         {$sort: DEFAULT_SORT},
       ];
-     return await flights.aggregate(pipeline).next();
+     return await flights.aggregate(pipeline).toArray();
     } catch (error) {
       console.error(`Unable to issue find flights, ${error}`);
       throw error;

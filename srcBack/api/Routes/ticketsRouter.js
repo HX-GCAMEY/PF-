@@ -3,10 +3,9 @@ import TicketsController from "../Controllers/ticketsController.js";
 
 const router = new Router();
 
-router.route("/purchase");
-router.route("/cancel");
-router.route("/updateTicket");
+router.route("/purchase").post(TicketsController.purchase);
+//router.route("/cancel").delete(TicketsController.cancel);
 // ruta pare enviar ticket por email
-router.route("/sendTicket");
+//router.route("/send").get(TicketsController.send);
 
 export default router;
