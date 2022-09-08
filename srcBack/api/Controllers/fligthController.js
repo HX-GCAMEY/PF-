@@ -1,17 +1,14 @@
 import FlightsDAO from "../../DAO/flightsDAO.js";
 
 export default class FlightsControler {
-  static async apiGetFlights(req, res, next) {
-    const FLIGHTS_PER_PAGE = 3;
-    const {flightList, totalFlights} = await FlightsDAO.getFlights();
+
+  static async apiGetFlights(req, res) { 
+
+    const {flightList} = await FlightsDAO.getAllFlights();
     let response = {
-      flights: flightList,
-      page: 0,
-      filters: {},
-      entries_per_page: FLIGHTS_PER_PAGE,
-      total_results: totalFlights,
+      flights: flightList
     };
-    res.json(response);
+    res.json(flightList);
   }
 
   static async apiGetFlightsByRoute(req, res, next) {

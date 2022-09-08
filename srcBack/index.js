@@ -2,6 +2,7 @@ import app from "../srcBack/server.js";
 import pkg from "mongodb";
 import FlightsDAO from "./DAO/flightsDAO.js";
 import UsersDAO from "./DAO/usersDAO.js";
+import TicketsDAO from "./DAO/ticketsDAO.js"
 
 const port = process.env.PORT || 8000;
 const {MongoClient} = pkg;
@@ -18,7 +19,8 @@ MongoClient.connect(process.env.FLYMATE_DB_URI, {
 
   .then(async (client) => {
     await FlightsDAO.injectDB(client);
-    await UsersDAO.injectDB(client)
+    await UsersDAO.injectDB(client);
+    await TicketsDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
     });
