@@ -4,18 +4,45 @@ import styles from "./styles";
 import InputSignUp from "./InputSignUp/InputSignUp";
 import ButtonLogin from "../Login/ButtonLogin/ButtonLogin";
 import SocialButtons from "../Login/SocialButtons/SocialButtons";
-
+import {firebase} from "../../../../firebase-config";
 
 
 const SignUp = ({navigation}) => {
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordRepeat, setPasswordRepeat] = useState('');
-
     
-    const onRegister = () => {
-        navigation.navigate("ConfirmEmail")
+    
+    const onRegister = async (email, password) => {
+        await firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+            firebase.auth().currentUser.sendEmailVerification({
+                handleCodeInApp: true,
+                url: 'https://flymate-a11b8.firebaseapp.com'
+            })
+            .then(() => {
+                alert("Email verification sent")
+                navigation.navigate("ConfirmEmail")
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
+            .then(() => {
+                firebase.firestore().collection('users')
+                .doc(firebase.auth().currentUser.uid)
+                .set({
+                    email,
+                    password
+                })
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
+         
+        })
+        .catch((error) => {
+            alert(error.message)
+        })
+       
     }
 
     const onSignIn = () => {
@@ -29,32 +56,22 @@ const SignUp = ({navigation}) => {
             <InputSignUp
                 placeholder="Email" 
                 value={email} 
-                setValue={setEmail}
+                setValue={(email) => setEmail(email)}
                 />
-            <InputSignUp
-                placeholder="Username" 
-                value={username} 
-                setValue={setUsername}
-                secureTextEntry={true}
-                />
+
               <InputSignUp
                 placeholder="Password" 
                 value={password} 
-                setValue={setPassword}
+                setValue={(password) => setPassword(password)}
                 secureTextEntry={true}
                 />    
-              <InputSignUp
-                placeholder="Repeat password" 
-                value={passwordRepeat} 
-                setValue={setPasswordRepeat}
-                secureTextEntry={true}
-                />
+         
 
 
 
             <ButtonLogin
                 text="Register" 
-                onPress={onRegister} 
+                onPress={() => onRegister(email, password)} 
                 />
             <SocialButtons />
 

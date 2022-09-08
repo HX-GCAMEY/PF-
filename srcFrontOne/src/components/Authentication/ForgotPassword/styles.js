@@ -3,8 +3,10 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     rootF: {
         alignItems: 'center',
-        marginTop: 100,
+        marginTop: 250,
         padding: 40,
+       
+       
     },
     title: {
         fontSize: 24,

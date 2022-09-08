@@ -3,22 +3,31 @@ import {View, Text} from "react-native";
 import styles from "./styles";
 import InputSignUp from "../SignUp/InputSignUp/InputSignUp";
 import ButtonLogin from "../Login/ButtonLogin/ButtonLogin";
-
+import { firebase } from "../../../../firebase-config";
 
 
 
 const ForgotPassword = ({navigation}) => {
     const [email, setEmail] = useState('');
     
-    const onSend = () => {
-       navigation.navigate("NewPassword")
-    }
+
 
     const onSignIn = () => {
        navigation.navigate("Login")
     }
 
 
+    const sendEmailResetPassword = async(email) => {
+        await firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+            alert("Verify your email to change the password, also check spam")
+            navigation.navigate('Login')
+        })
+        .catch((error) => {
+            alert(error.message)
+            console.log(error)
+        })
+    }
 
 
     return (
@@ -29,13 +38,13 @@ const ForgotPassword = ({navigation}) => {
             <InputSignUp
                 placeholder="Email" 
                 value={email} 
-                setValue={setEmail}
+                setValue={(email) => setEmail(email)}
                 />
 
 
             <ButtonLogin
                 text="Send" 
-                onPress={onSend} 
+                onPress={() => sendEmailResetPassword(email)} 
                 />
 
             <ButtonLogin
