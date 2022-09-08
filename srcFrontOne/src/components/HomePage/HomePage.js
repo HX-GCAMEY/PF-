@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions, ScrollView } from "react-native";
 import styles from "./styles";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Feather from "react-native-vector-icons/Feather"
