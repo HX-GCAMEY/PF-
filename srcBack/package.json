@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node ./index.js",
-    "build": "webpack"
+    "start": "node ./index.js"
   },
   "engines": {
     "node": "16.15.1",
@@ -57,7 +56,8 @@
     "morgan": "^1.9.1",
     "npm-check-updates": "^3.1.21",
     "prettier": "^1.14.3",
-    "sinon": "^5.0.10"
+    "sinon": "^5.0.10",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -88,6 +88,7 @@
     "jest-cli": "^25.0.0",
     "jest-express": "^1.6.0",
     "lint-staged": "^7.3.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "webpack-cli": "^4.10.0"
   }
 }
