@@ -1,7 +1,7 @@
 import React from 'react';
 import FootBar from '../FootBar/FootBar';
 import Detail from '../Detail/Detail';
-import { NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
@@ -32,19 +32,19 @@ const Stack = createNativeStackNavigator()
 
 
 const Auth = () => {
-    return(
+    return (
         <Provider store={configStore}>
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="HomePage" component={FootBar}  options={{ headerShown: false }}/>
-                <Stack.Screen name="Login" component={LoginScreen}/>
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
-                <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-                <Stack.Screen name="NewPassword" component={NewPassword} />
-                <Stack.Screen name="Detail" component={Detail}/>
-            </Stack.Navigator>
-        </NavigationContainer>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="HomePage" component={FootBar} options={{ headerShown: false }} />
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="SignUp" component={SignUp} />
+                    <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
+                    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+                    <Stack.Screen name="NewPassword" component={NewPassword} />
+                    <Stack.Screen name="Detail" component={Detail} options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
         </Provider>
     )
 }

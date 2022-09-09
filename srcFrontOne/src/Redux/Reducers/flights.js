@@ -27,7 +27,6 @@ export default flightsReducers = (state = initialState, action) => {
                 isFetching: true
             }
         case GET_FLIGHTS_BY_ROUTE:
-            console.log("reducer", state.flightsByRoute)
             return {
                 ...state,
                 flightsByRoute: action.payload,

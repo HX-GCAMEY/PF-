@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     },
     categoryContainer: {
         flexDirection: 'row',
-        marginTop: 20,
-        marginBottom: 30,
+        marginTop: 0,
+        marginBottom: 20,
         paddingHorizontal: 30,
         justifyContent: 'space-between'
     },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         marginTop: 50,
         fontSize: 22,
     }
-    
+
 })
 
 export default styles;
