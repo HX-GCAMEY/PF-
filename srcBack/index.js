@@ -1,4 +1,4 @@
-import * as app from "../srcBack/server.js";
+import app from "./server.js";
 import pkg from "mongodb";
 import FlightsDAO from "./DAO/flightsDAO.js";
 import UsersDAO from "./DAO/usersDAO.js";
@@ -23,7 +23,7 @@ MongoClient.connect(process.env.FLYMATE_DB_URI, {
     await FlightsDAO.injectDB(client);
     await UsersDAO.injectDB(client);
     await TicketsDAO.injectDB(client);
-    app.app.listen(port, host, () => {
+    app.listen(port, host, () => {
       console.log(`Server online`);
     });
   });
