@@ -12,13 +12,15 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-process.env.NODE_ENV !== "prod" && app.use(morgan("dev"));
+process.env.NODE_ENV === "prod" && app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+// app.use("/");
 app.use("/api/flights", flights);
 app.use("/api/users", users);
 app.use("/api/tickets", tickets);
 app.use("/", express.static("build"));
+
 app.use("*", (req, res) => res.status(404).json({error: "not found"}));
 
 export default app;
