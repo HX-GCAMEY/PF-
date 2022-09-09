@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./components/home/Home"
 import "./App.css"
 import Prueba from "./components/prueba/Prueba"
+import "antd/dist/antd.css"
 
 function App() {
   return (

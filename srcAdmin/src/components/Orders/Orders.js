@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import "./Orders.css"
 import axios from "axios"
-import "antd/dist/antd.css"
 import { DatePicker, TimePicker } from "antd"
 import moment from "moment"
+import TextArea from "antd/lib/input/TextArea"
+
 const { RangePicker } = DatePicker
 
 const Orders = () => {
@@ -57,22 +58,16 @@ const Orders = () => {
   const handleChange3 = (a, b) => {
     setOrder({ ...order, departs: b })
   }
+
+  ////////////////////////////////////////////////////////
   console.log(order)
   return (
     <div className="order">
-      <h2 className="title">Create Product</h2>
+      <h2 className="title">Create Package</h2>
+
       <form className="form">
-        <div>
-          <DatePicker onChange={handleChange2} />
-        </div>
-        <span>
-          <TimePicker
-            placeholder="Departs"
-            use12Hours
-            format="h:mm A" // onChange?: ((value: moment.Moment | null, dateString: string) => void) | undefined
-            onChange={handleChange3}
-          />
-        </span>
+        <DatePicker placeholder="select start" />
+        <DatePicker placeholder="select end" />
         <div class="relative">
           <input
             name="origin"
@@ -121,40 +116,6 @@ const Orders = () => {
             Airport:
           </label>
         </div>
-
-        <div class="relative">
-          <input
-            name="status"
-            onChange={handleChange}
-            type="text"
-            id="floating_outlined4"
-            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-          />
-          <label
-            for="floating_outlined4"
-            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >
-            Status:
-          </label>
-        </div>
-
-        <div class="relative">
-          <input
-            name="gate"
-            onChange={handleChange}
-            type="text"
-            id="floating_outlined5"
-            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-          />
-          <label
-            for="floating_outlined5"
-            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >
-            Gate:
-          </label>
-        </div>
         <div class="relative">
           <input
             value={order.price}
@@ -175,24 +136,6 @@ const Orders = () => {
         </div>
         <div class="relative">
           <input
-            value={order.firstclase}
-            type="text"
-            name="firstclase"
-            onChange={handleChange}
-            onKeyUp={validation}
-            id="floating_outlined7"
-            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-          />
-          <label
-            for="floating_outlined7"
-            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >
-            FirstClase:
-          </label>
-        </div>
-        <div class="relative">
-          <input
             value={order.seating}
             type="text"
             name="seating"
@@ -206,43 +149,11 @@ const Orders = () => {
             for="floating_outlined8"
             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
           >
-            Seating:
+            Amount:
           </label>
         </div>
-        <div class="relative">
-          <input
-            value={order.duration}
-            type="text"
-            name="duration"
-            onChange={handleChange}
-            onKeyUp={validation}
-            id="floating_outlined9"
-            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-          />
-          <label
-            for="floating_outlined9"
-            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >
-            Duration:
-          </label>
-        </div>
-
-        <div class="relative">
-          <input
-            name="flightId"
-            onChange={handleChange}
-            type="text"
-            id="floating_outlined11"
-            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-          />
-          <label
-            for="floating_outlined11"
-            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >
-            FlightId:
-          </label>
+        <div>
+          <TextArea rows={7} style={{ height: 120, width: 350 }} />
         </div>
       </form>
       <div className="botonSubmit">

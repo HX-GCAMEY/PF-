@@ -4,18 +4,170 @@
   --black: #242d49;
   --gray: #788097;
   --purple: linear-gradient(180deg, #bb67ff 0%, #c484f3 100%);
-  --pink: #0425f9;
+  --pink: #051215;
   --glass: rgba(255, 255, 255, 0.54);
   --boxShadow: 0px 19px 60px rgb(0 0 0 / 8%);
   --smboxShadow: -79px 51px 60px rgba(0, 0, 0, 0.08);
-  --activeItem: #086bf554;
+  --activeItem: #35cef0;
 }
 
 body {
-  background: linear-gradient(
+  background: linear-gradient(106.37deg, #07c5c5, #0184a0);
+}
+
+/* background: linear-gradient(
     106.37deg,
     #0387f4 29.63%,
     #0ba3df 51.55%,
     #1eccf3 90.85%
-  );
+  ); */
+
+.botoncinco {
+  position: relative;
+  width: 80px;
+  height: 30px;
+  overflow: hidden;
+  background-color: #1890ff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.botoncinco:disabled:hover {
+  background-color: red;
+  cursor: auto;
+}
+.botoncinco:hover {
+  background-color: #2f9b05;
+}
+
+.botoncinco span {
+  transition: 0.5s ease-in-out;
+  position: absolute;
+  left: 35%;
+  top: 10%;
+  border-radius: 10px;
+  color: white;
+  pointer-events: none;
+}
+.botoncinco:hover span {
+  left: 0;
+}
+
+.botoncinco .icono {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+  top: 8%;
+  left: -20px;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.botoncinco:hover .icono {
+  left: calc(100% - 20px);
+  opacity: 1;
+}
+
+.botoncinco svg {
+  color: white;
+  width: 25px;
+  height: 25px;
+}
+
+.botoncuatro:hover {
+  background-color: #2f9b05;
+}
+
+.botoncuatro:disabled:hover {
+  background-color: red;
+  cursor: auto;
+}
+
+.botoncuatro {
+  position: relative;
+  width: 80px;
+  height: 30px;
+  overflow: hidden;
+  background-color: #1890ff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.botoncuatro span {
+  transition: 0.5s ease-in-out;
+  position: absolute;
+  right: 35%;
+  top: 10%;
+  border-radius: 10px;
+  color: white;
+  pointer-events: none;
+}
+
+.botoncuatro:hover span {
+  right: 0;
+}
+
+.botoncuatro .icono1 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 3;
+  top: 8%;
+  right: -20px;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.botoncuatro:hover .icono1 {
+  right: calc(100% - 20px);
+  opacity: 1;
+}
+.botoncuatro svg {
+  color: white;
+  width: 25px;
+  height: 25px;
+}
+
+.paginado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding-top: 30px; */
+  gap: 10px; /* separacion interna  */
+
+  /* padding-bottom: 30px; */
+}
+
+.inputpaginado {
+  border: none;
+  color: white;
+  height: 30px;
+  width: 43px;
+  text-indent: 0%;
+  text-align: left;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: all 0.5s;
+  outline: none;
+  background-color: #1890ff;
+}
+
+.inputpaginado::placeholder {
+  color: white;
+}
+
+.inputpaginado:focus::placeholder {
+  color: #1890ff;
+}
+
+.padreinputpaginado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.padreinputpaginado input:focus {
+  background-color: #1890ff;
+  transition: all 0.5s;
 }

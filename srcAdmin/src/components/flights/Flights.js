@@ -13,14 +13,20 @@ import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlights } from "../../features/orders"
+import Filters from "../filters/Filters"
+import { filtered2 } from "../../features/tasks"
 import "./Flights.css"
+import { IoSettingsSharp } from "react-icons/io5"
 
 const Flights = () => {
   const dispatch = useDispatch()
   const flights = useSelector(state => state.tasks.flights)
+  const flightsFiltered2 = useSelector(state => state.tasks.flightsFiltered2)
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
   const [order, setOrder] = useState({})
+  const [sumador, setSumador] = useState(7)
+  const [inputPaginado, setInputPaginado] = useState("")
   useEffect(() => {
     dispatch(getFlights())
   }, [])
@@ -71,12 +77,105 @@ const Flights = () => {
   const handleChange3 = (a, b) => {
     setOrder({ ...order, departs: b })
   }
+  let isNull = flights
+  flightsFiltered2 ? (isNull = flightsFiltered2) : (isNull = flights)
+
+  let inicio = sumador - 7 //19-29
+
+  let disablePrev = false
+  if (inicio > 6) {
+    disablePrev = true
+  }
+  let disableNext = true
+  if (sumador >= isNull.length) {
+    disableNext = false
+  }
+
+  const paginado = e => {
+    if (e.target.value === "suma") {
+      setSumador(sumador + 7)
+    } else if (e.target.value === "resta") {
+      setSumador(sumador - 7)
+    }
+    setInputPaginado("")
+  }
+
+  let inputChange = e => {
+    if (
+      !/^([0-9])*$/.test(e.target.value) ||
+      e.target.value < 1 ||
+      e.target.value > Math.ceil(isNull.length / 7)
+    ) {
+      return setInputPaginado("")
+    }
+    setInputPaginado(e.target.value)
+    setSumador(e.target.value * 7)
+  }
 
   console.log("soy flights", flights)
 
   return (
-    <div className="Table2 flightsTable">
+    <div className="Table2 ">
       <h2 className="centrar title">Flights in Progress</h2>
+      <div className="paginado">
+        <Filters flightsComponent={flights} dispatched={filtered2} />
+        <button
+          className="botoncuatro"
+          onClick={paginado}
+          value="resta"
+          disabled={!disablePrev}
+        >
+          <div className="icono1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-left-short"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"
+              />
+            </svg>
+          </div>
+          <span>Prev</span>
+        </button>
+        <div className="padreinputpaginado">
+          <input
+            onChange={inputChange}
+            value={inputPaginado}
+            type="text"
+            className="inputpaginado"
+            placeholder={Math.round(sumador / 7)}
+          />
+          &nbsp; of &nbsp;{Math.ceil(isNull.length / 7)}
+        </div>
+        <button
+          className="botoncinco"
+          onClick={paginado}
+          value="suma"
+          disabled={!disableNext}
+        >
+          <div className="icono">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-right-short"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+              />
+            </svg>
+          </div>
+          <span>Next</span>
+        </button>
+      </div>
 
       <TableContainer
         className="centrarcaja"
@@ -85,47 +184,37 @@ const Flights = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Destination</TableCell>
-              <TableCell>Airport</TableCell>
-              <TableCell>Gate</TableCell>
-              <TableCell>Arrives</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>FlightID</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Departure</TableCell>
+              <TableCell>Arrival</TableCell>
+              <TableCell>Departures Aiport</TableCell>
+              <TableCell>Arrival Airport</TableCell>
+              <TableCell>Departure Date</TableCell>
+              <TableCell>Arrival Date</TableCell>
+              <TableCell>Departure Time</TableCell>
+              <TableCell>Arrival Time</TableCell>
+              <TableCell>Seating</TableCell>
+              <TableCell>Duration</TableCell>
+              <TableCell>Number</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {flights.map((e, i) => (
+            {isNull.slice(inicio, sumador).map((e, i) => (
               <TableRow
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <Button
-                    type="primary"
-                    onClick={() =>
-                      abrirModal({
-                        destination: e.destination,
-                        status: e.status,
-                        flightId: e.flightId,
-                        gate: e.gate,
-                        airport: e.airport,
-                        date: e.date,
-                        id: e._id,
-                      })
-                    }
-                  >
-                    Modify
-                  </Button>
-                </TableCell>
-                <TableCell>{e.destination}</TableCell>
-                <TableCell>{e.airport}</TableCell>
-                <TableCell>{e.gate}</TableCell>
-                <TableCell>{e.departs}</TableCell>
-                <TableCell>{e.status}</TableCell>
-                <TableCell>{e.flightId}</TableCell>
-                <TableCell>{e.date}</TableCell>
+                <TableCell>{e.departure.city}</TableCell>
+                <TableCell>{e.arrival.city}</TableCell>
+                <TableCell>{e.departure.airport}</TableCell>
+                <TableCell>{e.arrival.airport}</TableCell>
+                <TableCell>{e.departure.date}</TableCell>
+                <TableCell>{e.arrival.date}</TableCell>
+                <TableCell>{e.departure.time}</TableCell>
+                <TableCell>{e.arrival.time}</TableCell>
+                <TableCell>{e.totalSeats}</TableCell>
+
+                <TableCell>{e.duration}</TableCell>
+                <TableCell>{e.number}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -133,7 +222,7 @@ const Flights = () => {
       </TableContainer>
       <Modal
         title="title"
-        visible={modal}
+        open={modal}
         onCancel={cerrarModal}
         onOk={accion}
         footer={[
