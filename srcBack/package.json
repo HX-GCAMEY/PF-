@@ -5,7 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon -L ./index.js"
+    "start": "node ./index.js",
+    "build": "webpack"
+  },
+  "engines": {
+    "node": "16.15.1",
+    "npm": "8.5.5"
   },
   "lint-staged": {
     "linters": {
