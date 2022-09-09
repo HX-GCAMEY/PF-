@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions } from "react-native";
 import styles from "./styles";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Feather from "react-native-vector-icons/Feather"
@@ -48,45 +48,43 @@ const HomePage = ({ navigation }) => {
 
 
     return (
-        <ScrollView showsVerticalScrollIndicator={true}>
-            <SafeAreaView style={{ flex: 1, paddingHorizontal: 0, backgroundColor: '#C1DEE7' }}>
-                <View style={styles.header}>
+        <SafeAreaView style={{ flex: 1, paddingHorizontal: 0, backgroundColor: '#C1DEE7' }}>
+            <View style={styles.header}>
+                <View>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 40, color: '#0183A0' }}>User</Text>
                     <View>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 40, color: '#0183A0' }}>User</Text>
-                        <View>
-                            <SearchForm />
-                        </View>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
+                        <SearchForm />
                     </View>
-                    <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")} />
-                    <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                 </View>
-                <View style={{ widht: 30 }}>
-                </View>
-                <CategoryList />
-                <View style={{ paddingHorizontal: 0, paddingVertical: -10 }}>
-                    <FlatList
-                        data={flights}
-                        renderItem={({ item }) => <Cards style={{ width: ANCHO_CONTENEDOR }} item={item} />}
-                        horizontal
-                        showsHorizontalScrollIndicator
-                        pagingEnabled
-                        decelerationRate={0}
-                        snapToInterval={ANCHO_CONTENEDOR}
-                        bounces={false}
-                        onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
-                            useNativeDriver: false
-                        }).current}
-                        scrollEventThrottle={45}
-                        onViewableItemsChanged={itemsChanged.current}
-                        viewabilityConfig={viewConfig.current}
-                        ref={slidesRef}
-                    />
+                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")} />
+                <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
+            </View>
+            <View style={{ widht: 30 }}>
+            </View>
+            <CategoryList />
+            <View style={{ paddingHorizontal: 0, paddingVertical: -10 }}>
+                <FlatList
+                    data={flights}
+                    renderItem={({ item }) => <Cards style={{ width: ANCHO_CONTENEDOR }} item={item} />}
+                    horizontal
+                    showsHorizontalScrollIndicator
+                    pagingEnabled
+                    decelerationRate={0}
+                    snapToInterval={ANCHO_CONTENEDOR}
+                    bounces={false}
+                    onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
+                        useNativeDriver: false
+                    }).current}
+                    scrollEventThrottle={45}
+                    onViewableItemsChanged={itemsChanged.current}
+                    viewabilityConfig={viewConfig.current}
+                    ref={slidesRef}
+                />
 
-                </View>
+            </View>
 
-            </SafeAreaView>
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 
