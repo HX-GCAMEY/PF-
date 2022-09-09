@@ -36,9 +36,11 @@ export default class UsersDAO {
 
   static async loginUser(email, jwt) {
     try {
+      const admin = await this.checkAdmin(email);
+
       await session.updateOne(
         {user_id: email},
-        {$set: {jwt: jwt}},
+        {$set: {jwt: jwt, isAdmin: admin}},
         {upsert: true}
       );
       return {success: true};
@@ -95,6 +97,39 @@ export default class UsersDAO {
     } catch (error) {
       console.error(`An error ocurred while deleting user, ${error}`);
       return {error: error};
+    }
+  }
+
+  static async checkAdmin(email) {
+    try {
+      const {isAdmin} = await this.getUser(email);
+      return isAdmin || false;
+    } catch (e) {
+      return {error: e};
+    }
+  }
+
+  static async banUser(email) {
+    try {
+      const banResponse = await users.updateOne(
+        {email},
+        {$set: {isBanned: true}}
+      );
+      if (banResponse) return {success: true};
+    } catch (error) {
+      return {error: error};
+    }
+  }
+
+  static async makeAdmin(email) {
+    try {
+      const updateResponse = users.updateOne({email}, {$set: {isAdmin: true}});
+      if (updateResponse.matchedCount === 0) {
+        return {error: "No user found with that email"};
+      }
+      return {success: true};
+    } catch (e) {
+      return {error: e};
     }
   }
 }
