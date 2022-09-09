@@ -7,18 +7,16 @@ export const getTask = createAsyncThunk("tasks/getTasks", async () => {
 })
 
 export const getFlights = createAsyncThunk("tasks/getFlights", async () => {
-  const response = await axios("https://pf-seraerror.herokuapp.com/flights")
+  const response = await axios("http://localhost:5000/api/flights")
 
   console.log("soy response", response.data)
-  return response.data
+  return response.data.flights
 })
 
 export const getFlightsAvailables = createAsyncThunk(
   "tasks/getFlightsAvailables",
   async () => {
-    const response = await axios(
-      "https://pf-seraerror.herokuapp.com/flightsAvailable"
-    )
+    const response = await axios("http://localhost:5000/api/flights/all")
     const response2 = response.data
     const response3 = response2.sort(
       (a, b) => parseInt(a.date) - parseInt(b.date)

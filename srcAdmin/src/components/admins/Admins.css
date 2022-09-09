@@ -1,0 +1,17 @@
+.dosiconos {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-left: 17px;
+}
+
+.icons3 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width: 768px) {
+  .icons3 {
+    gap: 10px;
+  }
+}

@@ -13,14 +13,24 @@ import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlightsAvailables } from "../../features/orders"
+import { IoSettingsSharp } from "react-icons/io5"
+import { GrPowerReset } from "react-icons/gr"
+import Filters from "../filters/Filters"
 import "./Products.css"
+import { filtered } from "../../features/tasks"
 
 const Products = () => {
   const dispatch = useDispatch()
   const flights = useSelector(state => state.tasks.flightsAv)
+  const flightsFiltered = useSelector(state => state.tasks.flightsFiltered)
+  const flightsAv = useSelector(state => state.tasks.flightsAv)
+  const paginadoState = useSelector(state => state.tasks.paginado)
+
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
   const [order, setOrder] = useState()
+  const [sumador, setSumador] = useState(4)
+  const [inputPaginado, setInputPaginado] = useState("")
 
   //const flights = flight.sort((a, b) => parseInt(a.date) - parseInt(b.date))
   useEffect(() => {
@@ -83,98 +93,154 @@ const Products = () => {
   const handleChange3 = (a, b) => {
     setOrder({ ...order, departs: b })
   }
+  let isNull = flights
+  flightsFiltered ? (isNull = flightsFiltered) : (isNull = flightsAv)
 
-  /* const validation = e => {
-    if (!/^([0-9])*$/.test(order.price)) {
-      setOrder({ ...order, price: "" })
+  let inicio = sumador - 4 //19-29
+
+  let disablePrev = false
+  if (inicio > 3) {
+    disablePrev = true
+  }
+  let disableNext = true
+  if (sumador >= isNull.length) {
+    disableNext = false
+  }
+
+  const paginado = e => {
+    if (e.target.value === "suma") {
+      setSumador(sumador + 4)
+    } else if (e.target.value === "resta") {
+      setSumador(sumador - 4)
     }
-    if (!/^([0-9])*$/.test(order.seating)) {
-      setOrder({ ...order, seating: "" })
+    setInputPaginado("")
+    console.log("soy paginadoState", paginadoState)
+  }
+
+  let inputChange = e => {
+    if (
+      !/^([0-9])*$/.test(e.target.value) ||
+      e.target.value < 1 ||
+      e.target.value > Math.ceil(isNull.length / 4)
+    ) {
+      return setInputPaginado("")
     }
-    if (!/^([0-9])*$/.test(order.firstclase)) {
-      setOrder({ ...order, firstclase: "" })
-    }
-    if (!/^([0-9])*$/.test(order.duration)) {
-      setOrder({ ...order, duration: "" })
-    }
-  } */
-  //console.log("soy products", flights)
+    setInputPaginado(e.target.value)
+    setSumador(e.target.value * 4)
+  }
+
   console.log("soy order", order)
-  console.log("soy place", place)
+  console.log("isNull length", isNull.length)
 
+  console.log("soy null", isNull)
+  console.log("soy isNull slice", isNull.slice(inicio, sumador))
   return (
-    <div className="Table2 flightsTable">
+    <div className="Table2 ">
       <h2 className="centrar title">Planned Trips</h2>
-
-      <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Destination</TableCell>
-              <TableCell>Origin</TableCell>
-              <TableCell>Turist</TableCell>
-              <TableCell>FirstClase</TableCell>
-              <TableCell>Departs</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>FlightID</TableCell>
-              <TableCell>Gate</TableCell>
-              <TableCell>Airport</TableCell>
-              <TableCell>Seating</TableCell>
-              <TableCell>Duration</TableCell>
-              <TableCell>Date</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {flights.map((e, i) => (
-              <TableRow
-                key={i}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>
-                  <Button
-                    type="primary"
-                    onClick={() =>
-                      abrirModal({
-                        destination: e.destination,
-                        departs: e.departs,
-                        origin: e.origin,
-                        price: e.price,
-                        firstclase: e.firstclase,
-                        status: e.status,
-                        flightId: e.flightId,
-                        gate: e.gate,
-                        airport: e.airport,
-                        seating: e.seating,
-                        duration: e.duration,
-                        date: e.date,
-                        id: e._id,
-                      })
-                    }
-                  >
-                    Modify
-                  </Button>
-                </TableCell>
-                <TableCell>{e.destination}</TableCell>
-                <TableCell>{e.origin}</TableCell>
-                <TableCell>{e.price}</TableCell>
-                <TableCell>{e.firstclase}</TableCell>
-                <TableCell>{e.departs}</TableCell>
-                <TableCell>{e.status}</TableCell>
-                <TableCell>{e.flightId}</TableCell>
-                <TableCell>{e.gate}</TableCell>
-                <TableCell>{e.airport}</TableCell>
-                <TableCell>{e.seating}</TableCell>
-                <TableCell>{e.duration}</TableCell>
-                <TableCell>{e.date}</TableCell>
+      <div className="paginado">
+        <Filters flightsComponent={flightsAv} dispatched={filtered} />
+        <button
+          className="botoncuatro"
+          onClick={paginado}
+          value="resta"
+          disabled={!disablePrev}
+        >
+          <div className="icono1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-left-short"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"
+              />
+            </svg>
+          </div>
+          <span>Prev</span>
+        </button>
+        <div className="padreinputpaginado">
+          <input
+            onChange={inputChange}
+            value={inputPaginado}
+            type="text"
+            className="inputpaginado"
+            placeholder={Math.ceil(sumador / 4)}
+          />
+          &nbsp; of &nbsp;{Math.ceil(isNull.length / 4)}
+        </div>
+        <button
+          className="botoncinco"
+          onClick={paginado}
+          value="suma"
+          disabled={!disableNext}
+        >
+          <div className="icono">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-right-short"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+              />
+            </svg>
+          </div>
+          <span>Next</span>
+        </button>
+      </div>
+      <div className="tableProduct">
+        <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
+          <Table sx={{ maxWidth: 350 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Departure</TableCell>
+                <TableCell>Arrival</TableCell>
+                <TableCell>Departures Aiport</TableCell>
+                <TableCell>Arrival Airport</TableCell>
+                <TableCell>Departure Date</TableCell>
+                <TableCell>Arrival Date</TableCell>
+                <TableCell>Departure Time</TableCell>
+                <TableCell>Arrival Time</TableCell>
+                <TableCell>Seating</TableCell>
+                <TableCell>Duration</TableCell>
+                <TableCell>Number</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {isNull.slice(inicio, sumador).map((e, i) => (
+                <TableRow
+                  key={i}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>{e.departure.city}</TableCell>
+                  <TableCell>{e.arrival.city}</TableCell>
+                  <TableCell>{e.departure.airport}</TableCell>
+                  <TableCell>{e.arrival.airport}</TableCell>
+                  <TableCell>{e.departure.date}</TableCell>
+                  <TableCell>{e.arrival.date}</TableCell>
+                  <TableCell>{e.departure.time}</TableCell>
+                  <TableCell>{e.arrival.time}</TableCell>
+                  <TableCell>{e.totalSeats}</TableCell>
+
+                  <TableCell>{e.duration}</TableCell>
+                  <TableCell>{e.number}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
       <Modal
         title=""
-        visible={modal}
+        open={modal}
         onCancel={cerrarModal}
         onOk={accion}
         footer={[

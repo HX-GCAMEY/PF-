@@ -14,12 +14,7 @@
 .App {
   /* padding: 0.5rem 3.5rem; */
   color: var(--black);
-  background: linear-gradient(
-    106.37deg,
-    #0387f4 29.63%,
-    #0ba3df 51.55%,
-    #1eccf3 90.85%
-  );
+  background: linear-gradient(106.37deg, #07c5c5, #0184a0);
   height: 100vh;
   display: flex;
   align-items: center;

@@ -89,11 +89,11 @@
 @media screen and (max-width: 768px) {
   .sidebar {
     position: fixed;
-    z-index: 9;
-    background: #1eccf3;
+    z-index: 99999999999;
+    background: linear-gradient(90.37deg, #0184a0, #07c5c5);
     width: 55%;
     padding-right: 1rem;
-    height: 100%;
+    height: 97%;
   }
   .menuItem > span {
     display: block;
@@ -107,7 +107,7 @@
     position: fixed;
     top: 2rem;
     left: 60%;
-    background: #0387f4;
+    background: #0184a0;
     padding: 10px;
     border-radius: 10px;
     z-index: 9;

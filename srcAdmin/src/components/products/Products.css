@@ -7,3 +7,15 @@
 #pickers::placeholder {
   text-align: center;
 }
+.config {
+}
+
+.buttonsIcons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tableProduct {
+  width: 100%;
+}
