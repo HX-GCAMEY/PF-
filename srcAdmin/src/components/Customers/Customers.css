@@ -6,6 +6,10 @@
 }
  */
 
+.centrarfilter {
+  margin-left: 34px;
+}
+
 .botonIcons {
   display: flex;
   gap: 10px;
@@ -24,13 +28,15 @@
 .centrar {
   text-align: center;
 }
+.title {
+}
 
 .Table2 {
 }
 @media screen and (max-width: 1200px) {
   .Table2 {
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 0rem;
   }
 }
 
@@ -43,5 +49,9 @@
     width: 23rem;
     margin-left: auto;
     margin-right: auto;
+    top: -60px;
+  }
+  .centrarfilter {
+    margin-left: 40px;
   }
 }

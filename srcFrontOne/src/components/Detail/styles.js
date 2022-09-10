@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         borderRadius: 40,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#ffffffc7",
         position: "absolute",
         width: 430,
-        height: 696,
+        height: 800,
         top: 140,
     },
     title: {

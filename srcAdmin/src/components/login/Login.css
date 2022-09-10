@@ -1,8 +1,15 @@
 .login {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: black;
+  font-size: 19px;
+  gap: 60px;
 }
 
 .loginpadre {
@@ -10,4 +17,46 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+video {
+  width: 100%;
+  height: 100vh;
+  object-fit: fill;
+  position: fixed;
+}
+
+.loginInicio {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.loginInicio input:valid {
+  background-color: none;
+}
+
+.submitLogin {
+  position: relative;
+  background-color: #0795a9;
+  width: 90px;
+  border-radius: 5px;
+  color: aliceblue;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  top: -30px;
+  font-weight: lighter;
+}
+
+.submitLogin:hover {
+  background-color: #22b5c8;
+}
+
+.or {
+  width: min-content;
+
+  color: white;
+
+  font-size: 16px;
 }

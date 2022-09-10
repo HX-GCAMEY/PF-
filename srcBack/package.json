@@ -5,7 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon -L ./index.js"
+    "start": "node ./index.js"
+  },
+  "engines": {
+    "node": "16.15.1",
+    "npm": "8.5.5"
   },
   "lint-staged": {
     "linters": {
@@ -47,10 +51,13 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^5.2.0",
     "mongodb": "^3.1.6",
+    "mongoose": "^6.6.0",
     "morgan": "^1.9.1",
     "npm-check-updates": "^3.1.21",
     "prettier": "^1.14.3",
-    "sinon": "^5.0.10"
+    "sinon": "^5.0.10",
+    "webpack": "^5.74.0",
+    "nodemon": "^1.17.5"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -81,6 +88,6 @@
     "jest-cli": "^25.0.0",
     "jest-express": "^1.6.0",
     "lint-staged": "^7.3.0",
-    "nodemon": "^1.17.5"
+    "webpack-cli": "^4.10.0"
   }
 }

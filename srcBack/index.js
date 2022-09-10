@@ -1,10 +1,12 @@
-import app from "../srcBack/server.js";
+import app from "./server.js";
 import pkg from "mongodb";
 import FlightsDAO from "./DAO/flightsDAO.js";
 import UsersDAO from "./DAO/usersDAO.js";
-import TicketsDAO from "./DAO/ticketsDAO.js"
+import TicketsDAO from "./DAO/ticketsDAO.js";
 
-const port = process.env.PORT || 8000;
+const host = process.env.HOST || "0.0.0.0";
+const port = process.env.PORT || 5000;
+
 const {MongoClient} = pkg;
 
 MongoClient.connect(process.env.FLYMATE_DB_URI, {
@@ -21,7 +23,7 @@ MongoClient.connect(process.env.FLYMATE_DB_URI, {
     await FlightsDAO.injectDB(client);
     await UsersDAO.injectDB(client);
     await TicketsDAO.injectDB(client);
-    app.listen(port, () => {
-      console.log(`listening on port ${port}`);
+    app.listen(port, host, () => {
+      console.log(`Server online`);
     });
   });

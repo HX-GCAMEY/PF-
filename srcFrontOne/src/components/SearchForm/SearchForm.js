@@ -10,6 +10,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import Checkbox from 'expo-checkbox';
 import { Searchbar } from 'react-native-paper'
 import styles from "./styles";
+import ListItem from './ListItem';
 
 const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByRoute }) => {
   const navigation = useNavigation()
@@ -18,48 +19,37 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   // const flights = useSelector((state) => state.flightsReducers.flights.flights);
   const cities = useSelector((state) => state.flightsReducers.getCities);
   const flightsByRoute = useSelector((state) => state.flightsReducers.flightsByRoute)
-  // const flightsByRoute = [flightsByRoute1]
+
   const [depart, setDepart] = useState('')
   const [arrival, setArrival] = useState('')
-  const [information, setInformation] = useState([])
 
   const today = new Date()
   const [date, setDate] = useState(today)
   const [view, setView] = useState(false);
-  const [isSelected, setIsSelected] = useState(false)
 
 
   useEffect(() => {
-    dispatch(getCities())
-    // clearGetFlightsByRoute()
+    function oneTime() {
+      if (!cities || !flights) {
+        dispatch(getCities())
+        getFlights()
+      }
+    }
+    oneTime()
   }, [])
 
-
-  const filterData = (data) => {
-    return data?.filter((a) => {
-      return a.departure.city === depart && a.arrival.city === arrival
-    })
-  }
-
   const onSubmit = (e) => {
-    // setInformation([])
-    if (!depart || !arrival) return Alert.alert("FlyMate", "please select Departure and Arrival Airports")
-    // else if (isSelected) {
+    if (!depart || !arrival) {
+      return Alert.alert("FlyMate", "please select Departure and Arrival Airports")
+    }
     const parsedDate = date.toISOString().slice(0, 10);
     getFlightsByRoute(depart, arrival, parsedDate)
-    // setInformation([flightsByRoute])
-    // } else {
-    //   getFlights()
-    //   let pushFunc = filterData(flights)
-    //   setInformation(pushFunc)
-    // }
     setView(true)
   }
 
   const onCloseModal = () => {
     setView(false);
     clearGetFlightsByRoute()
-    // setInformation([]);
   }
 
   const CustomDatePicker = () => {
@@ -72,7 +62,6 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
       setDate(value)
       setDatePickerDepart(false)
     }
-
     return (
       <View style={styles.MainContainer}>
         {datePickerDepart && (
@@ -87,12 +76,6 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
           />
         )}
         <View style={{ margin: 10, minHeight: 100 }} >
-          {/* <Checkbox
-            style={styles.checkbox}
-            value={isSelected}
-            onValueChange={setIsSelected}
-            aria-label="a"
-          /> */}
           <Button
             style={styles.buttonDate}
             title='Select Date'
@@ -105,38 +88,8 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
       </View>
     )
   }
+  // console.log("flightsByRoute", flightsByRoute)
 
-  const Item = () => {
-    flightsByRoute && Object.values(flightsByRoute).map((el, index) => {
-      return (
-        <Pressable
-          key={index}
-          style={styles.rendInput}
-          onPress={() => navigation.navigate('Detail')} >
-          <LinearGradient colors={['#07C5C5', '#0184A0']} style={styles.container}>
-            <View style={{ top: 0, left: 0, right: 0, position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
-              <Text style={styles.date}>Date: {el.departure.date}</Text>
-              <Text style={styles.departureCard}>Depart: {el.departure.airport}</Text>
-              <Text style={styles.arrivalCard}>Arrival: {el.arrival.airport}</Text>
-              <Text style={styles.price}>Price: $ {el.defaultFare}</Text>
-            </View>
-          </LinearGradient>
-        </Pressable>
-      )
-    })
-  };
-
-  const renderItem = ({ el }) => (
-    <Item title={el._id} key={el._id} />
-  );
-
-  // console.log("flights", flights)
-  console.log("flightsByRoute", flightsByRoute)
-  // console.log("information", information)
-  // console.log("AAAAA", date.toISOString().slice(0, 10))
-  // console.log("depart", encodeURI(depart))
-  // console.log(arrival, depart)
-  // console.log(flights)
   return (
     <NativeBaseProvider>
       <SafeAreaView style={styles.inputContainer} >
@@ -233,20 +186,12 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                     </TouchableOpacity>
                   </View>
                   <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
-                    {typeof flightsByRoute === 'object' && flightsByRoute._id ?
-                      <Pressable
-                        key={flightsByRoute._id}
-                        style={styles.rendInput}
-                        onPress={() => navigation.navigate('Detail')} >
-                        <LinearGradient colors={['#07C5C5', '#0184A0']} style={styles.container}>
-                          <View style={{ top: 0, left: 0, right: 0, position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={styles.date}>Date: {flightsByRoute.departure.date}</Text>
-                            <Text style={styles.departureCard}>Depart: {flightsByRoute.departure.airportCode}</Text>
-                            <Text style={styles.arrivalCard}>Arrival: {flightsByRoute.arrival.airportCode}</Text>
-                            <Text style={styles.price}>Price: $ {flightsByRoute.defaultFare}</Text>
-                          </View>
-                        </LinearGradient>
-                      </Pressable>
+                    {flightsByRoute[0] ?
+                      <FlatList
+                        data={flightsByRoute}
+                        renderItem={({ item }) => <ListItem item={item} />}
+                        keyExtractor={(item) => item._id}
+                      />
                       :
                       <View>
                         <Text>There are no matching flights</Text>
@@ -285,13 +230,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)
-// export default SearchForm
 
 
 
-{/* flightsByRoute ?
-                        <FlatList
-                          data={flightsByRoute}
-                          renderItem={renderItem}
-                          keyExtractor={flight => flight?._id}
-                        /> */}
+
