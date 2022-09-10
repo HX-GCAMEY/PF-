@@ -26,7 +26,7 @@ const Detail = () => {
         duration,
         defaultFare,
     } = route.params;
-    console.log(backgroundImage)
+
     return (
         <ScrollView >
             <Image source={foto} style={{ bottom: 160, minHeight: 1050 }} />

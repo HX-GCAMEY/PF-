@@ -8,6 +8,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 20,
     },
+    logoMini: {
+        marginBottom: 50,
+        top: 38,
+        left: 20
+
+    },
     categoryContainer: {
         flexDirection: 'row',
         marginTop: 0,
@@ -27,32 +33,109 @@ const styles = StyleSheet.create({
         borderColor: '#0183A0'
     },
     containerCards: {
+        marginLeft: 9,
+        marginRight: 9,
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
 
     },
+    imagenContainer: {
+        backgroundColor: 'transparent'
+    },
     arrival: {
-        marginTop: -120,
-        alignContent: 'center',
-        alignItems: "center",
-        justifyContent: 'center',
-        marginLeft: 10,
+        color: '#252440',
+        bottom: 174,
+        position: 'absolute',
+        marginRight: 10,
         fontWeight: 'bold',
         fontSize: 18
-
+    },
+    departCityCard: {
+        color: '#252440',
+        padding: 10,
+        bottom: 65,
+        fontWeight: 'bold',
+        fontSize: 18,
     },
     duration: {
-        marginTop: 10,
-        fontSize: 16,
-        marginLeft: -100,
+        color: '#0183a0db',
+        bottom: 80,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 20,
+        fontSize: 15,
         fontWeight: 'bold',
-
     },
-    price: {
+
+    dateCard: {
+        color: '#d3a247db',
+        bottom: 130,
+        left: 20,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 20,
+        fontSize: 16,
         fontWeight: 'bold',
-        marginTop: 50,
-        fontSize: 22,
+    },
+    timeCard: {
+        color: '#d3a247db',
+        bottom: 110,
+        left: 45,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 20,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    dateCardArrival: {
+        color: '#d3a247db',
+        bottom: 130,
+        // left: 50,
+        position: 'absolute',
+        right: 20,
+        marginTop: 20,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    timeCardArrival: {
+        color: '#d3a247db',
+        bottom: 110,
+        right: 45,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 20,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    textDep: {
+        color: '#252440',
+        bottom: 148,
+        left: 27,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 20,
+        fontSize: 15,
+        fontWeight: 'italic',
+    },
+    textArr: {
+        color: '#252440',
+        bottom: 148,
+        right: 40,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 20,
+        fontSize: 15,
+        fontWeight: 'italic',
+    },
+
+    price: {
+        color: '#252440',
+        bottom: 56,
+        // right: 50,
+        position: 'absolute',
+        fontWeight: 'bold',
+        fontSize: 21,
     }
 
 })

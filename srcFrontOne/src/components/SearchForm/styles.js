@@ -6,6 +6,19 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     height: 100
   },
+  findButton: {
+    width: 100,
+    height: 40,
+    alignSelf: 'center',
+    bottom: 64,
+    color: '#ffff',
+    backgroundColor: '#252440'
+  },
+  iconDate: {
+    left: 40,
+    top: 20
+  },
+
   input: {
     height: 40,
     width: 200,
@@ -18,18 +31,59 @@ const styles = StyleSheet.create({
     margin: 5,
     marginTop: 100
   },
-  textInputs: {
+  textInputsNames: {
+    marginTop: 21,
     alignSelf: 'center',
     fontSize: 16,
     fontWeight: 'bold',
 
   },
+  closeModalIcon: {
+    right: 20,
+    top: 10
+  },
+  cardModal: {
+    width: 360,
+    height: 200,
+    resizeMode: 'cover',
+    borderRadius: 24,
+    margin: 10,
+    marginBottom: 60,
+    marginTop: 2,
+    opacity: 1
+  },
   rendInput: {
     borderWidth: 0,
-    marginTop: 5,
-    width: 350,
+    marginTop: 15,
+    marginBottom: -40,
+    width: 360,
     alignSelf: 'center',
     borderRadius: 4
+  },
+  viewCard: {
+    top: 0,
+    left: 0,
+    right: 0,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 200,
+  },
+  timeText: {
+    fontWeight: 'bold',
+    fontSize: 17,
+    top: 5,
+    left: 5
+  },
+
+  airCodeText: {
+    top: 5,
+    left: 130,
+    position: 'absolute',
+    alignSelf: 'center',
+    fontWeight: "bold",
+    fontSize: 22,
+    color: '#31304ec2'
   },
   image: {
     maxHeight: 150,
@@ -44,41 +98,90 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginHorizontal: 8,
     margin: 8,
-    marginLeft: -10,
-    //height: 78,
-    height: 100,
-    width: 370,
+    marginLeft: -15,
+    height: 130,
+    width: 390,
   },
   date: {
-    fontSize: 18,
+    alignSelf: 'center',
+    fontSize: 20,
     fontWeight: "bold",
     position: "absolute",
-    top: 10,
-    left: 20,
+    top: 36,
+    left: 134,
+
   },
   departureCard: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "bold",
     position: "absolute",
-    top: 32,
+    alignSelf: 'center',
+    top: 155,
     left: 20,
   },
   arrivalCard: {
-    fontSize: 15,
+    padding: 5,
+    borderBottomColor: '#a67c2f56',
+    borderBottomWidth: 4,
+    borderRadius: 100,
+    fontSize: 14.5,
     fontWeight: "bold",
     position: "absolute",
-    top: 52,
+    top: 155,
     left: 20,
   },
+  arrivalText: {
+    width: 300,
+    borderRadius: 5,
+    padding: 5,
+    backgroundColor: 'transparent',
+    bottom: 10,
+    left: 75,
+    fontWeight: 'bold',
+    fontSize: 17
+  },
+  departText: {
+    borderTopColor: '#e5ab1796',
+    borderTopWidth: 2,
+    width: 300,
+    borderRadius: 5,
+    padding: 5,
+    backgroundColor: 'transparent',
+    top: 5,
+    left: 10,
+    fontWeight: 'bold',
+    fontSize: 17,
+
+  },
+
   price: {
+    padding: 5,
+    borderRadius: 7,
+    backgroundColor: '#e5ab1761',
     position: "absolute",
-    fontSize: 16,
-    top: 75,
-    left: 130,
+    fontSize: 17,
+    top: 155,
+    left: 275,
     fontWeight: 'bold'
   },
-  select: {
-    color: 'orange'
+  selectSortView: {
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 100,
+    right: 200,
+    top: 20,
+
+  },
+  miniLogoSearch: {
+    right: 19,
+    top: 5,
+  },
+  selectSort: {
+    fontSize: 16,
+    height: 35,
   },
   MainContainer: {
     borderRadius: 10,
@@ -101,6 +204,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#fc766aa0'
   },
+  gradientShadow: {
+    borderRadius: 24,
+    height: 250,
+    alignContent: 'center',
+    justifyContent: 'center'
+  },
 
   // Style for iOS ONLY...
   datePicker: {
@@ -112,14 +221,17 @@ const styles = StyleSheet.create({
   },
 
   buttonDate: {
-    fontSize: 6,
-    width: 180,
+    width: 170,
     height: 40,
     alignSelf: 'center',
-    marginTop: 0,
+    bottom: 26,
     color: '#ffff',
-    backgroundColor: '#252440',
-    marginLeft: 50
+    backgroundColor: '#ef8839de',
+    marginLeft: 69
+  },
+  buttonDateText: {
+    fontSize: 15,
+    fontWeight: '700'
   },
   buttonDisabled: {
     fontSize: 6,
@@ -136,29 +248,43 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   searchBar: {
-    fontSize: 2,
     height: 40,
-    width: 250,
+    width: 275,
     marginTop: 5
   },
   dropdown: {
-    width: 250,
+    marginTop: -.5,
+    width: 275,
     top: 47,
     zIndex: 1,
     position: 'absolute',
-    backgroundColor: 'white',
-    // display: 'flex',
+    backgroundColor: '#d3e7e7',
     flexDirection: 'column',
-    border: 1,
+    border: 10,
+    borderBottomEndRadius: 10,
+    borderBottomStartRadius: 10,
+    borderTopRightRadius: 4,
+    borderTopLeftRadius: 4
   },
   dropdownRow: {
+    backgroundColor: 'transparent',
     display: 'flex',
     cursor: 'pointer',
     textAlign: 'start',
     margin: 2,
-    borderRadius: 40,
     zIndex: 10,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    borderBottomColor: 'red'
+  },
+  textInputs: {
+    marginLeft: 10,
+    fontSize: 16,
+    marginBottom: 1,
+    borderBottomColor: '#07c5c575',
+    borderBottomWidth: 1.9,
+    borderBottomRightRadius: 16,
+    padding: .1,
+
   }
 })
 

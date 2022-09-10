@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensions, Image } from "react-native";
 import styles from "./styles";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Feather from "react-native-vector-icons/Feather"
@@ -7,13 +7,12 @@ import slides from "./slides";
 import Cards from "./cards";
 import SearchForm from "../SearchForm/SearchForm";
 import { useSelector } from 'react-redux'
-
+import logoMini from './img/logoMini.png'
 const HomePage = ({ navigation }) => {
 
     const flights = useSelector((state) => state.flightsReducers.flights.flights);
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height;
-
 
     const ANCHO_CONTENEDOR = width * 0.7;
     const ESPACIO = 10;
@@ -27,10 +26,7 @@ const HomePage = ({ navigation }) => {
     });
 
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 });
-
-
     const categories = ["Featured", "Your Selection", "News"];
-
     const [categoryIndex, setCategoryIndex] = useState(0);
 
     const CategoryList = () => {
@@ -46,19 +42,20 @@ const HomePage = ({ navigation }) => {
         )
     }
 
-
     return (
         <SafeAreaView style={{ flex: 1, paddingHorizontal: 0, backgroundColor: '#C1DEE7' }}>
             <View style={styles.header}>
                 <View>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 40, color: '#0183A0' }}>User</Text>
+                    <Image source={logoMini} style={styles.logoMini} />
                     <View>
                         <SearchForm />
                     </View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                 </View>
-                <EvilIcons name="user" size={50} style={{ marginTop: 40, marginLeft: -30 }} onPress={() => navigation.navigate("Login")} />
-                <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} />
+                <View>
+                    <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 30 }} onPress={() => navigation.navigate("Login")} />
+                </View>
+                {/* <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} /> */}
             </View>
             <View style={{ widht: 30 }}>
             </View>
