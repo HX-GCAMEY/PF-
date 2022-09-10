@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import {Image, useWindowDimensions, View} from "react-native";
+import {Image, useWindowDimensions, View, Button} from "react-native";
 import logo from "../imgs/logo.png";
 import styles from "./styles";
 import InputLogin from "./InputLogin/InputLogin";
 import ButtonLogin from "./ButtonLogin/ButtonLogin";
 import SocialButtons from "./SocialButtons/SocialButtons";
-
+import {firebase} from "../../../../firebase-config";
 
 
 const LoginScreen = ({navigation}) => {
@@ -14,9 +14,17 @@ const LoginScreen = ({navigation}) => {
 
     const {height} = useWindowDimensions();
 
-    const onLoginPressed = () => {
-        console.warn('Sign in')
+   const loginUser = async (email, password) => {
+        try {
+            await firebase.auth().signInWithEmailAndPassword(email, password)
+            navigation.navigate("HomePage")
+        } catch (error) {
+            alert(error.message)
+            console.log(error)
+        }
     }
+    
+
     const onForgotPasswordPress = () => {
         navigation.navigate("ForgotPassword")
     }
@@ -33,18 +41,18 @@ const LoginScreen = ({navigation}) => {
             <InputLogin 
                 placeholder="Email" 
                 value={email} 
-                setValue={setEmail}
+                setValue={(email) => setEmail(email)}
                 />
             <InputLogin 
                 placeholder="Password" 
                 value={password} 
-                setValue={setPassword}
+                setValue={(password) => setPassword(password)}
                 secureTextEntry={true}
                 />
 
             <ButtonLogin 
                 text="Login" 
-                onPress={onLoginPressed} 
+                onPress={() => loginUser(email, password)} 
                 />
             <ButtonLogin 
                 text="Forgot Password?" 
@@ -59,6 +67,7 @@ const LoginScreen = ({navigation}) => {
                 onPress={onSignUp}
                 type="TERTIARY"
                 />
+
 
         </View>
     )
