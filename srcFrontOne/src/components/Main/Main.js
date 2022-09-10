@@ -1,7 +1,7 @@
 import React from 'react';
 import FootBar from '../FootBar/FootBar';
 import Detail from '../Detail/Detail';
-import { NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
@@ -31,8 +31,9 @@ const Stack = createNativeStackNavigator()
 
 
 const Auth = () => {
-    return(
+    return (
         <Provider store={configStore}>
+
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="HomePage" component={FootBar}  options={{ headerShown: false }}/>
