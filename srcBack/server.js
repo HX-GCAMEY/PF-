@@ -16,10 +16,11 @@ process.env.NODE_ENV === "prod" && app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // app.use("/");
+app.use("/", flights);
 app.use("/api/flights", flights);
 app.use("/api/users", users);
 app.use("/api/tickets", tickets);
-app.use("/", flights);
+
 
 app.use("*", (req, res) => res.status(404).json({error: "not found"}));
 
