@@ -4,7 +4,8 @@ import {
     GET_FLIGHTS_ERROR,
     GET_FLIGHTS_BY_ROUTE,
     CLEAR_GET_FLIGHTS_BY_ROUTE,
-    GET_CITIES
+    GET_CITIES,
+    SORT_PRICE
 } from "../Constants/flights";
 
 const initialState = {
@@ -52,6 +53,52 @@ export default flightsReducers = (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 error: true
+            }
+        case SORT_PRICE:
+            function compareHour(a, b) {
+                let time1 = parseFloat(a.departure.time.replace(':', '.').replace(/[^\d.-]/g, ''))
+                let time2 = parseFloat(b.departure.time.replace(':', '.').replace(/[^\d.-]/g, ''))
+                if (action.payload === 'earlier') {
+                    if (time1 < time2) return -1
+                    if (time1 > time2) return 1
+                    return 0;
+                }
+                else if (action.payload === 'later') {
+                    if (time1 > time2) return -1
+                    if (time1 < time2) return 1
+                    return 0
+                }
+            }
+            let sortHr = []
+            let sort =
+                action.payload === 'high'
+                    ? state.flightsByRoute?.sort((a, b) => {
+                        if (a.defaultFare > b.defaultFare) {
+                            return 1
+                        }
+                        if (b.defaultFare > a.defaultFare) {
+                            return -1
+                        }
+                        return 0
+                    })
+                    : action.payload === 'low'
+                        ? state.flightsByRoute?.sort((a, b) => {
+                            if (a.defaultFare > b.defaultFare) {
+                                return -1
+                            }
+                            if (b.defaultFare > a.defaultFare) {
+                                return 1
+                            }
+                            return 0
+                        })
+                        : action.payload === 'earlier' || action.payload === 'later'
+                            ? sortHr = state.flightsByRoute.sort(compareHour)
+                            : state.flightsByRoute ? state.flightsByRoute : null
+            let final = action.payload === 'high' || action.payload === 'low'
+                ? sort : sortHr
+            return {
+                ...state,
+                flightsByRoute: final
             }
         default:
             return state

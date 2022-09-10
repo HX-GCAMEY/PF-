@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, SafeAreaView, FlatList, Pressable, Modal, TouchableOpacity, Alert } from "react-native";
-import { connect, useDispatch, useSelector } from "react-redux"
-import { getFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities } from "../../Redux/Actions/flights"
-import { LinearGradient } from "expo-linear-gradient"
+import { Text, View, SafeAreaView, FlatList, Pressable, Modal, TouchableOpacity, Alert, ScrollView, Image } from 'react-native';
+import { connect, useDispatch, useSelector } from 'react-redux'
+import { getFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction } from '../../Redux/Actions/flights'
+import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native';
-import { Center, Box, NativeBaseProvider, Button } from "native-base";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon } from 'native-base';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Foundation from 'react-native-vector-icons/Foundation'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Checkbox from 'expo-checkbox';
 import { Searchbar } from 'react-native-paper'
-import styles from "./styles";
+import styles from './styles';
 import ListItem from './ListItem';
-
+import logo from './img/logos.png'
+import miniLogo from '../HomePage/img/logoMini.png'
+import flyWithUsLogo from './img/flyWithUs.png'
 const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByRoute }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -26,7 +29,8 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   const today = new Date()
   const [date, setDate] = useState(today)
   const [view, setView] = useState(false);
-
+  const [fav, setFav] = useState([]);
+  const [sortPrice, setSortPrice] = useState('')
 
   useEffect(() => {
     function oneTime() {
@@ -40,7 +44,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
 
   const onSubmit = (e) => {
     if (!depart || !arrival) {
-      return Alert.alert("FlyMate", "please select Departure and Arrival Airports")
+      return Alert.alert('FlyMate', 'please select Departure and Arrival Airports')
     }
     const parsedDate = date.toISOString().slice(0, 10);
     getFlightsByRoute(depart, arrival, parsedDate)
@@ -48,13 +52,21 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   }
 
   const onCloseModal = () => {
+    setSortPrice('')
     setView(false);
     clearGetFlightsByRoute()
   }
 
-  const CustomDatePicker = () => {
-    const [datePickerDepart, setDatePickerDepart] = useState(false)
+  const submitPrice = (value) => {
+    setSortPrice(value)
+    if (value !== '') {
+      dispatch(sortAction(value));
+    }
+  }
 
+  const CustomDatePicker = () => {
+
+    const [datePickerDepart, setDatePickerDepart] = useState(false)
     const showDatePickerDepart = () => {
       setDatePickerDepart(true)
     }
@@ -83,12 +95,12 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
             onPress={showDatePickerDepart}
             alignItems='center'
             disabled={false}
-          >{date.toDateString()}</Button>
+          ><Text style={styles.buttonDateText}>{'> ' + date.toDateString()}</Text></Button>
         </View>
       </View>
     )
   }
-  // console.log("flightsByRoute", flightsByRoute)
+  // console.log('flightsByRoute', flightsByRoute)
 
   return (
     <NativeBaseProvider>
@@ -97,18 +109,20 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
           style={{
             height: 300,
             marginTop: 10,
-            marginLeft: 34,
-            width: 300,
+            marginLeft: 24,
+            width: 330,
             borderRadius: 10,
           }} colors={['#07C5C5', '#0184A0']}>
-          <Text style={[styles.textInputs, { marginTop: 30 }]} >→ Departure:</Text>
+          <Text style={styles.textInputsNames} >Departure</Text>
           <Center>
-            <View maxW="500" >
+            <View maxW='500' >
               <Searchbar
+                placeholderTextColor={'#d3e7e7'}
+                inputStyle={{ fontSize: 16.1 }}
                 style={styles.searchBar}
                 value={depart}
                 onChangeText={(text) => { setDepart(text) }}
-                placeholder="Departure"
+                placeholder='Departure'
               />
               <View style={styles.dropdown}  >
                 {cities.filter(item => {
@@ -118,22 +132,24 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                 })
                   .map(item =>
                     <View style={styles.dropdownRow} key={item.toString()} >
-                      <Text key={item.toString()} onPress={() => setDepart(item)}  >
-                        {item}
+                      <Text style={styles.textInputs} key={item.toString()} onPress={() => setDepart(item)}  >
+                        ↗{item}
                       </Text>
                     </View>
                   )}
               </View>
             </View>
           </Center>
-          <Text style={[styles.textInputs, { marginTop: 10 }]} >← Arrival:</Text>
+          <Text style={[styles.textInputsNames, { marginTop: 10 }]} >Arrival</Text>
           <Center>
-            <Box maxW="500">
+            <Box maxW='500'>
               <Searchbar
+                placeholderTextColor={'#d3e7e7'}
+                inputStyle={{ fontSize: 16.1 }}
                 style={styles.searchBar}
                 value={arrival}
                 onChangeText={(text) => { setArrival(text) }}
-                placeholder="Arrival"
+                placeholder='Arrival'
               />
               <View style={styles.dropdown}  >
                 {cities.filter(item => {
@@ -143,26 +159,22 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                 })
                   .map(item =>
                     <View style={styles.dropdownRow} key={item.toString()} >
-                      <Text key={item.toString()} onPress={() => setArrival(item)} >
-                        {item}
+                      <Text style={styles.textInputs} key={item.toString()} onPress={() => setArrival(item)} >
+                        ↘{item}
                       </Text>
                     </View>
                   )}
               </View>
             </Box>
           </Center>
-          <CustomDatePicker
-          />
+          <View>
+            <Foundation name='calendar' size={35} color={'#1b1b1f'} style={styles.iconDate} />
+            <CustomDatePicker
+            />
+          </View>
           <View style={{ marginBottom: 500 }} >
             <Button
-              style={{
-                width: 100,
-                height: 40,
-                alignSelf: 'center',
-                marginTop: -40,
-                color: '#ffff',
-                backgroundColor: '#252440'
-              }} alignItems='center' title="Find it!" onPress={onSubmit}>Find it!</Button>
+              style={styles.findButton} alignItems='center' title='Find it!' onPress={onSubmit}>Find it!</Button>
             <Modal
               animationType='slide'
               onDismiss={() => console.log('close')}
@@ -170,36 +182,63 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
               transparent
               visible={view}
             >
-              <View style={{ flex: 1, backgroundColor: '#E4E4E6', }}>
-                <View style={{ height: '100%', width: '100%', backgroundColor: '#E4E4E6' }}>
-                  <View
-                    style={{
-                      height: 45,
-                      width: '100%',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'flex-end',
-                      paddingHorizontal: 5
-                    }}>
-                    <TouchableOpacity onPress={() => onCloseModal()}>
-                      <AntDesign name='closecircle' size={28} />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
-                    {flightsByRoute[0] ?
-                      <FlatList
-                        data={flightsByRoute}
-                        renderItem={({ item }) => <ListItem item={item} />}
-                        keyExtractor={(item) => item._id}
-                      />
-                      :
-                      <View>
-                        <Text>There are no matching flights</Text>
+              <LinearGradient colors={['#07C5C5', '#0184A0']} style={{ flex: 1 }} >
+                <View style={{ flex: 1 }}>
+                  <View style={{ height: '100%', width: '100%' }}>
+                    <View
+                      style={{
+                        height: 45,
+                        width: '100%',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        paddingHorizontal: 5
+                      }}>
+                      <View style={styles.selectSortView}>
+                        <Image source={miniLogo} style={styles.miniLogoSearch} />
+                        <Select
+                          style={styles.selectSort}
+                          selectedValue={sortPrice}
+                          minWidth='200'
+                          accessibilityLabel='Order'
+                          placeholder='Order'
+                          _selectedItem={{
+                            bg: 'teal.600',
+                            endIcon: <CheckIcon size='5' />
+                          }} mt={1} onValueChange={itemValue => submitPrice(itemValue)}>
+                          <Select.Item label='Order Flights' value='' />
+                          <Select.Item label='↓ Lower Price' value='low' />
+                          <Select.Item label='↑ Higher Price' value='high' />
+                          <Select.Item label='Earlier' value='earlier' />
+                          <Select.Item label='Later' value='later' />
+                        </Select>
                       </View>
-                    }
+                      <View>
+                        <TouchableOpacity onPress={() => onCloseModal()}>
+                          <AntDesign name='closecircle' size={34} style={styles.closeModalIcon} />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
+                      {flightsByRoute[0] ?
+                        <View style={{ right: 10, width: 700, top: 16 }} >
+                          <FlatList
+                            data={flightsByRoute}
+                            renderItem={({ item }) => <ListItem item={item} setView={setView} setFav={setFav} fav={fav} />}
+                            keyExtractor={(item) => item._id}
+                          />
+                          <Image source={flyWithUsLogo} style={{ alignSelf: 'center', top: 50 }} />
+                        </View>
+                        :
+                        <View>
+                          <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 20 }} >There are no matching flights</Text>
+                          <Image source={logo} style={{ alignSelf: 'center', top: 50 }} />
+                        </View>
+                      }
+                    </View>
                   </View>
                 </View>
-              </View>
+              </LinearGradient>
             </Modal>
           </View>
         </LinearGradient>

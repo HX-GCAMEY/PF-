@@ -7,7 +7,8 @@ import {
     GET_FLIGHTS_SUCCESS,
     GET_FLIGHTS_BY_ROUTE,
     CLEAR_GET_FLIGHTS_BY_ROUTE,
-    GET_CITIES
+    GET_CITIES,
+    SORT_PRICE
 } from "../Constants/flights";
 
 
@@ -47,6 +48,15 @@ export function clearGetFlightsByRoute() {
         dispatch({
             type: CLEAR_GET_FLIGHTS_BY_ROUTE,
             payload: []
+        })
+    }
+}
+
+export function sortAction(payload) {
+    return async function (dispatch) {
+        dispatch({
+            type: SORT_PRICE,
+            payload: payload
         })
     }
 }
