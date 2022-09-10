@@ -10,8 +10,7 @@ const port = process.env.PORT || 5000;
 const {MongoClient} = pkg;
 
 MongoClient.connect(process.env.FLYMATE_DB_URI, {
-  poolSize: 50,
-  writeConcern: {wtimeout: 2500},
+  useUnifiedTopology: true,
   useNewUrlParser: true,
 })
   .catch((err) => {
