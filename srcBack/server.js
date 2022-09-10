@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use("/api/flights", flights);
 app.use("/api/users", users);
 app.use("/api/tickets", tickets);
-app.use("/", express.static("build"));
+app.use("/", flights);
 
 app.use("*", (req, res) => res.status(404).json({error: "not found"}));
 
