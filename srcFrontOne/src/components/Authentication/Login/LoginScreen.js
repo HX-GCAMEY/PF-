@@ -1,27 +1,41 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Image, useWindowDimensions, View, Button} from "react-native";
 import logo from "../imgs/logo.png";
 import styles from "./styles";
 import InputLogin from "./InputLogin/InputLogin";
 import ButtonLogin from "./ButtonLogin/ButtonLogin";
 import SocialButtons from "./SocialButtons/SocialButtons";
-import {firebase} from "../../../../firebase-config";
+// import {firebase} from "../../../../firebase-config";
+import axios from "axios";
+
 
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+
+
+  
+
     const {height} = useWindowDimensions();
 
    const loginUser = async (email, password) => {
-        try {
-            await firebase.auth().signInWithEmailAndPassword(email, password)
+       axios({
+            method: "POST",
+            url: "https://flymatepf.herokuapp.com/api/users/login",
+            data: {
+                email,
+                password
+            },
+       })
+       .then((res) => {
+            console.log(res.data)
             navigation.navigate("HomePage")
-        } catch (error) {
-            alert(error.message)
+       })
+       .catch((error) => {
             console.log(error)
-        }
+       })
     }
     
 
