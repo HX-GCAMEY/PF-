@@ -104,7 +104,9 @@ export default class FlightsDAO {
             "departure.date": departureDate,
           },
         },
-        {$sort: DEFAULT_SORT},
+        {
+          $sort: DEFAULT_SORT
+        }
       ];
      return await flights.aggregate(pipeline).toArray();
     } catch (error) {
@@ -123,4 +125,28 @@ export default class FlightsDAO {
       return cities = [];
     }
   }
+
+  static async getFlightByID(flight_id){
+    try {
+      const pipeline = [
+        {
+          $match: {
+             $expr : { $eq: [ '$_id' , { $toObjectId: flight_id} ] } 
+          }
+        },
+        {
+          $project: {
+            "_id": 0,
+            "number": 1,
+            "totalSeats": 1,
+            "defaultFare": 1
+          }
+        }
+      ];
+      return await flights.aggregate(pipeline).next();
+    } catch (error) {
+      console.error(`Unable to issue find command, ${error}`);
+    }
+  }
+
 }
