@@ -17,6 +17,7 @@ import store from "../../Redux/Store/index";
 import { Provider } from "react-redux";
 
 
+
 const configStore = store()
 
 const Stack = createNativeStackNavigator()
@@ -31,6 +32,7 @@ const Stack = createNativeStackNavigator()
 
 
 const Auth = () => {
+   
     return (
         <Provider store={configStore}>
 

@@ -3,7 +3,8 @@ import { NativeRouter } from 'react-router-native';
 import { StyleSheet } from "react-native";
 import Auth from './src/components/Main/Main';
 
-
+//clave: 803324446340-rru9e293vrsl0vku9te6lfcqp67j261d.apps.googleusercontent.com
+//clave android: 803324446340-826d6c268hqd7i2jgtpcgf0jljol59pd.apps.googleusercontent.com
 export default function App() {
   return (
     <NativeRouter style={styles.container}>

@@ -29,13 +29,14 @@ const SignUp = ({navigation}) => {
             .then(() => {
                 axios({
                     method: "POST",
-                    url: "http://10.208.5.26:5000/api/users/register",
+                    url: "https://flymatepf.herokuapp.com/api/users/register",
                     data: {
                         email,
                         password
                     }
                 })
                 navigation.navigate("Login")
+                
             })
             .catch((error) => {
                 alert(error.message)
