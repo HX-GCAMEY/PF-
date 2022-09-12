@@ -76,10 +76,12 @@
   margin-right: calc(1rem - 8px);
 }
 
+
 .logoMini img {
   width: 100px;
   height: 35px;
 }
+
 
 /* Tablets */
 @media screen and (max-width: 1200px) {
