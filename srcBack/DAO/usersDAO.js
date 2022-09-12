@@ -23,6 +23,8 @@ export default class UsersDAO {
       await users.insertOne({
         email: userInfo.email,
         password: userInfo.password,
+        isAdmin: false,
+        isBanned: false,
       });
       return {succes: true};
     } catch (error) {

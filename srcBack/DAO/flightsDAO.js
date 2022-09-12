@@ -30,7 +30,6 @@ export default class FlightsDAO {
   }
 
   static async getAllFlights({filters = null} = {}) {
-
     let queryParams = {};
     let {query = {}, project = {}, sort = DEFAULT_SORT} = queryParams;
     let cursor;
@@ -44,8 +43,7 @@ export default class FlightsDAO {
       return {flightList: []};
     }
 
-    const displayCursor = cursor
-      .limit(0);
+    const displayCursor = cursor.limit(0);
 
     try {
       const flightList = await displayCursor.toArray();
@@ -56,10 +54,9 @@ export default class FlightsDAO {
       );
       return {flightsList: []};
     }
-
   }
 
-  static async getFlights({filters = null, page = 0, flightsPerPage = 3} = {}) {
+  static async getFlights({filters = null, page = 0, flightsPerPage = 5} = {}) {
     let queryParams = {};
     let {query = {}, project = {}, sort = DEFAULT_SORT} = queryParams;
     let cursor;
@@ -75,8 +72,8 @@ export default class FlightsDAO {
 
     const displayCursor = cursor
       .limit(flightsPerPage)
-      .skip(page * 3)
-      .limit(3);
+      .skip(page * 5)
+      .limit(5);
 
     try {
       const flightList = await displayCursor.toArray();
@@ -90,14 +87,10 @@ export default class FlightsDAO {
     }
   }
 
-  static async getFlightsByRoute(
-    departureCity,
-    arrivalCity,
-    departureDate
-  ) {
+  static async getFlightsByRoute(departureCity, arrivalCity, departureDate) {
     try {
-      //let matchedFlights = [];
-      //let sameDateFlights = [];
+      let matchedFlights = [];
+      let sameDateFlights = [];
       const pipeline1 = [
         {
           $match: {
@@ -107,69 +100,68 @@ export default class FlightsDAO {
           },
         },
         {
-          $sort: DEFAULT_SORT
-        }
+          $sort: DEFAULT_SORT,
+        },
       ];
-      return await flights.aggregate(pipeline1).toArray();
-      //matchedFlights = await flights.aggregate(pipeline1).toArray();
-      //
-      // const pipeline2 = [
-      //   {
-      //     '$match': {
-      //       'departure.city': departureCity, 
-      //       'arrival.city': arrivalCity, 
-      //       'departure.date': {
-      //         '$ne': departureDate
-      //       }
-      //     }
-      //   }, {
-      //     '$sort': {
-      //       'departure.date': 1
-      //     }
-      //   }
-      // ];
-      // sameDateFlights = await flights.aggregate(pipeline2).toArray();
-      //
-      //return {matchedFlights, sameDateFlights}
 
+      matchedFlights = await flights.aggregate(pipeline1).toArray();
+
+      const pipeline2 = [
+        {
+          $match: {
+            "departure.city": departureCity,
+            "arrival.city": arrivalCity,
+            "departure.date": {
+              $ne: departureDate,
+            },
+          },
+        },
+        {
+          $sort: {
+            "departure.date": 1,
+          },
+        },
+      ];
+      sameDateFlights = await flights.aggregate(pipeline2).toArray();
+
+      return {matchedFlights, sameDateFlights};
     } catch (error) {
       console.error(`Unable to issue find flights, ${error}`);
       throw error;
     }
   }
 
-  static async getCities(){
+  static async getCities() {
     let cities;
     try {
-      cities = await flights.distinct("departure.city")
+      cities = await flights.distinct("departure.city");
       return cities;
     } catch (error) {
       console.error(`Unable to issue find command, ${error}`);
-      return cities = [];
+      return (cities = []);
     }
   }
 
-  static async getFlightByID(flight_id){
+  static async getFlightByID(flight_id) {
     try {
       const pipeline = [
         {
           $match: {
-             $expr : { $eq: [ '$_id' , { $toObjectId: flight_id} ] } 
-          }
+            $expr: {$eq: ["$_id", {$toObjectId: flight_id}]},
+          },
         },
         {
           $project: {
-            "_id": 0,
-            "number": 1,
-            "totalSeats": 1,
-            "defaultFare": 1
-          }
-        }
+            _id: 0,
+            number: 1,
+            totalSeats: 1,
+            defaultFare: 1,
+          },
+        },
       ];
       return await flights.aggregate(pipeline).next();
     } catch (error) {
       console.error(`Unable to issue find command, ${error}`);
     }
   }
-
 }
