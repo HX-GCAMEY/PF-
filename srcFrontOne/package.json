@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
+    "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/datetimepicker": "6.2.0",
     "@react-navigation/bottom-tabs": "^6.3.3",
@@ -20,6 +21,7 @@
     "expo-auth-session": "^3.7.1",
     "expo-checkbox": "~2.2.0",
     "expo-google-app-auth": "~8.3.0",
+    "expo-image-picker": "^13.3.1",
     "expo-linear-gradient": "^11.4.0",
     "expo-random": "^12.3.0",
     "expo-status-bar": "~1.4.0",
