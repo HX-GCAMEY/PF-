@@ -5,10 +5,10 @@ import HomePage from "../HomePage/HomePage";
 import Profile from "../Profile/Profile";
 import LoginScreen from '../Authentication/Login/LoginScreen'
 import About from "../About/About";
-import Detail from "../Detail/Detail";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import styles from "./styles";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 
 
@@ -33,7 +33,7 @@ const FootBar = () => {
 
       <Tab.Screen name="About" component={About} options={{
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name="notifications-outline" color={color} size={size} />
+          <Ionicons name="information-circle-outline" color={color} size={size} />
         )
       }} />
 

@@ -3,11 +3,9 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         borderRadius: 40,
-        backgroundColor: "#ffffffc7",
-        position: "absolute",
+        backgroundColor: "#FFFFFF",
         width: 430,
-        height: 800,
-        top: 140,
+        bottom: 30,
     },
     title: {
         fontSize: 20,
@@ -51,12 +49,12 @@ const styles = StyleSheet.create({
     flightInfo: {
         borderColor: "#0399AB",
         borderWidth: 3,
-        marginLeft: 60,
+        marginLeft: 40,
         marginTop: 21,
         borderRadius: 15,
         height: 253,
-        width: 304,
-        padding: 24,
+        width: 354,
+        padding: 10,
     },
     flightDepartureInfo: {
         top: 25,
@@ -64,6 +62,9 @@ const styles = StyleSheet.create({
     flightArrivalInfo: {
         left: 170,
         bottom: 120,
+    },
+    buttonAdd: {
+        color: "#06C5C5"
     }
 })
 
