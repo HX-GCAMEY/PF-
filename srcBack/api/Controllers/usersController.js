@@ -321,4 +321,18 @@ export default class UserController {
       res.status(500).json({error: error});
     }
   }
+
+  static async getAllUsers(req, res){
+    try{
+      let allUsers = await UsersDAO.getUsers();
+      if(!allUsers){
+        res.status(404).json({error: "There are not users"});
+        return;
+      }
+      res.status(200).json(allUsers);
+      return;
+    } catch(error){
+      res.status(500).json({error: error});
+    }
+  }
 }

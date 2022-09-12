@@ -132,4 +132,33 @@ export default class UsersDAO {
       return {error: e};
     }
   }
+
+  static async getUsers() {
+
+    let queryParams = {};
+    let {query = {}, project = {}} = queryParams;
+    let cursor;
+    try {
+      cursor = await users
+        .find(query)
+        .project(project);
+    } catch (error) {
+      console.error(`Unable to issue find command, ${error}`);
+      return [];
+    }
+
+    const displayCursor = cursor
+      .limit(0);
+
+    try {
+      const usersList = await displayCursor.toArray();
+      return usersList;
+    } catch (error) {
+      console.error(
+        `Unable to convert cursor to array or problem counting documents, ${error}`
+      );
+      return [];
+    }
+
+  }
 }
