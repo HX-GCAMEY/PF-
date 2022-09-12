@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
 
   },
   closeModalIcon: {
-    right: 20,
-    top: 10
+    right: 25,
+    top: 17
   },
   cardModal: {
     width: 360,
@@ -171,17 +171,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 100,
-    right: 200,
+    right: 215,
     top: 20,
 
   },
   miniLogoSearch: {
-    right: 19,
+    right: 5,
     top: 5,
   },
   selectSort: {
-    fontSize: 16,
+    fontSize: 17,
     height: 35,
+    left: 15
+
   },
   MainContainer: {
     borderRadius: 10,
@@ -206,7 +208,6 @@ const styles = StyleSheet.create({
   },
   gradientShadow: {
     borderRadius: 24,
-    height: 250,
     alignContent: 'center',
     justifyContent: 'center'
   },
@@ -219,15 +220,26 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row'
   },
+  buttonDateLinGrad: {
+    top: 10,
+    borderRadius: 10,
+    width: 170,
+    height: 40,
+    alignSelf: 'center',
+    // bottom: 26,
+    color: '#ffff',
+    backgroundColor: '#ef8839de',
+    // marginLeft: 69
+  },
 
   buttonDate: {
     width: 170,
     height: 40,
-    alignSelf: 'center',
-    bottom: 26,
+    left: 70,
+    bottom: 29,
     color: '#ffff',
     backgroundColor: '#ef8839de',
-    marginLeft: 69
+
   },
   buttonDateText: {
     fontSize: 15,
@@ -285,6 +297,36 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 16,
     padding: .1,
 
+  },
+  // loadingGif: {
+  //   borderRadius: 100,
+  //   overlayColor: 'white',
+  //   top: 100,
+  // }
+  profilePicture: {
+    width: 150,
+    height: 200,
+    borderRadius: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '20%',
+    borderWidth: 4,
+    borderColor: 'purple',
+  },
+  imgBorder: {
+    width: 150,
+    height: 150,
+    borderRadius: 300,
+    overflow: 'hidden',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '20%',
+  },
+  fadingContainer: {
+    padding: 20,
+    backgroundColor: 'transparent'
   }
 })
 

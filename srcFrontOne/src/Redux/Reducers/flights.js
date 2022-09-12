@@ -71,7 +71,7 @@ export default flightsReducers = (state = initialState, action) => {
             }
             let sortHr = []
             let sort =
-                action.payload === 'high'
+                action.payload === 'low'
                     ? state.flightsByRoute?.sort((a, b) => {
                         if (a.defaultFare > b.defaultFare) {
                             return 1
@@ -81,7 +81,7 @@ export default flightsReducers = (state = initialState, action) => {
                         }
                         return 0
                     })
-                    : action.payload === 'low'
+                    : action.payload === 'high'
                         ? state.flightsByRoute?.sort((a, b) => {
                             if (a.defaultFare > b.defaultFare) {
                                 return -1

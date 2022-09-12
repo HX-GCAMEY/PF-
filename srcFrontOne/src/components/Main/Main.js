@@ -32,19 +32,19 @@ const Stack = createNativeStackNavigator()
 
 
 const Auth = () => {
-   
+
     return (
         <Provider store={configStore}>
 
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="HomePage" component={FootBar}  options={{ headerShown: false }}/>
-                <Stack.Screen name="Login" component={LoginScreen}/>
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-                <Stack.Screen name="Detail" component={Detail}/>
-            </Stack.Navigator>
-        </NavigationContainer>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="HomePage" component={FootBar} options={{ headerShown: false }} />
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="SignUp" component={SignUp} />
+                    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+                    <Stack.Screen name="Detail" component={Detail} options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
         </Provider>
     )
 }

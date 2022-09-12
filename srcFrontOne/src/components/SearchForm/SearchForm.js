@@ -5,16 +5,20 @@ import { getFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortA
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native';
 import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon } from 'native-base';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import Checkbox from 'expo-checkbox';
 import { Searchbar } from 'react-native-paper'
 import styles from './styles';
 import ListItem from './ListItem';
-import logo from './img/logos.png'
+// import logo from './img/logos.png'
 import miniLogo from '../HomePage/img/logoMini.png'
-import flyWithUsLogo from './img/flyWithUs.png'
+// import flyWithUsLogo from './img/flyWithUs.png'
+import Loading from './Loading'
+import { Dimensions } from 'react-native';
+
+let { width } = Dimensions.get('window');
+
 const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByRoute }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -63,6 +67,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
       dispatch(sortAction(value));
     }
   }
+
 
   const CustomDatePicker = () => {
 
@@ -117,6 +122,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
           <Center>
             <View maxW='500' >
               <Searchbar
+
                 placeholderTextColor={'#d3e7e7'}
                 inputStyle={{ fontSize: 16.1 }}
                 style={styles.searchBar}
@@ -184,7 +190,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
             >
               <LinearGradient colors={['#07C5C5', '#0184A0']} style={{ flex: 1 }} >
                 <View style={{ flex: 1 }}>
-                  <View style={{ height: '100%', width: '100%' }}>
+                  <View style={{ height: '90%', width: '100%' }}>
                     <View
                       style={{
                         height: 45,
@@ -197,7 +203,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                       <View style={styles.selectSortView}>
                         <Image source={miniLogo} style={styles.miniLogoSearch} />
                         <Select
-                          style={styles.selectSort}
+                          style={[styles.selectSort, { width: width }]}  //styles.selectSort
                           selectedValue={sortPrice}
                           minWidth='200'
                           accessibilityLabel='Order'
@@ -207,15 +213,15 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                             endIcon: <CheckIcon size='5' />
                           }} mt={1} onValueChange={itemValue => submitPrice(itemValue)}>
                           <Select.Item label='Order Flights' value='' />
-                          <Select.Item label='↓ Lower Price' value='low' />
-                          <Select.Item label='↑ Higher Price' value='high' />
-                          <Select.Item label='Earlier' value='earlier' />
-                          <Select.Item label='Later' value='later' />
+                          <Select.Item label='💲⬇  Lower Price' value='low' />
+                          <Select.Item label='💲⬆ Higher Price' value='high' />
+                          <Select.Item label='🕑  Earlier' value='earlier' />
+                          <Select.Item label='🕣  Later' value='later' />
                         </Select>
                       </View>
                       <View>
                         <TouchableOpacity onPress={() => onCloseModal()}>
-                          <AntDesign name='closecircle' size={34} style={styles.closeModalIcon} />
+                          <Ionicons name='close-circle-outline' color={'#c89513fb'} size={47} style={styles.closeModalIcon} />
                         </TouchableOpacity>
                       </View>
                     </View>
@@ -224,16 +230,13 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                         <View style={{ right: 10, width: 700, top: 16 }} >
                           <FlatList
                             data={flightsByRoute}
-                            renderItem={({ item }) => <ListItem item={item} setView={setView} setFav={setFav} fav={fav} />}
+                            renderItem={({ item }) => <ListItem item={item} onCloseModal={onCloseModal} setFav={setFav} fav={fav} flightsByRoute={flightsByRoute} />}
                             keyExtractor={(item) => item._id}
                           />
-                          <Image source={flyWithUsLogo} style={{ alignSelf: 'center', top: 50 }} />
+                          {/* <Image source={flyWithUsLogo} style={{ position: 'absolute', alignSelf: 'center', top: -14 }} /> */}
                         </View>
                         :
-                        <View>
-                          <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 20 }} >There are no matching flights</Text>
-                          <Image source={logo} style={{ alignSelf: 'center', top: 50 }} />
-                        </View>
+                        <Loading />
                       }
                     </View>
                   </View>

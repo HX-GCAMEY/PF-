@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles'
 import avion from '../HomePage/img/backCard.jpg'
 
-const ListItem = ({ item, setView, fav, setFav }) => {
+
+const ListItem = ({ item, onCloseModal, fav, setFav }) => {
   const navigation = useNavigation()
 
   const setFavorites = (item) => {
@@ -16,10 +17,9 @@ const ListItem = ({ item, setView, fav, setFav }) => {
     }
   }
 
-
   const delay = (e) => {
     setTimeout(() => {
-      setView(false)
+      onCloseModal()
     }, 1000)
 
     navigation.navigate('Detail', {
@@ -44,7 +44,7 @@ const ListItem = ({ item, setView, fav, setFav }) => {
 
   const { _id, departure, arrival, defaultFare, totalSeats, duration, number } = item;
   return (
-    <LinearGradient colors={['#8831d44d', '#07c5c521']} style={styles.gradientShadow} >
+    <LinearGradient colors={['#8831d41d', '#07c5c505']} style={styles.gradientShadow} >
       <Pressable
         key={item._id}
         style={styles.rendInput}
