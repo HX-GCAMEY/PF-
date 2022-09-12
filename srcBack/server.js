@@ -5,6 +5,7 @@ import morgan from "morgan";
 import flights from "./api/Routes/flightRoutes.js";
 import users from "./api/Routes/usersRoutes.js";
 import tickets from "./api/Routes/ticketsRouter.js";
+import comments from "./api/Routes/commentsRoutes.js"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use("/");
 app.use("/", flights);
 app.use("/api/flights", flights);
+app.use("/api/comments",comments);
 app.use("/api/users", users);
 app.use("/api/tickets", tickets);
 

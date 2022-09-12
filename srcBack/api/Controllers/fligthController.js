@@ -31,7 +31,7 @@ export default class FlightsControler {
   }
 
   static async apiGetFlightsPage(req, res, next) {
-    const FLIGHTS_PER_PAGE = 3;
+    const FLIGHTS_PER_PAGE = 5;
     let page;
     try {
       page = req.query.page ? parseInt(req.query.page, 10) : 0;
