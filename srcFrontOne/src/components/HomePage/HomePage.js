@@ -24,7 +24,7 @@ const HomePage = ({ navigation }) => {
     const slidesRef = useRef(null)
 
     const itemsChanged = useRef(({ viewableItems }) => {
-        setCurrentIndex(viewableItems[0].index)
+        setCurrentIndex(viewableItems.index)
     });
 
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 });
