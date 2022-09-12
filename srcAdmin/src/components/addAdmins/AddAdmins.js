@@ -2,10 +2,14 @@ import { Button, Modal } from "antd"
 import axios from "axios"
 import React, { useState } from "react"
 import { HiUserAdd } from "react-icons/hi"
+import { useDispatch } from "react-redux"
+import Swal from "sweetalert2"
+import { getTask } from "../../features/orders"
 
 const AddAdmins = () => {
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
+  const dispatch = useDispatch()
 
   const abrirModal = e => {
     console.log("soy abrir", e)
@@ -17,22 +21,20 @@ const AddAdmins = () => {
     console.log(e)
   }
   const accion = () => {
-    alert("se preciono boton ok de modal")
     cerrarModal()
   }
 
-  const [order, setOrder] = useState({
+  const initialState = {
     status: "admin",
-    email: "",
-    phone: "",
-    DNI: "",
-  })
+  }
+
+  const [order, setOrder] = useState(initialState)
 
   const validation = e => {
-    if (!/^([0-9])*$/.test(order.DNI)) {
+    if (e.target.name === "DNI" && !/^([0-9])*$/.test(order.DNI)) {
       setOrder({ ...order, DNI: "" })
     }
-    if (!/^([0-9])*$/.test(order.phone)) {
+    if (e.target.name === "phone" && !/^([0-9])*$/.test(order.phone)) {
       setOrder({ ...order, phone: "" })
     }
   }
@@ -42,22 +44,43 @@ const AddAdmins = () => {
   }
 
   const submit = async () => {
+    if (Object.values(order).length !== 9) {
+      return Swal.fire({
+        icon: "error",
+        title: "error",
+        text: `fill all the fields`,
+        confirmButtonText: "yes",
+        confirmButtonColor: "#1890ff",
+      })
+    }
     if (
       !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
         order.email
       )
     ) {
-      return alert("invalid email data")
+      return Swal.fire({
+        icon: "error",
+        title: "error",
+        text: `invalid email data`,
+        confirmButtonText: "yes",
+        confirmButtonColor: "#1890ff",
+      })
     }
-    if (Object.keys(order).length !== 9) {
-      return alert("fill in all the fields")
-    }
+
     const response = await axios.post(
       "https://pf-seraerror.herokuapp.com/user",
       order
     )
+    dispatch(getTask())
     cerrarModal()
-    alert(response.data)
+    Swal.fire({
+      icon: "success",
+      tittle: "Success",
+      text: `new admin ${order.email} created`,
+      timer: 1500,
+      confirmButtonColor: "#2f9b05",
+    })
+    setOrder(initialState)
     console.log("soy el post", response.data)
   }
 
@@ -81,7 +104,7 @@ const AddAdmins = () => {
           </Button>,
         ]}
       >
-        <form className="form form2">
+        <form className="form form2" key="form">
           <div class="relative">
             <input
               name="name"

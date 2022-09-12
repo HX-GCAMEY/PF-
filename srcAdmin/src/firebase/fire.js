@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+/* // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
 import { getAuth } from "firebase/auth"
@@ -49,3 +49,4 @@ export const userExists = async uid => {
   console.log("soy res de firebase", res)
   return res.exists()
 }
+ */
