@@ -114,7 +114,7 @@ return b
         <ImFilter />
       </Button>
       <Modal
-        style={window.innerWidth <= 768 ? { top: 550 } : { top: 12, right: 35 }}
+        style={window.innerWidth <= 768 ? { top: 400 } : { top: 12, right: 45 }}
         width={250}
         title="Filters"
         open={modal}

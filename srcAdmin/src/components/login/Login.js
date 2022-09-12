@@ -50,7 +50,7 @@ const Login = () => {
   }
   /////////////////////////////////////////////////////////////
 
-  const [current, setCurrent] = useState(null)
+  /*  const [current, setCurrent] = useState(null)
   const [state, setState] = useState(0)
 
   const handleClick = async () => {
@@ -89,7 +89,7 @@ const Login = () => {
     return <div>estas autenticado pero no registrado</div>
   }
   console.log("soy data", data)
-
+ */
   return (
     <>
       {!acces ? (
@@ -99,7 +99,7 @@ const Login = () => {
             <img src={logo} alt="logo" />
             <form action="" className="loginInicio">
               <button
-                onClick={handleClick}
+                //onClick={handleClick}
                 type="button"
                 class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-small rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
               >

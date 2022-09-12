@@ -11,6 +11,7 @@ import { motion } from "framer-motion"
 import { UilBars } from "@iconscout/react-unicons"
 import logo from "../imgs/logo.png"
 import logoNegro from "../imgs/logoNegro.png"
+import logoMini from "../imgs/logoMini.png"
 
 const Sidebar = ({ selected, setSelected }) => {
   const [expanded, setExpaned] = useState(true)
@@ -47,7 +48,10 @@ const Sidebar = ({ selected, setSelected }) => {
               <img src={logo} alt="logo" />
             )}
           </div>
-          <span className="logo3">Fly Mex</span>
+          <div className="logoMini">
+            <img src={logoMini} alt="mini" />
+            {/* <span className="logo3">Fly MeT</span> */}
+          </div>
         </article>
         <article className="menu">
           <div
