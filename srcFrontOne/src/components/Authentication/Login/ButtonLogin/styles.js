@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
         color: '#4765A9',
         marginTop: 10,
     },
+    container_FOURTH:{
+        backgroundColor: '#0E2F49',
+    },
     container_GOOGLE: {
         backgroundColor: '#FAE9E4',
         color: '#DD4D44',   

@@ -5,9 +5,8 @@ import styles from "./styles";
 import InputLogin from "./InputLogin/InputLogin";
 import ButtonLogin from "./ButtonLogin/ButtonLogin";
 import SocialButtons from "./SocialButtons/SocialButtons";
-// import {firebase} from "../../../../firebase-config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
 
 
 const LoginScreen = ({navigation}) => {
@@ -20,24 +19,20 @@ const LoginScreen = ({navigation}) => {
 
     const {height} = useWindowDimensions();
 
-   const loginUser = async (email, password) => {
-       axios({
-            method: "POST",
-            url: "https://flymatepf.herokuapp.com/api/users/login",
-            data: {
-                email,
-                password
-            },
-       })
-       .then((res) => {
-            console.log(res.data)
-            navigation.navigate("HomePage")
-       })
-       .catch((error) => {
-            console.log(error)
-       })
-    }
-    
+    const login = async(email, password) => {
+        return axios
+          .post("https://flymatepf.herokuapp.com/api/users/login", { email, password})
+          .then((response) => {
+            if (response.data.auth_token) {
+              AsyncStorage.setItem("user", JSON.stringify(response.data));
+              console.log(response.data)
+
+              navigation.navigate("HomePage")
+            }
+            return response.data;
+
+          });
+      };
 
     const onForgotPasswordPress = () => {
         navigation.navigate("ForgotPassword")
@@ -47,6 +42,11 @@ const LoginScreen = ({navigation}) => {
         navigation.navigate("SignUp")
     }
 
+    const onGuest = () => {
+        alert("We recommend logging in for more facilities")
+        navigation.navigate("HomePage")
+        
+    }
 
     return (
         <View style={styles.rootLogin}>
@@ -66,7 +66,7 @@ const LoginScreen = ({navigation}) => {
 
             <ButtonLogin 
                 text="Login" 
-                onPress={() => loginUser(email, password)} 
+                onPress={() => login(email, password)} 
                 />
             <ButtonLogin 
                 text="Forgot Password?" 
@@ -81,8 +81,12 @@ const LoginScreen = ({navigation}) => {
                 onPress={onSignUp}
                 type="TERTIARY"
                 />
-
-
+       
+            <ButtonLogin
+                text="Login as Guest"
+                onPress={onGuest}
+                type="FOURTH"
+                />
         </View>
     )
 }

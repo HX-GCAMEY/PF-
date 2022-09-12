@@ -37,7 +37,7 @@ const FootBar = () => {
         )
       }} />
 
-      <Tab.Screen name="Profile" component={LoginScreen} options={{
+      <Tab.Screen name="Profile" component={Profile} options={{
         tabBarIcon: ({ color, size }) => (
           <Feather name="user" color={color} size={size} />
         )
