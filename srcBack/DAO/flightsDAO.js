@@ -96,8 +96,8 @@ export default class FlightsDAO {
     departureDate
   ) {
     try {
-      let matchedFlights = [];
-      let sameDateFlights = [];
+      //let matchedFlights = [];
+      //let sameDateFlights = [];
       const pipeline1 = [
         {
           $match: {
@@ -110,26 +110,27 @@ export default class FlightsDAO {
           $sort: DEFAULT_SORT
         }
       ];
-      matchedFlights = await flights.aggregate(pipeline1).toArray();
+      return await flights.aggregate(pipeline1).toArray();
+      //matchedFlights = await flights.aggregate(pipeline1).toArray();
       //
-      const pipeline2 = [
-        {
-          '$match': {
-            'departure.city': departureCity, 
-            'arrival.city': arrivalCity, 
-            'departure.date': {
-              '$ne': departureDate
-            }
-          }
-        }, {
-          '$sort': {
-            'departure.date': 1
-          }
-        }
-      ];
-      sameDateFlights = await flights.aggregate(pipeline2).toArray();
+      // const pipeline2 = [
+      //   {
+      //     '$match': {
+      //       'departure.city': departureCity, 
+      //       'arrival.city': arrivalCity, 
+      //       'departure.date': {
+      //         '$ne': departureDate
+      //       }
+      //     }
+      //   }, {
+      //     '$sort': {
+      //       'departure.date': 1
+      //     }
+      //   }
+      // ];
+      // sameDateFlights = await flights.aggregate(pipeline2).toArray();
       //
-      return {matchedFlights, sameDateFlights}
+      //return {matchedFlights, sameDateFlights}
 
     } catch (error) {
       console.error(`Unable to issue find flights, ${error}`);
