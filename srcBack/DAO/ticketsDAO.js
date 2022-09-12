@@ -118,4 +118,27 @@ export default class TicketsDAO {
         return {error: error};
       }
     };
+
+    static async getTicket(email){
+      const pipeline = [
+        {
+          '$match': {
+            'tickets': {
+              '$elemMatch': {
+                'user_id': email
+              }
+            }
+          }
+        },{
+          '$project': {
+            '_id': 0,
+            'flight_id': 1,
+            'tickets._id': 1,
+            'tickets.type': 1,
+            'tickets.fare': 1
+          }
+        }
+      ];
+      return await tickets.aggregate(pipeline).toArray()
+    };
 }
