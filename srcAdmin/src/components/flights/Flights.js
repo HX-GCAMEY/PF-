@@ -17,6 +17,7 @@ import Filters from "../filters/Filters"
 import { filtered2 } from "../../features/tasks"
 import "./Flights.css"
 import { IoSettingsSharp } from "react-icons/io5"
+import FilterProduct from "../filterProduct/FilterProduct"
 
 const Flights = () => {
   const dispatch = useDispatch()
@@ -118,7 +119,7 @@ const Flights = () => {
     <div className="Table2 ">
       <h2 className="centrar title">Flights in Progress</h2>
       <div className="paginado">
-        <Filters flightsComponent={flights} dispatched={filtered2} />
+        <FilterProduct flightsComponent={flights} dispatched={filtered2} />
         <button
           className="botoncuatro"
           onClick={paginado}

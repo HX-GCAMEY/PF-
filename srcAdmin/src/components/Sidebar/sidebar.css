@@ -76,13 +76,13 @@
   margin-right: calc(1rem - 8px);
 }
 
-.logoMini {
-}
 
 .logoMini img {
   width: 100px;
-  height: 40px;
+  height: 35px;
 }
+
+
 /* Tablets */
 @media screen and (max-width: 1200px) {
   .menuItem > span {

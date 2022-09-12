@@ -49,6 +49,7 @@ const Sidebar = ({ selected, setSelected }) => {
             )}
           </div>
           <div className="logoMini">
+
             <img src={logoMini} alt="mini" />
             {/* <span className="logo3">Fly MeT</span> */}
           </div>
@@ -108,3 +109,4 @@ const Sidebar = ({ selected, setSelected }) => {
 }
 
 export default Sidebar
+

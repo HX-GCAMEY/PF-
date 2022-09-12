@@ -7,7 +7,7 @@ import { ImFilter } from "react-icons/im"
 import { filtered } from "../../features/tasks"
 const { Search } = Input
 
-const Filters = ({ flightsComponent, dispatched }) => {
+const FilterProduct = ({ flightsComponent, dispatched }) => {
   /*  const flights = useSelector(state => state.tasks.flights)
   const flightsAv = useSelector(state => state.tasks.flightsAv)
   const flightsFiltered = useSelector(state => state.tasks.flightsFiltered)
@@ -59,18 +59,85 @@ const Filters = ({ flightsComponent, dispatched }) => {
 
   const a = flightsComponent.length && Object.keys(flightsComponent[0])
 
-  const onSearch = d => {
-    const soy = [...flightsComponent].filter(e => {
-      let a = Object.values(e)
-      for (let i of a.slice(1, a.length)) {
-        if (
-          i
-            .toString()
-            .toLowerCase()
-            .includes(d.target.value.toString().toLowerCase())
-        )
-          return e
-      }
+  const onSearch = e => {
+    const soy = [...flightsComponent].filter(d => {
+      if (
+        d.departure.city
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.arrival.city
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.departure.airport
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.arrival.airport
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.departure.date
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.arrival.date
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.departure.time
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.arrival.time
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.totalSeats
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.duration
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
+      if (
+        d.number
+          .toString()
+          .toLowerCase()
+          .includes(e.target.value.toString().toLowerCase())
+      )
+        return d
     })
     dispatch(dispatched(soy))
     console.log("soy soy", soy)
@@ -82,9 +149,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
         <ImFilter />
       </Button>
       <Modal
-
-        style={window.innerWidth <= 768 ? { top: 400 } : { top: 12, right: 45 }}
-
+        style={window.innerWidth <= 768 ? { top: 400 } : { top: 12, right: 35 }}
         width={250}
         title="Filters"
         open={modal}
@@ -107,7 +172,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
             style={{ width: 200 }}
           />
         </Space>
-        <Select
+        {/* <Select
           defaultValue="filter by"
           style={{ width: 120, left: 33, top: 5 }}
           onChange={handleChange}
@@ -137,9 +202,10 @@ const Filters = ({ flightsComponent, dispatched }) => {
               ))}
           </Select>
         )}
+  */}{" "}
       </Modal>
     </div>
   )
 }
 
-export default Filters
+export default FilterProduct

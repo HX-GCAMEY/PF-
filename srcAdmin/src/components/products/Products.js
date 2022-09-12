@@ -18,6 +18,7 @@ import { GrPowerReset } from "react-icons/gr"
 import Filters from "../filters/Filters"
 import "./Products.css"
 import { filtered } from "../../features/tasks"
+import FilterProduct from "../filterProduct/FilterProduct"
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -138,7 +139,7 @@ const Products = () => {
     <div className="Table2 ">
       <h2 className="centrar title">Planned Trips</h2>
       <div className="paginado">
-        <Filters flightsComponent={flightsAv} dispatched={filtered} />
+        <FilterProduct flightsComponent={flightsAv} dispatched={filtered} />
         <button
           className="botoncuatro"
           onClick={paginado}
