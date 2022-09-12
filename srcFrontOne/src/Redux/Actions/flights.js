@@ -1,4 +1,5 @@
-const IP_URL = "192.168.0.3"
+const IP_URL = "http://192.168.0.3:5000"
+const BACK_NET = "https://flymatepf.herokuapp.com"
 
 import axios from 'axios'
 import {
@@ -14,7 +15,7 @@ import {
 
 export function getFlights() {
     return async function (dispatch) {
-        const res = await axios.get(`http://${IP_URL}:5000/api/flights`);
+        const res = await axios.get(`${BACK_NET}/api/flights`);
         // console.log(res.data)
         dispatch({
             type: GET_FLIGHTS,
@@ -25,7 +26,7 @@ export function getFlights() {
 
 export function getCities() {
     return async function (dispatch) {
-        const res = await axios.get(`http://${IP_URL}:5000/api/flights/cities`)
+        const res = await axios.get(`${BACK_NET}/api/flights/cities`)
         dispatch({
             type: GET_CITIES,
             payload: res.data
@@ -35,7 +36,7 @@ export function getCities() {
 
 export function getFlightsByRoute(departure, arrival, date) {
     return async function (dispatch) {
-        const res = await axios.get(`http://${IP_URL}:5000/api/flights/search?departureCity=${departure}&arrivalCity=${arrival}&departureDate=${date}`);
+        const res = await axios.get(`${BACK_NET}/api/flights/search?departureCity=${departure}&arrivalCity=${arrival}&departureDate=${date}`);
         dispatch({
             type: GET_FLIGHTS_BY_ROUTE,
             payload: res.data

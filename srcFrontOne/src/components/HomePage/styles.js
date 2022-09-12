@@ -15,13 +15,29 @@ const styles = StyleSheet.create({
 
     },
     categoryContainer: {
+        // backgroundColor: 'red',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginTop: -20,
+        marginBottom: 20,
+        paddingHorizontal: 0,
+        // justifyContent: 'space-between',
+
+    },
+    categoryContainerText: {
+        left: 50,
         flexDirection: 'row',
         marginTop: 0,
         marginBottom: 20,
-        paddingHorizontal: 30,
-        justifyContent: 'space-between'
+        paddingHorizontal: 0,
+        // justifyContent: 'space-between',
+
     },
     categoryText: {
+        right: 10,
+        padding: 10,
+        marginLeft: 20,
+        // marginLeft: 70,
         fontSize: 16,
         color: '#1E1E1E',
         fontWeight: 'bold'
