@@ -1,10 +1,11 @@
 import React from 'react';
 import FootBar from '../FootBar/FootBar';
+import LandingPage from '../LandingPage/LandingPage';
 import Detail from '../Detail/Detail';
+import ShoppingCart from '../ShoppingCart/ShoppingCart';
+import ShoppingPreferences from '../ShoppingPreferences/ShoppingPreferences';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
 
 //////////////////////////////////////////////////////////////
 import LoginScreen from '../Authentication/Login/LoginScreen';
@@ -36,15 +37,18 @@ const Auth = () => {
     return (
         <Provider store={configStore}>
 
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name="Login" component={LoginScreen} />
-                    <Stack.Screen name="HomePage" component={FootBar} options={{ headerShown: false }} />
-                    <Stack.Screen name="SignUp" component={SignUp} />
-                    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-                    <Stack.Screen name="Detail" component={Detail} options={{ headerShown: false }} />
-                </Stack.Navigator>
-            </NavigationContainer>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false }}/>
+                <Stack.Screen name="HomePage" component={FootBar}  options={{ headerShown: false }}/>
+                <Stack.Screen name="Login" component={LoginScreen}/>
+                <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+                <Stack.Screen name="Detail" component={Detail}/>
+                <Stack.Screen name="ShoppingCart" component={ShoppingCart} options={{ headerShown: false }}/>
+                <Stack.Screen name="ShoppingPreferences" component={ShoppingPreferences} options={{ headerShown: false }}/>
+            </Stack.Navigator>
+        </NavigationContainer>
         </Provider>
     )
 }
