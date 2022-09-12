@@ -11,7 +11,7 @@ const Loading = () => {
     Animated.timing(fadeAnim, {
       delay: 2000,
       toValue: 1,
-      duration: 500,
+      duration: 100,
       useNativeDriver: true
     }).start();
   };
