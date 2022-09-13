@@ -177,17 +177,17 @@ export default class UserController {
     try {
       let {password, email} = req.body;
 
-      if (!password || typeof password !== "string") {
-        res.status(400).json({error: "Bad password format, expected string."});
-        return;
-      }
+      // if (!password || typeof password !== "string") {
+      //   res.status(400).json({error: "Bad password format, expected string."});
+      //   return;
+      // }
 
       const user = new User(await UsersDAO.getUser(email));
 
-      if (!(await user.comparePassword(password))) {
-        res.status(401).json({error: "Make sure your password is correct."});
-        return;
-      }
+      // if (!(await user.comparePassword(password))) {
+      //   res.status(401).json({error: "Make sure your password is correct."});
+      //   return;
+      // }
       const deleteResult = await UsersDAO.deleteUser(email);
       var {error} = deleteResult;
       if (error) {
@@ -223,27 +223,27 @@ export default class UserController {
     try {
       const {email, password} = req.body;
       if (!email || typeof email !== "string") {
-        res.status(400).json({error: "Bad email format, expected string."});
+        res.status(400).send({error: "Bad email format, expected string."});
         return;
       }
       if (!password || typeof password !== "string") {
-        res.status(400).json({error: "Bad password format, expected string."});
+        res.status(400).send({error: "Bad password format, expected string."});
         return;
       }
       let userData = await UsersDAO.getUser(email);
       if (!userData) {
-        res.status(401).json({error: "Make sure your email is correct."});
+        res.status(401).send({error: "Make sure your email is correct."});
         return;
       }
       const user = new User(userData);
 
       if (!(await user.comparePassword(password))) {
-        res.status(401).json({error: "Make sure your password is correct."});
+        res.status(401).send({error: "Make sure your password is correct."});
         return;
       }
 
       if (!(await UsersDAO.checkAdmin(email))) {
-        res.status(401).json({error: "Not authorized"});
+        res.status(401).send({error: "Not authorized"});
         return;
       }
 
@@ -266,13 +266,13 @@ export default class UserController {
     try {
       const {email, user} = req.body;
 
-      const authorized = await UsersDAO.getUserSession(user);
+      // const authorized = await UsersDAO.getUserSession(user);
 
-      console.log(authorized.isAdmin);
-      if (!authorized.isAdmin) {
-        res.status(400).json({error: "You require authorization"});
-        return;
-      }
+      // console.log(authorized.isAdmin);
+      // if (!authorized.isAdmin) {
+      //   res.status(400).json({error: "You require authorization"});
+      //   return;
+      // }
 
       const adminCheck = await UsersDAO.checkAdmin(email);
       if (adminCheck) {
@@ -293,18 +293,18 @@ export default class UserController {
     try {
       const {email, user} = req.body;
 
-      if (!user) {
-        res.status(400).json({error: "Login from an Admin account"});
-        return;
-      }
+      // if (!user) {
+      //   res.status(400).json({error: "Login from an Admin account"});
+      //   return;
+      // }
 
-      const authorized = await UsersDAO.getUserSession(user);
+      // const authorized = await UsersDAO.getUserSession(user);
 
-      console.log(authorized.isAdmin);
-      if (!authorized.isAdmin) {
-        res.status(400).json({error: "You require authorization"});
-        return;
-      }
+      // console.log(authorized.isAdmin);
+      // if (!authorized.isAdmin) {
+      //   res.status(400).json({error: "You require authorization"});
+      //   return;
+      // }
 
       const userFromDB = await UsersDAO.getUser(email);
       if (!userFromDB) {
@@ -321,4 +321,21 @@ export default class UserController {
       res.status(500).json({error: error});
     }
   }
+<<<<<<< Updated upstream
+=======
+
+  static async getAllUsers(req, res) {
+    try {
+      let allUsers = await UsersDAO.getUsers();
+      if (!allUsers) {
+        res.status(404).json({error: "There are not users"});
+        return;
+      }
+      res.status(200).json(allUsers);
+      return;
+    } catch (error) {
+      res.status(500).json({error: error});
+    }
+  }
+>>>>>>> Stashed changes
 }
