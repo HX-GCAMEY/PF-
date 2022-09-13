@@ -72,4 +72,15 @@ export default class TicketsController{
       res.status(500).json(e);
     }
   }
+
+  static async send(req, res){
+    try{
+      let {email} = req.body;
+      const result = await TicketsDAO.getTicket(email);
+      
+      res.json(result);
+    }catch(e){
+      res.status(500).json(e);
+    }
+  }
 }

@@ -9,7 +9,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Searchbar } from 'react-native-paper'
-import styles from './styles';
+import styles from "./styles";
+import FlightCard from "../FlightCard/FlightCard";
 import ListItem from './ListItem';
 // import logo from './img/logos.png'
 import miniLogo from '../HomePage/img/logoMini.png'
@@ -188,6 +189,13 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
               transparent
               visible={view}
             >
+
+            {/*{ flights.flights && flights.flights.map(f => {
+                return (
+                <FlightCard key={f._id} departure={f.departure.airportCode} departureTime={f.departure.time} destinationPlace={f.arrival.airportCode} destinationTime={f.arrival.time} fare={f.defaultFare}/>
+                )
+            })}*/}  
+            
               <LinearGradient colors={['#07C5C5', '#0184A0']} style={{ flex: 1 }} >
                 <View style={{ flex: 1 }}>
                   <View style={{ height: '90%', width: '100%' }}>

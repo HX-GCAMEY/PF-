@@ -14,5 +14,5 @@ router.route("/findUser").get(UsersController.findUser);
 router.route("/makeAdmin").put(UsersController.createAdminUser);
 router.route("/banUser").put(UsersController.banUser);
 router.route("/adminLogin").post(UsersController.adminLogin);
-
+router.route("/all").get(UsersController.getAllUsers);
 export default router;

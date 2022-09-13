@@ -5,11 +5,15 @@ import {
     GET_FLIGHTS_BY_ROUTE,
     CLEAR_GET_FLIGHTS_BY_ROUTE,
     GET_CITIES,
-    SORT_PRICE
+    SORT_PRICE,
+    ADD_TO_CART,
+    REMOVE_FROM_CART,
+    CLEAR_CART,
 } from "../Constants/flights";
 
 const initialState = {
     flights: [],
+    cart: [], //estado global para el carrito
     backup: [],
     flightsByRoute: [],
     getCities: [],
@@ -53,6 +57,22 @@ export default flightsReducers = (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 error: true
+            }
+        case ADD_TO_CART:
+            let info = state.flights
+            let bookedFlight = info.find(f => f._id === action.payload)
+            return {
+                ...state,
+                cart: [...state.cart, bookedFlight]
+            }
+        case REMOVE_FROM_CART:
+            return {
+                ...state,
+            }
+        case CLEAR_CART:
+            return {
+                ...state,
+                cart: [],
             }
         case SORT_PRICE:
             function compareHour(a, b) {
