@@ -18,7 +18,7 @@ export default class CommentsDAO {
     }
   }
 
-  static async addComment(flight_id, user_id, comment, date, rate) {
+  static async addComment(flight_id, user_id, comment, date, rate = 3) {
     try {
       const commentDoc = {
         email: user_id,

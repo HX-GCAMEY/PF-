@@ -91,9 +91,8 @@ export default class UserController {
   // USER FIND IN DB
 
   static async findUser(req, res, next) {
-    console.log(req.body);
     try {
-      const {email} = req.body;
+      const {email} = req.params;
       let userData = await UsersDAO.getUser(email);
       if (!userData) {
         res.status(404).json({error: "User not found"});
@@ -182,7 +181,7 @@ export default class UserController {
       //   return;
       // }
 
-      const user = new User(await UsersDAO.getUser(email));
+      // const user = new User(await UsersDAO.getUser(email));
 
       // if (!(await user.comparePassword(password))) {
       //   res.status(401).json({error: "Make sure your password is correct."});
@@ -264,7 +263,7 @@ export default class UserController {
 
   static async createAdminUser(req, res) {
     try {
-      const {email, user} = req.body;
+      const {email} = req.body;
 
       // const authorized = await UsersDAO.getUserSession(user);
 
@@ -291,7 +290,7 @@ export default class UserController {
   // BANNEAR USUARIO
   static async banUser(req, res) {
     try {
-      const {email, user} = req.body;
+      const {email} = req.body;
 
       // if (!user) {
       //   res.status(400).json({error: "Login from an Admin account"});
@@ -315,6 +314,24 @@ export default class UserController {
       const bannedUser = await UsersDAO.banUser(email);
       if (bannedUser) {
         res.json(bannedUser);
+        return;
+      }
+    } catch (error) {
+      res.status(500).json({error: error});
+    }
+  }
+
+  static async userRestore(req, res) {
+    try {
+      const {email} = req.body;
+      const userFromDB = await UsersDAO.getUser(email);
+      if (!userFromDB) {
+        res.status(404).json({error: "User not found"});
+        return;
+      }
+      const restore = await UsersDAO.userRestore(email);
+      if (restore) {
+        res.json(restore);
         return;
       }
     } catch (error) {
@@ -359,7 +376,7 @@ export default class UserController {
         password: await hashPassword(userFromBody.password),
       };
 
-      const insertResult = await UsersDAO.addUser(userInfo);
+      const insertResult = await UsersDAO.addAdmin(userInfo);
       if (!insertResult.success) {
         errors.email = insertResult.error;
       }
