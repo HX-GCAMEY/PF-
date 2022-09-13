@@ -78,7 +78,8 @@ export default flightsReducers = (state = initialState, action) => {
             let flag = 0
             let sortHr = []
             let data = []
-            state.flightsByRoute.matchedFlights
+
+            state.flightsByRoute.matchedFlights && state.flightsByRoute.matchedFlights.length > 0
                 ? (data = state.flightsByRoute.matchedFlights, flag = 1)
                 : state.flightsByRoute.sameDateFlights
                     ? (data = state.flightsByRoute.sameDateFlights, flag = 2)
@@ -98,7 +99,7 @@ export default flightsReducers = (state = initialState, action) => {
                     return 0
                 }
             }
-            // console.log('aaa\n\n\n', finalData)
+            // console.log('aaa\n\n\n', state.flightsByRoute.matchedFlights.length)
             let sort =
                 action.payload === 'low'
                     ? data && data?.sort((a, b) => {
