@@ -287,6 +287,32 @@ export default class UserController {
     }
   }
 
+  static async demoteAdmin(req, res) {
+    try {
+      const {email} = req.body;
+
+      // const authorized = await UsersDAO.getUserSession(user);
+
+      // console.log(authorized.isAdmin);
+      // if (!authorized.isAdmin) {
+      //   res.status(400).json({error: "You require authorization"});
+      //   return;
+      // }
+
+      const adminCheck = await UsersDAO.checkAdmin(email);
+      if (!adminCheck) {
+        res.json({error: "Admin already demoted"});
+        return;
+      }
+      const demotedAdmin = await UsersDAO.demoteAdmin(email);
+      if (demotedAdmin) {
+        res.json(demotedAdmin);
+      }
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
+
   // BANNEAR USUARIO
   static async banUser(req, res) {
     try {
@@ -323,7 +349,7 @@ export default class UserController {
 
   static async userRestore(req, res) {
     try {
-      const {email} = req.body;
+      const {email} = req.params;
       const userFromDB = await UsersDAO.getUser(email);
       if (!userFromDB) {
         res.status(404).json({error: "User not found"});

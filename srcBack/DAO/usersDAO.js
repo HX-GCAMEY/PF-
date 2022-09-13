@@ -182,6 +182,21 @@ export default class UsersDAO {
     }
   }
 
+  static async demoteAdmin(email) {
+    try {
+      const updateResponse = users.updateOne(
+        {email},
+        {$set: {isAdmin: false, isBanned: false}}
+      );
+      if (updateResponse.matchedCount === 0) {
+        return {error: "No user found with that email"};
+      }
+      return {success: true};
+    } catch (e) {
+      return {error: e};
+    }
+  }
+
   static async getUsers() {
     let queryParams = {};
     let {query = {}, project = {}} = queryParams;
