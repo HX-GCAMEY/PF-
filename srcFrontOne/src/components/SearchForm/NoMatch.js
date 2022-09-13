@@ -9,7 +9,7 @@ const NoMatch = ({ onCloseModal }) => {
 
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
-      delay: 0,
+      delay: 1000,
       toValue: 1,
       duration: 1000,
       useNativeDriver: true
