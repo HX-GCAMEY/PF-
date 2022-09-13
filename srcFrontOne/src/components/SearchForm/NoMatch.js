@@ -4,14 +4,14 @@ import logo from './img/logos.png'
 import gif from './img/loadingGif.gif'
 import styles from './styles'
 
-const Loading = ({ onCloseModal }) => {
+const NoMatch = ({ onCloseModal }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
-      delay: 0,
+      delay: 1000,
       toValue: 1,
-      duration: 500,
+      duration: 1000,
       useNativeDriver: true
     }).start();
   }
@@ -26,7 +26,7 @@ const Loading = ({ onCloseModal }) => {
             styles.fadingContainer,
             { opacity: fadeAnim }]}>
           <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 19, top: 40, backgroundColor: 'transparent' }} >
-            {`Loading...`}
+            {`The are no flights available`}
           </Text>
         </Animated.View>
       </View>
@@ -38,4 +38,4 @@ const Loading = ({ onCloseModal }) => {
   )
 }
 
-export default Loading
+export default NoMatch

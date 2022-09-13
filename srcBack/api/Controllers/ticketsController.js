@@ -75,10 +75,25 @@ export default class TicketsController{
 
   static async send(req, res){
     try{
-      let {email} = req.body;
-      const result = await TicketsDAO.getTicket(email);
+      let {email} = req.params;
       
-      res.json(result);
+      const result = await TicketsDAO.getTicket(email);
+
+      let tickets = result.map(e => {
+        let flightID = e.flight_id;
+        let ticket = e.tickets.map(t => {
+          return {
+            _id: t._id,
+            flight_id: flightID,
+            type: t.type,
+            fare: t.fare
+          }
+        })
+        return ticket;
+      })
+
+      res.json(tickets.flat());
+      
     }catch(e){
       res.status(500).json(e);
     }

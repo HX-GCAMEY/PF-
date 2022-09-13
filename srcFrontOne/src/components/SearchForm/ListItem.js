@@ -44,7 +44,7 @@ const ListItem = ({ item, onCloseModal, fav, setFav }) => {
 
   const { _id, departure, arrival, defaultFare, totalSeats, duration, number } = item;
   return (
-    <LinearGradient colors={['#FFFFFF00', '#FFFFFF00']} style={styles.gradientShadow} >
+    <LinearGradient colors={['#8831d41d', '#07c5c505']} style={styles.gradientShadow} >
       <Pressable
         key={item._id}
         style={styles.rendInput}
