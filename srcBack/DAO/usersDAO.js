@@ -36,6 +36,24 @@ export default class UsersDAO {
     }
   }
 
+  static async addAdmin(userInfo) {
+    try {
+      await users.insertOne({
+        email: userInfo.email,
+        password: userInfo.password,
+        isAdmin: true,
+        isBanned: false,
+      });
+      return {succes: true};
+    } catch (error) {
+      if (String(error).startsWith("MongoError: E11000 duplicate key error")) {
+        return {error: "A user with the given email already exists."};
+      }
+      console.error(`Error occurred while adding new user, ${error}.`);
+      return {error: error};
+    }
+  }
+
   static async loginUser(email, jwt) {
     try {
       const admin = await this.checkAdmin(email);
@@ -136,21 +154,17 @@ export default class UsersDAO {
   }
 
   static async getUsers() {
-
     let queryParams = {};
     let {query = {}, project = {}} = queryParams;
     let cursor;
     try {
-      cursor = await users
-        .find(query)
-        .project(project);
+      cursor = await users.find(query).project(project);
     } catch (error) {
       console.error(`Unable to issue find command, ${error}`);
       return [];
     }
 
-    const displayCursor = cursor
-      .limit(0);
+    const displayCursor = cursor.limit(0);
 
     try {
       const usersList = await displayCursor.toArray();
@@ -161,6 +175,5 @@ export default class UsersDAO {
       );
       return [];
     }
-
   }
 }

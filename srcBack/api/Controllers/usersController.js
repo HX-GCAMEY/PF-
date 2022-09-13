@@ -322,18 +322,61 @@ export default class UserController {
     }
   }
 
-
-  static async getAllUsers(req, res){
-    try{
+  static async getAllUsers(req, res) {
+    try {
       let allUsers = await UsersDAO.getUsers();
-      if(!allUsers){
+      if (!allUsers) {
         res.status(404).json({error: "There are not users"});
         return;
       }
       res.status(200).json(allUsers);
       return;
-    } catch(error){
+    } catch (error) {
       res.status(500).json({error: error});
+    }
+  }
+
+  static async registerAdmin(req, res) {
+    try {
+      const userFromBody = req.body;
+
+      let errors = {};
+      if (userFromBody && userFromBody.password.length < 8) {
+        errors.password = "Your password must be at least 8 characters.";
+      }
+
+      if (await UsersDAO.getUser(userFromBody.email)) {
+        errors.email = `${userFromBody.email} already exists`;
+      }
+
+      if (Object.keys(errors).length > 0) {
+        res.status(400).send(errors);
+        return;
+      }
+
+      const userInfo = {
+        ...userFromBody,
+        password: await hashPassword(userFromBody.password),
+      };
+
+      const insertResult = await UsersDAO.addUser(userInfo);
+      if (!insertResult.success) {
+        errors.email = insertResult.error;
+      }
+
+      const userFromDB = await UsersDAO.getUser(userFromBody.email);
+      if (!userFromDB) {
+        errors.general = "Internal error, please try again later";
+      }
+
+      const user = new User(userFromDB);
+
+      res.json({
+        auth_token: user.encoded(),
+        info: user.toJson(),
+      });
+    } catch (e) {
+      res.status(500).json({error: e});
     }
   }
 }
