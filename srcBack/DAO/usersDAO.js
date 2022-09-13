@@ -57,6 +57,11 @@ export default class UsersDAO {
   static async loginUser(email, jwt) {
     try {
       const admin = await this.checkAdmin(email);
+      const banned = await this.checkBanned(email);
+
+      if (banned) {
+        return {error: "Your account is banned"};
+      }
 
       await session.updateOne(
         {user_id: email},
@@ -129,6 +134,15 @@ export default class UsersDAO {
     }
   }
 
+  static async checkBanned(email) {
+    try {
+      const {isBanned} = await this.getUser(email);
+      return isBanned || false;
+    } catch (e) {
+      return {error: e};
+    }
+  }
+
   static async banUser(email) {
     try {
       const banResponse = await users.updateOne(
@@ -141,9 +155,24 @@ export default class UsersDAO {
     }
   }
 
+  static async userRestore(email) {
+    try {
+      const restoreResponse = await users.updateOne(
+        {email},
+        {$set: {isBanned: false}}
+      );
+      if (restoreResponse) return {success: true};
+    } catch (error) {
+      return {error: error};
+    }
+  }
+
   static async makeAdmin(email) {
     try {
-      const updateResponse = users.updateOne({email}, {$set: {isAdmin: true}});
+      const updateResponse = users.updateOne(
+        {email},
+        {$set: {isAdmin: true, isBanned: false}}
+      );
       if (updateResponse.matchedCount === 0) {
         return {error: "No user found with that email"};
       }

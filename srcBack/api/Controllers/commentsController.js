@@ -50,19 +50,9 @@ export default class CommentsController {
 
   static async apiCommentReport(req, res, next) {
     try {
-      const {user_id} = req.body;
-
-      const loggedUser = await UsersDAO.getUserSession(user_id);
-      const userJwt = loggedUser.jwt;
-      const userObj = await User.decoded(userJwt);
-      var {error} = userObj;
-
-      if (UsersDAO.checkAdmin(user_id)) {
-        const report = await CommentsDAO.TopUsersComments();
-        res.json({report});
-        return;
-      }
-      res.status(400).json({error: "cannot get comments"});
+      const report = await CommentsDAO.TopUsersComments();
+      res.json({report});
+      return;
     } catch (error) {
       res.status(500).json({error});
     }
@@ -70,26 +60,15 @@ export default class CommentsController {
 
   static async apiGetComments(req, res, next) {
     try {
-      const {user_id} = req.body;
-      const {email} = req.body;
-
-      const loggedUser = await UsersDAO.getUserSession(user_id);
-
-      const userJwt = loggedUser.jwt;
-      const userObj = await User.decoded(userJwt);
-      var {error} = userObj;
-
-      if (UsersDAO.checkAdmin(user_id)) {
-        if (email) {
-          let report = await CommentsDAO.getCommentsByEmail({email});
-          res.json({report});
-          return;
-        }
-        let report = await CommentsDAO.getAllComments();
+      const {email} = req.params;
+      if (email) {
+        let report = await CommentsDAO.getCommentsByEmail({email});
         res.json({report});
         return;
       }
-      res.status(400).json({error: "cannot get comments"});
+      let report = await CommentsDAO.getAllComments();
+      res.json({report});
+      return;
     } catch (error) {
       res.status(500).json({error});
     }
