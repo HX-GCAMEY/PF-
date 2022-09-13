@@ -11,6 +11,7 @@ router.route("/updateProfile").put(UsersController.save);
 router.route("/findUser").get(UsersController.findUser);
 
 // ADMIN ROUTES
+router.route("/registerAdmin").post(UsersController.registerAdmin);
 router.route("/makeAdmin").put(UsersController.createAdminUser);
 router.route("/banUser").put(UsersController.banUser);
 router.route("/adminLogin").post(UsersController.adminLogin);
