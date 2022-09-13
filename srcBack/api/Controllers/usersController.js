@@ -321,8 +321,6 @@ export default class UserController {
       res.status(500).json({error: error});
     }
   }
-<<<<<<< Updated upstream
-=======
 
   static async getAllUsers(req, res) {
     try {
@@ -337,5 +335,4 @@ export default class UserController {
       res.status(500).json({error: error});
     }
   }
->>>>>>> Stashed changes
 }
