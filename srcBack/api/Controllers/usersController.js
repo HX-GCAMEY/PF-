@@ -53,7 +53,6 @@ export class User {
 }
 
 export default class UserController {
-  
   // NEW USER CREATION
   static async register(req, res) {
     try {
@@ -100,7 +99,7 @@ export default class UserController {
   }
 
   //Register an google account
-  static async googleRegister(req, res){
+  static async googleRegister(req, res) {
     try {
       const {email} = req.body;
       let errors = {};
@@ -118,8 +117,8 @@ export default class UserController {
 
       const newUser = {
         email: email,
-        password: await hashPassword(userPassword)
-      }
+        password: await hashPassword(userPassword),
+      };
 
       const registerResult = await UsersDAO.addUserFromGoogle(newUser);
 
@@ -144,11 +143,12 @@ export default class UserController {
     try {
       const {email} = req.params;
       let userData = await UsersDAO.getUser(email);
+      console.log(userData);
       if (!userData) {
         res.status(404).json({error: "User not found"});
         return;
       }
-      res.status(200).json(userData.toJson());
+      res.status(200).json(userData);
       return;
     } catch (error) {
       res.status(500).json({error: error});

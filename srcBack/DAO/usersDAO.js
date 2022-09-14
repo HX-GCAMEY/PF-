@@ -16,6 +16,7 @@ export default class UsersDAO {
 
   static async getUser(email) {
     let asd = await users.findOne({email: email});
+
     return asd;
   }
 
@@ -43,7 +44,7 @@ export default class UsersDAO {
         email: userInfo.email,
         password: userInfo.password,
         isAdmin: false,
-        isBanned: false
+        isBanned: false,
       });
       return {succes: true};
     } catch (error) {
