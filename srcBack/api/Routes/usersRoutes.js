@@ -8,7 +8,7 @@ router.route("/login").post(UsersController.login);
 router.route("/logout").post(UsersController.logout);
 router.route("/delete").post(UsersController.delete);
 router.route("/updateProfile").put(UsersController.save);
-router.route("/findUser").get(UsersController.findUser);
+router.route("/findUser/:email").get(UsersController.findUser);
 
 // ADMIN ROUTES
 router.route("/registerAdmin").post(UsersController.registerAdmin);
