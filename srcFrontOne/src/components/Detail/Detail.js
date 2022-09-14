@@ -59,10 +59,27 @@ const Detail = () => {
     const next = () => {
         //renderiza un ticket por pasajero
         for (let i = 0; i < passengers; i++){
-            console.log(passengers)
             dispatch(addToCart(flyId))
         } 
-        navigation.navigate('ShoppingCart', {flyId: flyId, passengers: passengers})
+        navigation.navigate('ShoppingCart', {
+            flyId: flyId,
+            departCity: departCity,
+            departAirport: departAirport,
+            departDate: departDate,
+            departTime: departTime,
+            departAirportCode: departAirportCode,
+            arrivalCity: arrivalCity,
+            arrivalAirport: arrivalAirport,
+            arrivalDate: arrivalDate,
+            arrivalTime: arrivalTime,
+            arrivalAirportCode: arrivalAirportCode,
+            backgroundImage: backgroundImage,
+            flyNumber: flyNumber,
+            totalSeats: totalSeats,
+            duration: duration,
+            defaultFare: defaultFare,
+            passengers: passengers
+        })
         //me quita el modal
         setModalVisible(!modalVisible);
         //setea el modal en 1
