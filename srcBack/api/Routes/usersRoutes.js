@@ -10,6 +10,8 @@ router.route("/logout").post(UsersController.logout);
 router.route("/delete").post(UsersController.delete);
 router.route("/updateProfile").put(UsersController.save);
 router.route("/findUser/:email").get(UsersController.findUser);
+router.route("/addProfilePic").post(UsersController.addImage);
+router.route("/getProfilePic/:email").get(UsersController.getImage);
 
 // ADMIN ROUTES
 router.route("/registerAdmin").post(UsersController.registerAdmin);
