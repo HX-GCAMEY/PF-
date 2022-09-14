@@ -2,7 +2,6 @@ import UsersDAO from "../../DAO/usersDAO.js";
 import FlightsDAO from "../../DAO/flightsDAO.js";
 import {User} from "./usersController.js";
 import CommentsDAO from "../../DAO/commentsDAO.js";
-import {ObjectId} from "bson";
 
 export default class CommentsController {
   static async apiPostComment(req, res, next) {

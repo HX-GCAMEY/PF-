@@ -89,7 +89,6 @@ export default class CommentsDAO {
   static async getAllComments() {
     try {
       const getAllComments = await comments.find().toArray();
-      console.log(getAllComments);
       return getAllComments;
     } catch (error) {
       console.error(`Error occurred while retrieving comments, ${error}`);

@@ -1,6 +1,17 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import UsersDAO from "../../DAO/usersDAO.js";
+import cloudinary from "cloudinary";
+import fs from "fs-extra";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 // USER PASSWORD ENCRYPT
 const hashPassword = async (password) => await bcrypt.hash(password, 10);
@@ -159,7 +170,7 @@ export default class UserController {
         return;
       }
       const logoutResult = await UsersDAO.logoutUser(userObj.email);
-      var {error} = logoutResult;
+
       if (error) {
         res.status(500).json({error});
         return;
@@ -196,6 +207,32 @@ export default class UserController {
       res.json(deleteResult);
     } catch (e) {
       res.status(500).json(e);
+    }
+  }
+
+  // PROFILE PIC
+
+  static async addImage(req, res) {
+    try {
+      const {email} = req.body;
+      const result = await cloudinary.v2.uploader.upload(req.file.path);
+      const image = {imageURL: result.url, image_id: result.public_id};
+      await UsersDAO.profilePic(email, image);
+      await fs.unlink(req.file.path);
+      res.status(200).send("Image Uploaded");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  static async getImage(req, res) {
+    try {
+      const {email} = req.params;
+      const user = await UsersDAO.getUser(email);
+      const profilePic = user.image.imageURL;
+      res.status(200).json(profilePic);
+    } catch (error) {
+      res.status(500).json(error);
     }
   }
 

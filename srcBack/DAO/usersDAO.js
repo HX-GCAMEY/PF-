@@ -74,6 +74,20 @@ export default class UsersDAO {
       return {error: e};
     }
   }
+
+  static async profilePic(email, image) {
+    try {
+      const addPicResponse = await users.updateOne({email}, {$set: {image}});
+      if (addPicResponse.matchedCount === 0) {
+        return {error: "No user found with that email"};
+      }
+      return addPicResponse;
+    } catch (error) {
+      console.error(`An error occurred while uploading, ${error}`);
+      return {error: error};
+    }
+  }
+
   static async updateProfile(email, profile) {
     try {
       profile = profile || {};
