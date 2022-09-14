@@ -15,6 +15,7 @@ router.route("/registerAdmin").post(UsersController.registerAdmin);
 router.route("/makeAdmin").put(UsersController.createAdminUser);
 router.route("/demoteAdmin").put(UsersController.demoteAdmin);
 router.route("/banUser").put(UsersController.banUser);
+router.route("/restore").put(UsersController.userRestore);
 router.route("/adminLogin").post(UsersController.adminLogin);
 router.route("/all").get(UsersController.getAllUsers);
 export default router;
