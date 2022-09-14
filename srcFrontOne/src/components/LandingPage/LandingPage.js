@@ -13,8 +13,8 @@ const LandingPage = () => {
 
     return(
         <Pressable onPress={() => navigation.navigate('HomePage')}>
-            <LinearGradient colors={['#0188A2', '#30CECE']} style={{height: heightMax, width: widthMax}}>
-                <Image source={planeImage} style={{resizeMode: "contain", marginTop: heightMax / 3, marginLeft: widthMax / 18}}/> 
+            <LinearGradient colors={['#0188A2', '#30CECE']} style={{height: 800, width: widthMax}}>
+                <Image source={planeImage} style={{resizeMode: "contain", marginTop: heightMax / 3, marginLeft: widthMax / 50}}/> 
             </LinearGradient>
         </Pressable>
     )

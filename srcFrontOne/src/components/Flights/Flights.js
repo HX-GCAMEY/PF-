@@ -12,7 +12,7 @@ const Flights = () => {
 
     let dispatch = useDispatch();
     let allFlights = useSelector((state) => state.flightsReducers.flights);
-    console.log(allFlights)
+    //console.log(allFlights)
 
     useEffect(() => {
         dispatch(getFlights())
