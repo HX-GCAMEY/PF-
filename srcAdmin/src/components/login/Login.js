@@ -5,7 +5,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 import Home from "../home/Home"
-import { getTask } from "../../features/orders"
+import { getReviews, getTask } from "../../features/orders"
 import videoIntro from "../imgs/video.mp4"
 import logo from "../imgs/logo.png"
 //////////////////////////////////////
@@ -15,11 +15,18 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth"
+import Swal from "sweetalert2"
+import Google from "react-google-button"
+import { ThemeContext } from "@emotion/react"
+import { AiFillEye } from "react-icons/ai"
 
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const users = useSelector(state => state.tasks.users)
+  const reviews = useSelector(state => state.tasks.reviews)
+  const admins = users.filter(e => e.isAdmin === true)
+  const [ojo, setOjo] = useState("password")
   const [acces, setAcces] = useState(false)
   const [data, setData] = useState({
     email: "",
@@ -28,30 +35,57 @@ const Login = () => {
 
   useEffect(() => {
     dispatch(getTask())
+    dispatch(getReviews())
   }, [dispatch])
-  console.log("soy flights", users)
-
+  console.log("soy reviews", reviews)
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
 
-  const submit = () => {
+  const submit = async () => {
     if (
       !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
         data.email
       )
     ) {
-      return alert("datos de email invalidos")
+      return Swal.fire({
+        icon: "error",
+        title: "error",
+        text: `invalid email data`,
+        confirmButtonText: "yes",
+        confirmButtonColor: "#1890ff",
+      })
     }
-    setAcces(true)
+    const response = await axios
+      .post("http://localhost:5000/api/users/adminLogin", data)
+      .then(res =>
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `welcome ${res.data.info.email} `,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+      )
+      .then(res2 => setAcces(true))
+      .catch(error =>
+        Swal.fire({
+          icon: "error",
+          title: "error",
+          text: `${error.response.data.error}`,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#1890ff",
+        })
+      )
+
+    console.log("soy response de axios", response)
   }
   const responseGoogle = () => {
     console.log("hola")
   }
   /////////////////////////////////////////////////////////////
 
-
-  /*  const [current, setCurrent] = useState(null)
+  const [current, setCurrent] = useState(null)
 
   const [state, setState] = useState(0)
 
@@ -59,39 +93,41 @@ const Login = () => {
     const googleProvider = new GoogleAuthProvider()
     await signInWithGoogle(googleProvider)
   }
+
   const signInWithGoogle = async googleProvider => {
     try {
       const res = await signInWithPopup(auth, googleProvider)
-      console.log("soy res", res)
+      const exist = admins.find(e => e.email === res.user.email)
+      if (exist) {
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `welcome ${res.user.displayName} `,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+        setTimeout(() => {
+          setAcces(true)
+        }, 1500)
+      } else {
+        return Swal.fire({
+          icon: "error",
+          title: "Warning",
+          text: `${res.user.displayName} you are not an administrator`,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#1890ff",
+        })
+      }
     } catch (error) {
       console.log(error)
     }
   }
 
-  useEffect(() => {
-    onAuthStateChanged(auth, async user => {
-      if (user) {
-        const isRegistered = await userExists(user.uid)
-        if (isRegistered) {
-          setCurrent(2)
-          //  navigate("/dashboard") <--- ponerlo en el array para el warning
-        } else {
-          setCurrent(3)
-        }
-
-        console.log("soy user del inicio", user)
-      } else {
-        setCurrent(4)
-        console.log("no hay naide autenticado....")
-      }
-    })
-  }, [])
-
-  if (state === 3) {
-    return <div>estas autenticado pero no registrado</div>
+  const ojoChange = () => {
+    if (ojo === "password") setOjo("text")
+    else setOjo("password")
   }
-  console.log("soy data", data)
- */
+
   return (
     <>
       {!acces ? (
@@ -100,28 +136,10 @@ const Login = () => {
           <div className="login">
             <img src={logo} alt="logo" />
             <form action="" className="loginInicio">
-              <button
-                //onClick={handleClick}
-                type="button"
-                class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-small rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
-              >
-                <svg
-                  class="mr-2 -ml-1 w-4 h-4"
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fab"
-                  data-icon="google"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 488 512"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
-                  ></path>
-                </svg>
-                Sign in with Google
-              </button>
+              <div className="imagenGoogle">
+                <Google onClick={handleClick} />
+              </div>
+
               <div className="or">Or</div>
               <div class="relative">
                 <input
@@ -130,7 +148,7 @@ const Login = () => {
                   onChange={handleChange}
                   type="text"
                   id="floating_outlined"
-                  class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                 />
                 <label
@@ -145,9 +163,9 @@ const Login = () => {
                   value={data.password}
                   name="password"
                   onChange={handleChange}
-                  type="text"
+                  type={ojo}
                   id="floating_outlined1"
-                  class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                 />
                 <label
@@ -157,6 +175,9 @@ const Login = () => {
                   Password:
                 </label>
               </div>
+              <span className="ojoPadre">
+                <AiFillEye className="ojo" onClick={ojoChange} />
+              </span>
             </form>
             <button className="submitLogin" onClick={submit}>
               Login

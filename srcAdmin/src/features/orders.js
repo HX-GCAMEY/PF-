@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
 export const getTask = createAsyncThunk("tasks/getTasks", async () => {
-  const responde = await axios.get("https://pf-seraerror.herokuapp.com/user")
+  const responde = await axios.get("http://localhost:5000/api/users/all")
   return responde.data
 })
 
@@ -25,3 +25,12 @@ export const getFlightsAvailables = createAsyncThunk(
     return response3
   }
 )
+
+export const getReviews = createAsyncThunk("tasks/getReviews", async () => {
+  const response = await axios.get(
+    "http://localhost:5000/api/comments/userComments/francoaresis@gmail.com"
+  )
+
+  console.log("soy response de getReviews", response.data)
+  return response.data.report
+})

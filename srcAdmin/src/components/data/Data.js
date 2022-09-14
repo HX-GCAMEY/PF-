@@ -59,7 +59,7 @@ export const cardsData = [
       },
     ],
   },
-  {
+  /* {
     title: "Revenue",
     color: {
       backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
@@ -91,7 +91,7 @@ export const cardsData = [
         data: [10, 25, 15, 30, 12, 15, 20],
       },
     ],
-  },
+  }, */
 ]
 
 // Recent Update Card Data

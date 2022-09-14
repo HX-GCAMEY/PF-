@@ -32,6 +32,8 @@
 }
 
 .Table2 {
+  width: 100%;
+  overflow-x: auto;
 }
 @media screen and (max-width: 1200px) {
   .Table2 {
@@ -50,6 +52,7 @@
     margin-left: auto;
     margin-right: auto;
     top: -60px;
+    overflow-x: unset;
   }
   .centrarfilter {
     margin-left: 40px;

@@ -5,6 +5,7 @@ import "react-circular-progressbar/dist/styles.css"
 import { motion, AnimateSharedLayout } from "framer-motion"
 import { UilTimes } from "@iconscout/react-unicons"
 import Chart from "react-apexcharts"
+import avionMet from "../imgs/avionMet.png"
 
 const Card = props => {
   const [expanded, setExpanded] = useState(false)
@@ -38,6 +39,9 @@ function CompactCard({ param, setExpanded }) {
           text={`${param.barValue}%`}
         />
         <span>{param.title}</span>
+      </div>
+      <div className="avionMet">
+        <img src={avionMet} alt="met" />
       </div>
       <div className="detail">
         <Png />

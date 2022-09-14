@@ -1,12 +1,21 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Chart from "react-apexcharts"
+import { useDispatch, useSelector } from "react-redux"
+import { getReviews } from "../../features/orders"
 
 const CustomerReview = () => {
+  const dispatch = useDispatch()
+  const reviews = useSelector(state => state.tasks.reviews)
+  const rate = reviews.map(e => e.rate)
+
+  useEffect(() => {
+    dispatch(getReviews())
+  }, [])
   const data = {
     series: [
       {
         name: "Review",
-        data: [10, 50, 30, 90, 40, 120, 100],
+        data: rate,
       },
     ],
     options: {
@@ -36,15 +45,7 @@ const CustomerReview = () => {
       },
       xaxis: {
         type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z",
-        ],
+        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z"],
       },
       yaxis: {
         show: false,
