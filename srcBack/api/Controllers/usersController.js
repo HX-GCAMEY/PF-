@@ -349,7 +349,7 @@ export default class UserController {
 
   static async userRestore(req, res) {
     try {
-      const {email} = req.params;
+      const {email} = req.body;
       const userFromDB = await UsersDAO.getUser(email);
       if (!userFromDB) {
         res.status(404).json({error: "User not found"});
