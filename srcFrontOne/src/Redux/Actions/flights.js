@@ -10,9 +10,12 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     CLEAR_CART,
+    SET_TICKET,
+    POST_TICKET,
     CLEAR_GET_FLIGHTS_BY_ROUTE,
     GET_CITIES,
-    SORT_PRICE
+    SORT_PRICE,
+    CLEAR_TICKETS,
 } from "../Constants/flights";
 
 
@@ -82,6 +85,26 @@ export const addToCart = (id) => {
     return {
         type: ADD_TO_CART,
         payload: id
+    }
+}
+
+export const setTicket = (ticket) => {
+    return {
+        type: SET_TICKET,
+        payload: ticket
+    }
+}
+
+export const clearTickets = () => {
+    return {
+        type: CLEAR_TICKETS
+    }
+}
+
+export const postTicket = (ticket) => {
+    return {
+        type: POST_TICKET,
+        payload: ticket
     }
 }
 

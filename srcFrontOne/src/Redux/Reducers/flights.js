@@ -9,18 +9,21 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     CLEAR_CART,
+    SET_TICKET,
+    CLEAR_TICKETS,
+    POST_TICKET,
 } from "../Constants/flights";
 
 const initialState = {
     flights: [],
     cart: [], //estado global para el carrito
+    tickets: [],
     backup: [],
     flightsByRoute: {},
     getCities: [],
     isFetching: false,  //para controlar si se esta realizando el fetch a la api
     error: false //para cuando no se esta realizando el fetch a la api
 }
-
 
 export default flightsReducers = (state = initialState, action) => {
     switch (action.type) {
@@ -64,6 +67,21 @@ export default flightsReducers = (state = initialState, action) => {
             return {
                 ...state,
                 cart: [...state.cart, bookedFlight]
+            }
+        case SET_TICKET:
+            console.log('este es el reducer', state.tickets)
+            return {
+                ...state,
+                tickets: [...state.tickets, action.payload]
+            }
+        case CLEAR_TICKETS:
+            return {
+                ...state,
+                tickets: [],
+            }
+        case POST_TICKET:
+            return {
+
             }
         case REMOVE_FROM_CART:
             return {
