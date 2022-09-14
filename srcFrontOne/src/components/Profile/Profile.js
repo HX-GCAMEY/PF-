@@ -71,7 +71,7 @@ const Profile = ({navigation}) => {
             aspect: [4, 3],
             quality: 1,
         })
-        console.log(res)
+        //console.log(res)
 
 
         if(!res.cancelled){

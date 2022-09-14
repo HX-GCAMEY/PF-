@@ -1,6 +1,6 @@
 import React from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, Text, Button, Pressable } from "react-native";
+import { View, Text, Button, Pressable, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -18,7 +18,7 @@ const ShoppingCart = () => {
     }, [dispatch])
 
     const route = useRoute();
-    const {flyId} = route.params;
+    const {flyId, passengers} = route.params;
 
     const del = (id) => {
         dispatch(removeFromCart(id))
@@ -29,7 +29,7 @@ const ShoppingCart = () => {
     }
 
     return (
-        <View>
+        <ScrollView>
             <Text>Carrito de Compras</Text>
             {
                 flightCart && flightCart.map((item, index) => {
@@ -40,7 +40,7 @@ const ShoppingCart = () => {
                             <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Buy Now</Text>
                     </LinearGradient>
                 </Pressable>
-        </View>
+        </ScrollView>
     )
 }
 

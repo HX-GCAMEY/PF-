@@ -128,7 +128,7 @@ export default flightsReducers = (state = initialState, action) => {
                 ? sort : sortHr
             final = flag === 1 ? { 'matchedFlights': data } :
                 flag === 2 ? { 'sameDateFlights': data } : data
-            console.log('hola', final)
+            //console.log('hola', final)
             return {
                 ...state,
                 flightsByRoute: final
