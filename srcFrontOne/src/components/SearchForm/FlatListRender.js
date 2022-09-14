@@ -34,7 +34,7 @@ const FlatListRender = ({ flightsByRoute1, flightSuggestions, flightsByRoute, da
       <LinearGradient colors={['#8831d41d', '#07c5c505']} style={{ right: 10, width: 700, top: 16, marginBottom: 80 }}>
         <Image source={flyMini} style={{ alignSelf: 'center', marginTop: 10 }} />
         <Text style={styles.suggestionText} >{`no available flights for ${date.toISOString().slice(0, 10)}`}</Text>
-        <Text style={styles.suggestionTextTwo} >{`nearest flights from ${flightSuggestions[0].departure.date}`}</Text>
+        <Text style={styles.suggestionTextTwo} >{`nearest flights from ${flightSuggestions && flightSuggestions[0]?.departure.date}`}</Text>
         <FlatList
           data={flightSuggestions}
           renderItem={({ item }) => <ListItem item={item} onCloseModal={onCloseModal} />}
