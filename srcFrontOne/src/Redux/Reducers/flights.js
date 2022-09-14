@@ -15,7 +15,7 @@ const initialState = {
     flights: [],
     cart: [], //estado global para el carrito
     backup: [],
-    flightsByRoute: [],
+    flightsByRoute: {},
     getCities: [],
     isFetching: false,  //para controlar si se esta realizando el fetch a la api
     error: false //para cuando no se esta realizando el fetch a la api
@@ -75,6 +75,16 @@ export default flightsReducers = (state = initialState, action) => {
                 cart: [],
             }
         case SORT_PRICE:
+            let flag = 0
+            let sortHr = []
+            let data = []
+
+            state.flightsByRoute.matchedFlights && state.flightsByRoute.matchedFlights.length > 0
+                ? (data = state.flightsByRoute.matchedFlights, flag = 1)
+                : state.flightsByRoute.sameDateFlights
+                    ? (data = state.flightsByRoute.sameDateFlights, flag = 2)
+                    : null;
+
             function compareHour(a, b) {
                 let time1 = parseFloat(a.departure.time.replace(':', '.').replace(/[^\d.-]/g, ''))
                 let time2 = parseFloat(b.departure.time.replace(':', '.').replace(/[^\d.-]/g, ''))
@@ -89,10 +99,10 @@ export default flightsReducers = (state = initialState, action) => {
                     return 0
                 }
             }
-            let sortHr = []
+            // console.log('aaa\n\n\n', state.flightsByRoute.matchedFlights.length)
             let sort =
                 action.payload === 'low'
-                    ? state.flightsByRoute?.sort((a, b) => {
+                    ? data && data?.sort((a, b) => {
                         if (a.defaultFare > b.defaultFare) {
                             return 1
                         }
@@ -102,7 +112,7 @@ export default flightsReducers = (state = initialState, action) => {
                         return 0
                     })
                     : action.payload === 'high'
-                        ? state.flightsByRoute?.sort((a, b) => {
+                        ? data && data?.sort((a, b) => {
                             if (a.defaultFare > b.defaultFare) {
                                 return -1
                             }
@@ -112,15 +122,19 @@ export default flightsReducers = (state = initialState, action) => {
                             return 0
                         })
                         : action.payload === 'earlier' || action.payload === 'later'
-                            ? sortHr = state.flightsByRoute.sort(compareHour)
-                            : state.flightsByRoute ? state.flightsByRoute : null
+                            ? sortHr = data?.sort(compareHour)
+                            : data ? data : null
             let final = action.payload === 'high' || action.payload === 'low'
                 ? sort : sortHr
+            final = flag === 1 ? { 'matchedFlights': data } :
+                flag === 2 ? { 'sameDateFlights': data } : data
+            console.log('hola', final)
             return {
                 ...state,
                 flightsByRoute: final
             }
-        default:
+        default: {
             return state
+        }
     }
 }

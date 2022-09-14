@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   closeModalIcon: {
     right: 25,
-    top: 17
+    top: 15
   },
   cardModal: {
     width: 360,
@@ -327,7 +327,15 @@ const styles = StyleSheet.create({
   fadingContainer: {
     padding: 20,
     backgroundColor: 'transparent'
-  }
+  },
+  suggestionText: {
+    alignSelf: 'center',
+    fontSize: 20
+  },
+  suggestionTextTwo: {
+    alignSelf: 'center',
+    fontSize: 15
+  },
 })
 
 export default styles;

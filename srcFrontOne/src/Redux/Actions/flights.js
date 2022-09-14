@@ -51,7 +51,7 @@ export function clearGetFlightsByRoute() {
     return async function (dispatch) {
         dispatch({
             type: CLEAR_GET_FLIGHTS_BY_ROUTE,
-            payload: []
+            payload: null
         })
     }
 }

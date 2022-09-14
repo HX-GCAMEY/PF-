@@ -11,13 +11,10 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { Searchbar } from 'react-native-paper'
 import styles from "./styles";
 import FlightCard from "../FlightCard/FlightCard";
-import ListItem from './ListItem';
 // import logo from './img/logos.png'
 import miniLogo from '../HomePage/img/logoMini.png'
-// import flyWithUsLogo from './img/flyWithUs.png'
-import Loading from './Loading'
 import { Dimensions } from 'react-native';
-
+import FlatListRender from './FlatListRender'
 let { width } = Dimensions.get('window');
 
 const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByRoute }) => {
@@ -26,7 +23,9 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
 
   // const flights = useSelector((state) => state.flightsReducers.flights.flights);
   const cities = useSelector((state) => state.flightsReducers.getCities);
-  const flightsByRoute = useSelector((state) => state.flightsReducers.flightsByRoute)
+  const flightsByRoute1 = useSelector((state) => state.flightsReducers.flightsByRoute)
+  let flightsByRoute = flightsByRoute1?.matchedFlights
+  let flightSuggestions = flightsByRoute1?.sameDateFlights
 
   const [depart, setDepart] = useState('')
   const [arrival, setArrival] = useState('')
@@ -190,18 +189,12 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
               visible={view}
             >
 
-            {/*{ flights.flights && flights.flights.map(f => {
-                return (
-                <FlightCard key={f._id} departure={f.departure.airportCode} departureTime={f.departure.time} destinationPlace={f.arrival.airportCode} destinationTime={f.arrival.time} fare={f.defaultFare}/>
-                )
-            })}*/}  
-            
               <LinearGradient colors={['#07C5C5', '#0184A0']} style={{ flex: 1 }} >
                 <View style={{ flex: 1 }}>
                   <View style={{ height: '90%', width: '100%' }}>
                     <View
                       style={{
-                        height: 45,
+                        height: 52,
                         width: '100%',
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -233,19 +226,15 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                         </TouchableOpacity>
                       </View>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
-                      {flightsByRoute[0] ?
-                        <View style={{ right: 10, width: 700, top: 16 }} >
-                          <FlatList
-                            data={flightsByRoute}
-                            renderItem={({ item }) => <ListItem item={item} onCloseModal={onCloseModal} setFav={setFav} fav={fav} flightsByRoute={flightsByRoute} />}
-                            keyExtractor={(item) => item._id}
-                          />
-                          {/* <Image source={flyWithUsLogo} style={{ position: 'absolute', alignSelf: 'center', top: -14 }} /> */}
-                        </View>
-                        :
-                        <Loading />
-                      }
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 0 }}>
+                      <FlatListRender
+                        flightsByRoute1={flightsByRoute1}
+                        flightSuggestions={flightSuggestions}
+                        flightsByRoute={flightsByRoute}
+                        date={date}
+                        onCloseModal={onCloseModal}
+                        setFav={setFav}
+                      />
                     </View>
                   </View>
                 </View>

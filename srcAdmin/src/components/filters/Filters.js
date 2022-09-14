@@ -82,9 +82,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
         <ImFilter />
       </Button>
       <Modal
-
         style={window.innerWidth <= 768 ? { top: 400 } : { top: 12, right: 45 }}
-
         width={250}
         title="Filters"
         open={modal}
@@ -107,7 +105,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
             style={{ width: 200 }}
           />
         </Space>
-        <Select
+        {/* <Select
           defaultValue="filter by"
           style={{ width: 120, left: 33, top: 5 }}
           onChange={handleChange}
@@ -136,7 +134,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
                 </Option>
               ))}
           </Select>
-        )}
+        )} */}
       </Modal>
     </div>
   )

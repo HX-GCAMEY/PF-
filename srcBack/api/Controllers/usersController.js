@@ -91,9 +91,8 @@ export default class UserController {
   // USER FIND IN DB
 
   static async findUser(req, res, next) {
-    console.log(req.body);
     try {
-      const {email} = req.body;
+      const {email} = req.params;
       let userData = await UsersDAO.getUser(email);
       if (!userData) {
         res.status(404).json({error: "User not found"});
@@ -175,14 +174,14 @@ export default class UserController {
 
   static async delete(req, res) {
     try {
-      let {password, email} = req.body;
+      let {email} = req.body;
 
       // if (!password || typeof password !== "string") {
       //   res.status(400).json({error: "Bad password format, expected string."});
       //   return;
       // }
 
-      const user = new User(await UsersDAO.getUser(email));
+      // const user = new User(await UsersDAO.getUser(email));
 
       // if (!(await user.comparePassword(password))) {
       //   res.status(401).json({error: "Make sure your password is correct."});
@@ -264,7 +263,7 @@ export default class UserController {
 
   static async createAdminUser(req, res) {
     try {
-      const {email, user} = req.body;
+      const {email} = req.body;
 
       // const authorized = await UsersDAO.getUserSession(user);
 
@@ -288,10 +287,36 @@ export default class UserController {
     }
   }
 
+  static async demoteAdmin(req, res) {
+    try {
+      const {email} = req.body;
+
+      // const authorized = await UsersDAO.getUserSession(user);
+
+      // console.log(authorized.isAdmin);
+      // if (!authorized.isAdmin) {
+      //   res.status(400).json({error: "You require authorization"});
+      //   return;
+      // }
+
+      const adminCheck = await UsersDAO.checkAdmin(email);
+      if (!adminCheck) {
+        res.json({error: "Admin already demoted"});
+        return;
+      }
+      const demotedAdmin = await UsersDAO.demoteAdmin(email);
+      if (demotedAdmin) {
+        res.json(demotedAdmin);
+      }
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
+
   // BANNEAR USUARIO
   static async banUser(req, res) {
     try {
-      const {email, user} = req.body;
+      const {email} = req.body;
 
       // if (!user) {
       //   res.status(400).json({error: "Login from an Admin account"});
@@ -322,18 +347,79 @@ export default class UserController {
     }
   }
 
+  static async userRestore(req, res) {
+    try {
+      const {email} = req.body;
+      const userFromDB = await UsersDAO.getUser(email);
+      if (!userFromDB) {
+        res.status(404).json({error: "User not found"});
+        return;
+      }
+      const restore = await UsersDAO.userRestore(email);
+      if (restore) {
+        res.json(restore);
+        return;
+      }
+    } catch (error) {
+      res.status(500).json({error: error});
+    }
+  }
 
-  static async getAllUsers(req, res){
-    try{
+  static async getAllUsers(req, res) {
+    try {
       let allUsers = await UsersDAO.getUsers();
-      if(!allUsers){
+      if (!allUsers) {
         res.status(404).json({error: "There are not users"});
         return;
       }
       res.status(200).json(allUsers);
       return;
-    } catch(error){
+    } catch (error) {
       res.status(500).json({error: error});
+    }
+  }
+
+  static async registerAdmin(req, res) {
+    try {
+      const userFromBody = req.body;
+
+      let errors = {};
+      if (userFromBody && userFromBody.password.length < 8) {
+        errors.password = "Your password must be at least 8 characters.";
+      }
+
+      if (await UsersDAO.getUser(userFromBody.email)) {
+        errors.email = `${userFromBody.email} already exists`;
+      }
+
+      if (Object.keys(errors).length > 0) {
+        res.status(400).send(errors);
+        return;
+      }
+
+      const userInfo = {
+        ...userFromBody,
+        password: await hashPassword(userFromBody.password),
+      };
+
+      const insertResult = await UsersDAO.addAdmin(userInfo);
+      if (!insertResult.success) {
+        errors.email = insertResult.error;
+      }
+
+      const userFromDB = await UsersDAO.getUser(userFromBody.email);
+      if (!userFromDB) {
+        errors.general = "Internal error, please try again later";
+      }
+
+      const user = new User(userFromDB);
+
+      res.json({
+        auth_token: user.encoded(),
+        info: user.toJson(),
+      });
+    } catch (e) {
+      res.status(500).json({error: e});
     }
   }
 }
