@@ -4,6 +4,7 @@ import UsersController from "../Controllers/usersController.js";
 const router = new Router();
 
 router.route("/register").post(UsersController.register);
+router.route("/googleRegister").post(UsersController.googleRegister);
 router.route("/login").post(UsersController.login);
 router.route("/logout").post(UsersController.logout);
 router.route("/delete").post(UsersController.delete);

@@ -42,8 +42,8 @@ export class User {
 }
 
 export default class UserController {
+  
   // NEW USER CREATION
-
   static async register(req, res) {
     try {
       const userFromBody = req.body;
@@ -88,6 +88,45 @@ export default class UserController {
     }
   }
 
+  //Register an google account
+  static async googleRegister(req, res){
+    try {
+      const {email} = req.body;
+      let errors = {};
+
+      if (await UsersDAO.getUser(email)) {
+        errors.email = `${email} already exists`;
+      }
+
+      if (Object.keys(errors).length > 0) {
+        res.status(400).json(errors);
+        return;
+      }
+
+      const userPassword = email + ".fromGoogle";
+
+      const newUser = {
+        email: email,
+        password: await hashPassword(userPassword)
+      }
+
+      const registerResult = await UsersDAO.addUserFromGoogle(newUser);
+
+      if (!registerResult.success) {
+        errors.email = registerResult.error;
+      }
+
+      const userFromDB = await UsersDAO.getUser(email);
+      if (!userFromDB) {
+        errors.general = "Internal error, please try again later";
+      }
+
+      res.status(200).json(userFromDB);
+    } catch (e) {
+      res.status(500).json({error: e});
+    }
+  }
+
   // USER FIND IN DB
 
   static async findUser(req, res, next) {
@@ -98,7 +137,7 @@ export default class UserController {
         res.status(404).json({error: "User not found"});
         return;
       }
-      res.status(200).json(userData);
+      res.status(200).json(userData.toJson());
       return;
     } catch (error) {
       res.status(500).json({error: error});
