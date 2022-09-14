@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, SafeAreaView, FlatList, Pressable, Modal, TouchableOpacity, Alert, ScrollView, Image } from 'react-native';
 import { connect, useDispatch, useSelector } from 'react-redux'
-import { getFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction } from '../../Redux/Actions/flights'
+import { getFlights, getAllFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction } from '../../Redux/Actions/flights'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native';
 import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon } from 'native-base';
@@ -39,8 +39,9 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   useEffect(() => {
     function oneTime() {
       if (!cities || !flights) {
-        dispatch(getCities())
-        getFlights()
+        dispatch(getCities());
+        dispatch(getAllFlights());
+        getFlights();
       }
     }
     oneTime()

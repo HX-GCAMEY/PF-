@@ -1,5 +1,6 @@
 import {
     GET_FLIGHTS,
+    GET_ALL_FLIGHTS,
     GET_FLIGHTS_SUCCESS,
     GET_FLIGHTS_ERROR,
     GET_FLIGHTS_BY_ROUTE,
@@ -16,6 +17,7 @@ import {
 
 const initialState = {
     flights: [],
+    allFlights: [],
     cart: [], //estado global para el carrito
     tickets: [],
     backup: [],
@@ -33,6 +35,11 @@ export default flightsReducers = (state = initialState, action) => {
                 flights: action.payload,
                 backup: action.payload,
                 isFetching: true
+            }
+        case GET_ALL_FLIGHTS:
+            return{
+                ...state,
+                allFlights: action.payload
             }
         case GET_FLIGHTS_BY_ROUTE:
             return {
@@ -62,7 +69,7 @@ export default flightsReducers = (state = initialState, action) => {
                 error: true
             }
         case ADD_TO_CART:
-            let info = state.flights
+            let info = state.allFlights
             let bookedFlight = info.find(f => f._id === action.payload)
             return {
                 ...state,
