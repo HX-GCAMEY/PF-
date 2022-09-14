@@ -15,7 +15,8 @@ export default class UsersDAO {
   }
 
   static async getUser(email) {
-    return await users.findOne({email: email});
+    let asd = await users.findOne({email: email});
+    return asd;
   }
 
   static async addUser(userInfo) {
@@ -25,6 +26,24 @@ export default class UsersDAO {
         password: userInfo.password,
         isAdmin: false,
         isBanned: false,
+      });
+      return {succes: true};
+    } catch (error) {
+      if (String(error).startsWith("MongoError: E11000 duplicate key error")) {
+        return {error: "A user with the given email already exists."};
+      }
+      console.error(`Error occurred while adding new user, ${error}.`);
+      return {error: error};
+    }
+  }
+
+  static async addUserFromGoogle(userInfo) {
+    try {
+      await users.insertOne({
+        email: userInfo.email,
+        password: userInfo.password,
+        isAdmin: false,
+        isBanned: false
       });
       return {succes: true};
     } catch (error) {
