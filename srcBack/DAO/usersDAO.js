@@ -147,7 +147,7 @@ export default class UsersDAO {
     try {
       const banResponse = await users.updateOne(
         {email},
-        {$set: {isBanned: true}}
+        {$set: {isBanned: true, isAdmin: false}}
       );
       if (banResponse) return {success: true};
     } catch (error) {
