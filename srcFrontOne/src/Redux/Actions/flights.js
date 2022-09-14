@@ -4,6 +4,7 @@ const BACK_NET = "https://flymatepf.herokuapp.com"
 import axios from 'axios'
 import {
     GET_FLIGHTS,
+    GET_ALL_FLIGHTS,
     GET_FLIGHTS_ERROR,
     GET_FLIGHTS_SUCCESS,
     GET_FLIGHTS_BY_ROUTE,
@@ -24,6 +25,16 @@ export function getFlights() {
         const res = await axios.get(`${BACK_NET}/api/flights`);
         dispatch({
             type: GET_FLIGHTS,
+            payload: res.data
+        })
+    }
+}
+
+export function getAllFlights(){
+    return async function (dispatch){
+        const res = await axios.get(`${BACK_NET}/api/flights/all`);
+        dispatch({
+            type: GET_ALL_FLIGHTS,
             payload: res.data
         })
     }
