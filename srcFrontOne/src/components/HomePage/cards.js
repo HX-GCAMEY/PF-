@@ -40,8 +40,8 @@ const Cards = ({ item }) => {
     return (
         <Pressable onPress={() => nav()} style={styles.containerCards}>
             <View style={styles.imagenContainer}>
-                <Image source={card} style={{ width: 300, height: ANCHO_CONTENEDOR * 0.8, resizeMode: 'cover', borderRadius: 24, margin: 10, marginBottom: 60, marginTop: 2, opacity: 1 }} />
-                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 300, alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={card} style={[styles.cardContainerr, { height: 265 }]} />
+                <View style={styles.cardViewStyle}>
                     <Text style={styles.departCityCard}> ↗ {departure.city}</Text>
                     <Text style={styles.arrival}> ↷ {arrival.city}</Text>
                     <Text style={styles.textDep}>Departure</Text>
@@ -50,11 +50,12 @@ const Cards = ({ item }) => {
                     <Text style={styles.textArr}>Arrival</Text>
                     <Text style={styles.dateCardArrival}>{arrival.date}</Text>
                     <Text style={styles.timeCardArrival}>{arrival.time}</Text>
-                    <Text style={styles.duration}>• Duration: {duration}</Text>
                     <Text style={styles.price}>$ {defaultFare.slice(0, 3) + "." + defaultFare.slice(3, 100)}</Text>
+                    <Text style={styles.duration}>• Duration: {duration}</Text>
                 </View>
             </View>
         </Pressable>
+
     )
 }
 

@@ -1,22 +1,22 @@
 import React, { useEffect, useRef } from 'react'
 import { Text, View, Image, Animated, SafeAreaView, Button } from 'react-native'
-import logo from './img/logos.png'
-import gif from './img/loadingGif.gif'
+import logo from '../SearchForm/img/flyWithUs.png'
+import gif from '../SearchForm/img/loadingGif.gif'
 import styles from './styles'
 
-const Loading = ({ onCloseModal }) => {
+const LoadingHome = ({ onCloseModal }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
+
 
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
       delay: 0,
       toValue: 1,
-      duration: 1000,
+      duration: 500,
       useNativeDriver: true
     }).start();
   }
   fadeIn()
-
 
   return (
     <SafeAreaView >
@@ -25,7 +25,7 @@ const Loading = ({ onCloseModal }) => {
           style={[
             styles.fadingContainer,
             { opacity: fadeAnim }]}>
-          <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 19, top: 40, backgroundColor: 'transparent', marginBottom: 20 }} >
+          <Text style={styles.textLoadingHome} >
             {`Loading...`}
           </Text>
         </Animated.View>
@@ -33,9 +33,8 @@ const Loading = ({ onCloseModal }) => {
       <View style={styles.imgBorder} >
         <Image source={gif} style={styles.profilePicture} />
       </View>
-      <Image source={logo} style={{ alignSelf: 'center', top: 80 }} />
     </SafeAreaView>
   )
 }
 
-export default Loading
+export default LoadingHome

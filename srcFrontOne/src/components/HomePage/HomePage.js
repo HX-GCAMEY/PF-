@@ -10,13 +10,16 @@ import SearchForm from "../SearchForm/SearchForm";
 import { useSelector } from 'react-redux'
 import logoMini from './img/logoMini.png'
 import dataCardNews from "./dataCardNews";
+import LoadingHome from './LoadingHome';
+
+
 const HomePage = ({ navigation }) => {
 
     const flights = useSelector((state) => state.flightsReducers.flights.flights);
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height;
 
-    const ANCHO_CONTENEDOR = width * 0.7;
+    const ANCHO_CONTENEDOR = width * 0.9;
     const ESPACIO = 10;
 
     const [/*currentIndex*/, setCurrentIndex] = useState(0);
@@ -44,6 +47,50 @@ const HomePage = ({ navigation }) => {
         )
     }
 
+    const FlatListFlights = () => {
+        return (
+            <FlatList
+                data={flights}
+                renderItem={({ item }) => <Cards style={{ width: ANCHO_CONTENEDOR }} item={item} />}
+                horizontal
+                showsHorizontalScrollIndicator
+                pagingEnabled
+                decelerationRate={0}
+                snapToInterval={397} //330
+                bounces={false}
+                onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
+                    useNativeDriver: false
+                }).current}
+                scrollEventThrottle={45}
+                onViewableItemsChanged={itemsChanged.current}
+                viewabilityConfig={viewConfig.current}
+                ref={slidesRef}
+            />
+        )
+    }
+
+    const FlatListNews = () => {
+        return (
+            <FlatList
+                data={dataCardNews}
+                renderItem={({ item }) => <CardNews style={{ width: ANCHO_CONTENEDOR }} item={item} />}
+                horizontal
+                showsHorizontalScrollIndicator
+                pagingEnabled
+                decelerationRate={0}
+                snapToInterval={397}
+                bounces={false}
+                onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
+                    useNativeDriver: false
+                }).current}
+                scrollEventThrottle={45}
+                onViewableItemsChanged={itemsChanged.current}
+                viewabilityConfig={viewConfig.current}
+                ref={slidesRef}
+            />
+        )
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, paddingHorizontal: 0, backgroundColor: '#C1DEE7' }}>
             <View style={styles.header}>
@@ -55,56 +102,23 @@ const HomePage = ({ navigation }) => {
                     <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                 </View>
                 <View>
-                    <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 30 }} onPress={() => navigation.navigate("Login")} />
+                    <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 51 }} onPress={() => navigation.navigate("Login")} />
                 </View>
                 {/* <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} /> */}
             </View>
-            <View style={{ widht: 30 }}>
+            <View style={{ width: 30 }}>
             </View>
             <CategoryList />
-            <View style={{ paddingHorizontal: 0, paddingVertical: -10 }}>
+            <View style={styles.viewContainerFlat}>
                 {
-                    categoryIndex === 0
-                        ?
-                        <FlatList
-                            data={flights}
-                            renderItem={({ item }) => <Cards style={{ width: ANCHO_CONTENEDOR }} item={item} />}
-                            horizontal
-                            showsHorizontalScrollIndicator
-                            pagingEnabled
-                            decelerationRate={0}
-                            snapToInterval={ANCHO_CONTENEDOR}
-                            bounces={false}
-                            onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
-                                useNativeDriver: false
-                            }).current}
-                            scrollEventThrottle={45}
-                            onViewableItemsChanged={itemsChanged.current}
-                            viewabilityConfig={viewConfig.current}
-                            ref={slidesRef}
-                        />
-                        :
-                        <FlatList
-                            data={dataCardNews}
-                            renderItem={({ item }) => <CardNews style={{ width: ANCHO_CONTENEDOR }} item={item} />}
-                            horizontal
-                            showsHorizontalScrollIndicator
-                            pagingEnabled
-                            decelerationRate={0}
-                            snapToInterval={ANCHO_CONTENEDOR}
-                            bounces={false}
-                            onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
-                                useNativeDriver: false
-                            }).current}
-                            scrollEventThrottle={45}
-                            onViewableItemsChanged={itemsChanged.current}
-                            viewabilityConfig={viewConfig.current}
-                            ref={slidesRef}
-                        />
+                    !flights
+                        ? <LoadingHome />
+                        : categoryIndex === 0
+                            ? <FlatListFlights />
+                            : categoryIndex === 1
+                                ? <FlatListNews /> : null
                 }
-
             </View>
-
         </SafeAreaView>
     )
 }

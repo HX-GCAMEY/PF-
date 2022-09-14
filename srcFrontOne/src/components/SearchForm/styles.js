@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   inputContainer: {
+    right: 5,
     borderLeftWidth: 0,
     borderRightWidth: 0,
     height: 100
@@ -171,16 +172,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 100,
-    right: 215,
+    right: 165,
     top: 20,
 
   },
   miniLogoSearch: {
-    right: 5,
+    right: 0,
     top: 5,
   },
   selectSort: {
-    fontSize: 17,
+    fontSize: 15,
     height: 35,
     left: 15
 
@@ -233,10 +234,11 @@ const styles = StyleSheet.create({
   },
 
   buttonDate: {
+    borderRadius: 6,
     width: 170,
     height: 40,
     left: 70,
-    bottom: 29,
+    bottom: 26,
     color: '#ffff',
     backgroundColor: '#ef8839de',
 
@@ -309,7 +311,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '20%',
+    marginTop: '-30%',
     borderWidth: 4,
     borderColor: 'purple',
   },
@@ -322,7 +324,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '20%',
+    marginTop: '10%',
   },
   fadingContainer: {
     padding: 20,
@@ -330,7 +332,7 @@ const styles = StyleSheet.create({
   },
   suggestionText: {
     alignSelf: 'center',
-    fontSize: 20
+    fontSize: 15
   },
   suggestionTextTwo: {
     alignSelf: 'center',

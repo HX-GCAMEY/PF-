@@ -8,18 +8,76 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 20,
     },
+    fadingContainer: {
+        padding: 20,
+        backgroundColor: 'transparent'
+    },
+    imgBorder: {
+        width: 150,
+        height: 150,
+        borderRadius: 300,
+        overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '1%',
+    },
+    textLoadingHome: {
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        fontSize: 19,
+        top: 0,
+        backgroundColor: 'transparent'
+    },
+
     logoMini: {
         marginBottom: 50,
         top: 38,
         left: 20
 
     },
+    profilePicture: {
+        width: 400,
+        height: 300,
+    },
+    viewContainerFlat: {
+        // backgroundColor: '#0184A0',
+        paddingHorizontal: 0,
+        paddingVertical: 0,
+        left: 0,
+        right: 0,
+        marginLeft: 4,
+        paddingBottom: 10,
+        paddingTop: 10
+    },
+    cardContainerr: {
+        width: 360,
+        resizeMode: 'cover',
+        borderRadius: 25,
+        margin: 10,
+        marginBottom: 53,
+        marginTop: 2,
+        opacity: 1,
+        // left: 0,
+        // right: 10,
+    },
+    imageCardNews: {
+        width: 360,
+        resizeMode: 'cover',
+        borderRadius: 24,
+        margin: 10,
+        marginBottom: 60,
+        marginTop: 2,
+        opacity: 1
+    },
     categoryContainer: {
         // backgroundColor: 'red',
+        right: 5,
         justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: -20,
-        marginBottom: 20,
+        marginTop: -10,
+        marginBottom: 6,
         paddingHorizontal: 0,
         // justifyContent: 'space-between',
 
@@ -56,6 +114,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
 
     },
+    cardViewStyle: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 300,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     imagenContainer: {
         backgroundColor: 'transparent'
     },
@@ -70,13 +137,13 @@ const styles = StyleSheet.create({
     departCityCard: {
         color: '#252440',
         padding: 10,
-        bottom: 65,
+        bottom: 60,
         fontWeight: 'bold',
         fontSize: 18,
     },
     duration: {
         color: '#0183a0db',
-        bottom: 80,
+        bottom: 33,
         position: 'absolute',
         alignSelf: 'center',
         marginTop: 20,
@@ -146,14 +213,18 @@ const styles = StyleSheet.create({
     },
 
     price: {
+        borderTopColor: 'red',
+        borderTopWidth: 1.6,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderTopColor: '#d3a247db',
         color: '#252440',
-        bottom: 56,
+        bottom: 64,
         // right: 50,
         position: 'absolute',
         fontWeight: 'bold',
         fontSize: 21,
     }
-
 })
 
 export default styles;
