@@ -1,12 +1,13 @@
 .CompactCard {
   display: flex;
   flex: 1;
-  height: 7rem !important;
+  height: 10rem !important;
   border-radius: 0.7rem;
   color: white;
   padding: 1rem;
   position: relative;
   cursor: pointer;
+  width: 100%;
 }
 .CompactCard:hover {
   box-shadow: none !important;
@@ -53,7 +54,10 @@
   align-items: flex-end;
   justify-content: space-between;
 }
-
+.hola {
+  background-color: aqua;
+  width: 200px;
+}
 .detail > span:nth-child(2) {
   font-size: 22px;
   font-weight: bold;
@@ -68,7 +72,8 @@
   width: 60%;
   height: 70vh;
   z-index: 9;
-  left: 13rem;
+  left: 16rem;
+  top: 15px;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -89,6 +94,12 @@
 
 .chartContainer {
   width: 70%;
+}
+
+.avionMet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1200px) {

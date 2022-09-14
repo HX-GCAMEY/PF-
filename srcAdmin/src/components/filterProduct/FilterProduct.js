@@ -172,20 +172,23 @@ const FilterProduct = ({ flightsComponent, dispatched }) => {
             style={{ width: 200 }}
           />
         </Space>
-        {/* <Select
+        {/*  <Select
           defaultValue="filter by"
           style={{ width: 120, left: 33, top: 5 }}
           onChange={handleChange}
           allowClear
         >
-          {a &&
-            a.map((e, i) =>
-              e !== "_id" && e !== "password" ? (
-                <Option key={i} value={e}>
-                  {e}
-                </Option>
-              ) : null
-            )}
+          <Option>Departure</Option>
+          <Option>Arrival</Option>
+          <Option>Departures Aiport</Option>
+          <Option>Arrival Airport</Option>
+          <Option>Departure Date</Option>
+          <Option>Arrival Date</Option>
+          <Option>Departure Time</Option>
+          <Option>Arrival Time</Option>
+          <Option>Seating</Option>
+          <Option>Duration</Option>
+          <Option>Number</Option>
         </Select>
         {defaultValue && (
           <Select
@@ -202,7 +205,7 @@ const FilterProduct = ({ flightsComponent, dispatched }) => {
               ))}
           </Select>
         )}
-  */}{" "}
+ */}{" "}
       </Modal>
     </div>
   )

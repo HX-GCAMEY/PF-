@@ -25,7 +25,7 @@ const Banned = () => {
   const dispatch = useDispatch()
   const customers = useSelector(state => state.tasks.users)
   const bannedFiltered = useSelector(state => state.tasks.bannedFiltered)
-  const banned = customers.filter(e => e.status === "banned")
+  const banned = customers.filter(e => e.isBanned === true)
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
 
@@ -44,18 +44,20 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.delete(`https://pf-seraerror.herokuapp.com/user/${e}`)
+        await axios.post("http://localhost:5000/api/users/delete", {
+          email: b,
+        })
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
           icon: "success",
           tittle: "Success",
-          text: `${b} banned was removed`,
+          text: `${b} has been banned`,
           timer: 1500,
           confirmButtonColor: "#2f9b05",
         })
       } else {
-        return
+        return console.log("no se elimino")
       }
     })
   }
@@ -64,22 +66,22 @@ const Banned = () => {
     return Swal.fire({
       icon: "warning",
       title: "Warning",
-      text: `you want to unban ${b}?`,
+      text: `you want to give user ${b}?`,
       showDenyButton: true,
       denyButtonText: "No",
       confirmButtonText: "yes",
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
-          status: "user",
+        await axios.put(`http://localhost:5000/api/users/restore`, {
+          email: b,
         })
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
           icon: "success",
           tittle: "Success",
-          text: `${b} was unbaned`,
+          text: `${b} is now a user`,
           timer: 1500,
           confirmButtonColor: "#2f9b05",
         })
@@ -100,8 +102,8 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
-          status: "admin",
+        await axios.put(`http://localhost:5000/api/users/makeAdmin`, {
+          email: b,
         })
         dispatch(bannedFiltering(null))
         dispatch(getTask())
@@ -228,13 +230,9 @@ const Banned = () => {
                   />
                 </div>
               </TableCell>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Surname</TableCell>
-              <TableCell align="left">Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>DNI</TableCell>
-              <TableCell>Nationality</TableCell>
-              <TableCell>Sex</TableCell>
+
+              <TableCell>Email</TableCell>
+              <TableCell>ID</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
@@ -256,13 +254,8 @@ const Banned = () => {
                     </Button>
                   </div>
                 </TableCell>
-                <TableCell>{e.name}</TableCell>
-                <TableCell>{e.surname}</TableCell>
                 <TableCell>{e.email}</TableCell>
-                <TableCell>{e.phone}</TableCell>
-                <TableCell>{e.DNI}</TableCell>
-                <TableCell>{e.nationality}</TableCell>
-                <TableCell>{e.sex}</TableCell>
+                <TableCell>{e._id}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getFlights, getFlightsAvailables, getTask } from "./orders"
+import { getFlights, getFlightsAvailables, getTask, getReviews } from "./orders"
 
 export const taskSlice = createSlice({
   name: "tasks",
   initialState: {
     users: [],
+    reviews: [],
     flights: [],
     flightsAv: [],
     flightsFiltered: null,
@@ -78,6 +79,16 @@ export const taskSlice = createSlice({
       state.flightsAv = action.payload
     },
     [getFlightsAvailables.rejected]: state => {
+      state.isLoading = false
+    },
+    [getReviews.pending]: state => {
+      state.isLoading = true
+    },
+    [getReviews.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.reviews = action.payload
+    },
+    [getReviews.rejected]: state => {
       state.isLoading = false
     },
   },
