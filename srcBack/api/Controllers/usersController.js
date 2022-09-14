@@ -174,7 +174,7 @@ export default class UserController {
 
   static async delete(req, res) {
     try {
-      let {password, email} = req.body;
+      let {email} = req.body;
 
       // if (!password || typeof password !== "string") {
       //   res.status(400).json({error: "Bad password format, expected string."});
