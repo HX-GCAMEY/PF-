@@ -10,19 +10,29 @@ const Updates = () => {
   useEffect(() => {
     dispatch(getReviews())
   }, [])
+  const results = reviews.slice(-3)
+
   console.log("soy reviews", reviews)
   return (
     <div className="Updates">
-      {reviews.map((update, i) => {
+      {results.map((update, i) => {
+        let datenow3 = new Date(update.date).getHours()
+        let t3 = datenow3 < 10 ? "0" + datenow3 : datenow3
+        let datenow4 = new Date(update.date).getMinutes()
+        let t4 = datenow4 < 10 ? "0" + datenow4 : datenow4
+        let datenow5 = new Date(update.date).getSeconds()
+        let t5 = datenow5 < 10 ? "0" + datenow5 : datenow5
+        let hour = `${t3}:${t4}:${t5}`
+
         return (
           <div className="update" key={i}>
-            <img src={update.img} alt="profile" />
+            {/* <img src={update.img} alt="profile" /> */}
             <div className="noti">
               <div style={{ marginBottom: "0.5rem" }}>
                 <span>{update.email}</span>
                 <span> {update.text}</span>
               </div>
-              <span></span>
+              <span className="hour">{hour}</span>
             </div>
           </div>
         )

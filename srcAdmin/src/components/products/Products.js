@@ -19,6 +19,7 @@ import Filters from "../filters/Filters"
 import "./Products.css"
 import { filtered } from "../../features/tasks"
 import FilterProduct from "../filterProduct/FilterProduct"
+import { motion } from "framer-motion"
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -198,46 +199,52 @@ const Products = () => {
         </button>
       </div>
       <div className="tableProduct">
-        <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
-          <Table sx={{ maxWidth: 350 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Departure</TableCell>
-                <TableCell>Arrival</TableCell>
-                <TableCell>Departures Aiport</TableCell>
-                <TableCell>Arrival Airport</TableCell>
-                <TableCell>Departure Date</TableCell>
-                <TableCell>Arrival Date</TableCell>
-                <TableCell>Departure Time</TableCell>
-                <TableCell>Arrival Time</TableCell>
-                <TableCell>Seating</TableCell>
-                <TableCell>Duration</TableCell>
-                <TableCell>Number</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {isNull.slice(inicio, sumador).map((e, i) => (
-                <TableRow
-                  key={i}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>{e.departure.city}</TableCell>
-                  <TableCell>{e.arrival.city}</TableCell>
-                  <TableCell>{e.departure.airport}</TableCell>
-                  <TableCell>{e.arrival.airport}</TableCell>
-                  <TableCell>{e.departure.date}</TableCell>
-                  <TableCell>{e.arrival.date}</TableCell>
-                  <TableCell>{e.departure.time}</TableCell>
-                  <TableCell>{e.arrival.time}</TableCell>
-                  <TableCell>{e.totalSeats}</TableCell>
-
-                  <TableCell>{e.duration}</TableCell>
-                  <TableCell>{e.number}</TableCell>
+        <motion.div
+          initial={{ x: 1000, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
+            <Table sx={{ maxWidth: 350 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Departure</TableCell>
+                  <TableCell>Arrival</TableCell>
+                  <TableCell>Departures Aiport</TableCell>
+                  <TableCell>Arrival Airport</TableCell>
+                  <TableCell>Departure Date</TableCell>
+                  <TableCell>Arrival Date</TableCell>
+                  <TableCell>Departure Time</TableCell>
+                  <TableCell>Arrival Time</TableCell>
+                  <TableCell>Seating</TableCell>
+                  <TableCell>Duration</TableCell>
+                  <TableCell>Number</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {isNull.slice(inicio, sumador).map((e, i) => (
+                  <TableRow
+                    key={i}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell>{e.departure.city}</TableCell>
+                    <TableCell>{e.arrival.city}</TableCell>
+                    <TableCell>{e.departure.airport}</TableCell>
+                    <TableCell>{e.arrival.airport}</TableCell>
+                    <TableCell>{e.departure.date}</TableCell>
+                    <TableCell>{e.arrival.date}</TableCell>
+                    <TableCell>{e.departure.time}</TableCell>
+                    <TableCell>{e.arrival.time}</TableCell>
+                    <TableCell>{e.totalSeats}</TableCell>
+
+                    <TableCell>{e.duration}</TableCell>
+                    <TableCell>{e.number}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </motion.div>
       </div>
       <Modal
         title=""

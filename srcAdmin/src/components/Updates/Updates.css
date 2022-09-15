@@ -22,3 +22,7 @@
 .noti > div > span:nth-of-type(1) {
   font-weight: bold;
 }
+
+.hour {
+  margin-left: 40%;
+}
