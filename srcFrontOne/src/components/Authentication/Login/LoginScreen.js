@@ -7,13 +7,15 @@ import ButtonLogin from "./ButtonLogin/ButtonLogin";
 import SocialButtons from "./SocialButtons/SocialButtons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
+import {useDispatch, useSelector} from "react-redux";
+import { getUser } from "../../../Redux/Actions/users";
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-
+    const findUser = useSelector((state) => state.userReducer.session)
+    console.log("encontre a tu vieja",findUser)
+    const dispatch = useDispatch();
 
   
 
@@ -26,12 +28,12 @@ const LoginScreen = ({navigation}) => {
             if (response.data.auth_token) {
               AsyncStorage.setItem("user", JSON.stringify(response.data));
               console.log(response.data)
-
+              dispatch(getUser(email))
               navigation.navigate("HomePage")
             }
             return response.data;
 
-          });
+          })
       };
 
     const onForgotPasswordPress = () => {
