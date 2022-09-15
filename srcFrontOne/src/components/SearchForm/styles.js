@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
     padding: 100,
   },
   inputsFilter: {
-    color: '#dccbcb'
+    fontSize: 15,
+    color: '#2a293f'
   },
   containerModalFilter: {
     zIndex: 0,
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     width: 160,
     height: 100,
     left: 160,
-    top: 68,
+    top: 0,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     borderBottomLeftRadius: 10,
@@ -432,6 +433,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   suggestionTextTwo: {
+    // color: '#ffff',
     top: 0,
     paddingLeft: 200,
     paddingRight: 200,
