@@ -5,6 +5,7 @@ const router = new Router();
 
 router.route("/register").post(UsersController.register);
 router.route("/googleRegister").post(UsersController.googleRegister);
+router.route("/googleLogin").post(UsersController.googleLogin);
 router.route("/login").post(UsersController.login);
 router.route("/logout").post(UsersController.logout);
 router.route("/delete").post(UsersController.delete);

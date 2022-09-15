@@ -4,6 +4,7 @@ let tickets;
 let packages;
 export default class TicketsDAO {
   static async injectDB(conn) {
+
     if (tickets && packages) {
       return;
     }
@@ -14,6 +15,7 @@ export default class TicketsDAO {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
     }
   }
+
 
   static async addPackage(
     code,
@@ -59,9 +61,6 @@ export default class TicketsDAO {
       console.error(
         `Error occurred while adding new flight's ticket, ${error}.`
       );
-      return {error: error};
-    }
-  }
 
   static async addFlightTicket(
     {flight_id, user_id, type, fare},
@@ -103,6 +102,7 @@ export default class TicketsDAO {
     return flightTicket.availableTickets;
   }
 
+
   static async getAllPackages() {
     try {
       const allPackages = await packages.find().toArray();
@@ -143,6 +143,7 @@ export default class TicketsDAO {
       return null;
     }
   }
+
 
   static async getFlightTicket(flightNum) {
     const flightTicket = await tickets.findOne({flight_id: flightNum});
