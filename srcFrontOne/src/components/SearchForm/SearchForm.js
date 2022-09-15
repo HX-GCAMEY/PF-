@@ -37,6 +37,16 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   const [sortPrice, setSortPrice] = useState('')
   const [toFilter, setToFilter] = useState('')
 
+  useEffect(() => {
+    function oneTime() {
+      if (!cities || !flights) {
+        dispatch(getCities());
+        dispatch(getAllFlights());
+        getFlights();
+      }
+    }
+    oneTime()
+  }, [])
 
   const handleChangeToFilter = (text) => {
     if (/[0-9(\s)]/g.test(text) || text === '') {
@@ -58,17 +68,6 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
     const parsedDate = date.toISOString().slice(0, 10);
     getFlightsByRoute(depart, arrival, parsedDate)
   }
-
-  useEffect(() => {
-    function oneTime() {
-      if (!cities || !flights) {
-        dispatch(getCities());
-        dispatch(getAllFlights());
-        getFlights();
-      }
-    }
-    oneTime()
-  }, [])
 
   const onSubmit = (e) => {
     if (!depart || !arrival) {
@@ -130,33 +129,6 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
     )
   }
 
-
-  const FilterPrice = () => {
-    return (
-      <View style={styles.modalFilter} >
-        <View keyboardShouldPersistTaps={true} style={styles.filterPriceView} >
-          <View style={styles.modalView}>
-            <View>
-              <TouchableOpacity onPress={() => closeModalInvisible()}>
-                <Ionicons name='close-circle-outline' color={'#06C5C5'} size={42} />
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.textFilterMaximum}>Select maximum price</Text>
-            <View style={styles.viewCustomInput}>
-              <CustomInput handleChangeToFilter={handleChangeToFilter} toFilter={toFilter} />
-            </View>
-            <Pressable onPress={() => sendFilterData(Number(toFilter))}>
-              <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{ borderRadius: 20, width: 168, height: 42, marginTop: 40 }}>
-                <Text style={{ textAlign: "center", marginTop: 6, color: "#FFFFFF", fontSize: 20 }}>Filter</Text>
-              </LinearGradient>
-            </Pressable>
-          </View>
-          <Box alignItems='center'>
-          </Box>
-        </View>
-      </View>
-    )
-  }
 
   return (
     <NativeBaseProvider>
@@ -293,7 +265,28 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                           transparent
                           visible={viewFilter}
                         >
-                          <FilterPrice />
+                          <View style={styles.modalFilter} >
+                            <View keyboardShouldPersistTaps={true} style={styles.filterPriceView} >
+                              <View style={styles.modalView}>
+                                <View>
+                                  <TouchableOpacity onPress={() => closeModalInvisible()}>
+                                    <Ionicons name='close-circle-outline' color={'#06C5C5'} size={42} />
+                                  </TouchableOpacity>
+                                </View>
+                                <Text style={styles.textFilterMaximum}>Select maximum price</Text>
+                                <View style={styles.viewCustomInput}>
+                                  <CustomInput handleChangeToFilter={handleChangeToFilter} toFilter={toFilter} />
+                                </View>
+                                <Pressable onPress={() => sendFilterData(Number(toFilter))}>
+                                  <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{ borderRadius: 20, width: 168, height: 42, marginTop: 40 }}>
+                                    <Text style={{ textAlign: "center", marginTop: 6, color: "#FFFFFF", fontSize: 20 }}>Filter</Text>
+                                  </LinearGradient>
+                                </Pressable>
+                              </View>
+                              <Box alignItems='center'>
+                              </Box>
+                            </View>
+                          </View>
                         </Modal>
                       </View>
                       <View>
