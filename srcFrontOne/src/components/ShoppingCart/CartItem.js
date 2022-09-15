@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, Button, Image } from "react-native";
+import { View, Text, Button, Image, Pressable } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import imagePrueba from "./img/foto-prueba.jpg"
 import baggages from "./img/baggages.png"
 import { setTicket } from "../../Redux/Actions/flights";
 
-const CartItem = ({ data, delFromCart }) => {
+const CartItem = ({ data, id, delFromCart }) => {
 
-    //const email = useSelector((state) => state.userReducer.session);
-    const tickets = useSelector((state) => state.flightsReducers.tickets);
+    
+    //const tickets = useSelector((state) => state.flightsReducers.tickets);
 
-    const [clase, setClase] = useState('Flight Class');
-    const [ticket, setTicket] = useState({
-        clase: '',
-        _id: '',
-        email: ''
-    })
+    //const [clase, setClase] = useState('Flight Class'); //perdón Jacqui! te comenté algunas cosas
 
     let { _id, arrival, departure, duration, number, totalSeats, defaultFare } = data;
-
     const dispatch = useDispatch();
-
     return( 
         <View style={{
             margin: 10,
@@ -45,25 +38,17 @@ const CartItem = ({ data, delFromCart }) => {
             <Text style={{marginLeft: 190, marginTop: 5, fontSize: 15}}>date:     {departure.date}</Text>
             <Text style={{marginLeft: 190, marginTop: 10, fontSize: 17, fontWeight: "bold"}}>${defaultFare}</Text>
             <Image source={baggages} style={{resizeMode: "contain", height: 40, width: 90, marginLeft: 190, position: "absolute", top: 73, left: 60}}/>
-            {/*<Button title="X" onPress={() => delFromCart(_id)}/>*/}
-            <Picker
-            selectedValue = {clase}
-            onValueChange = {(itemValue, itemIndex) => {
-                setClase(itemValue)
-                let ticket = {
-                    clase: itemValue,
-                    _id: _id,
-                    email: "marce@gmail.com"
-                }
-                console.log(ticket)
-            }}
-            style = {{ width: 163, marginLeft: 180, marginTop: 10}}
+            <Pressable style={{position:"absolute", top: 0, right: 0,backgroundColor: "#06C5C5", borderTopRightRadius: 10, borderBottomLeftRadius: 10, paddingLeft: 10, paddingTop: 6, width: 30, height: 30}} onPress={() => delFromCart(_id)}><Text style={{color:'#fff', fontWeight:"bold"}}>X</Text></Pressable>
+            {/* <Picker
+                selectedValue = {clase}
+                onValueChange = {(itemValue, itemIndex) => { setClase(itemValue); }}
+                style = {{ width: 163, marginLeft: 180, marginTop: 10}}
             >
                 <Picker.Item label="Flight Class" value="Flight Class"/>
                 <Picker.Item label="Basic" value="Basic"/>
                 <Picker.Item label="Business" value="Business"/>
                 <Picker.Item label="Premium" value="Premium"/>
-            </Picker>
+            </Picker> */}
         </View>
     )
 }

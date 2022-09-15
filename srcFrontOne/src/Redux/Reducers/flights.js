@@ -77,10 +77,13 @@ export default flightsReducers = (state = initialState, action) => {
                 cart: [...state.cart, bookedFlight]
             }
         case SET_TICKET:
-            console.log('este es el reducer', state.tickets)
+            let tickets = state.tickets;
+            let newTicket = action.payload;
+            console.log('este es el reducer', tickets);
+            if(ticket.length) tickets = tickets.filter(e => e.cardId !== newTicket.cardId);
             return {
                 ...state,
-                tickets: [...state.tickets, action.payload]
+                tickets: [...state.tickets, newTicket]
             }
         case CLEAR_TICKETS:
             return {
@@ -92,8 +95,10 @@ export default flightsReducers = (state = initialState, action) => {
 
             }
         case REMOVE_FROM_CART:
+            let newCart = state.cart.filter(e => e._id !== action.payload);
             return {
                 ...state,
+                cart: newCart
             }
         case CLEAR_CART:
             return {

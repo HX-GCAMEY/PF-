@@ -8,7 +8,7 @@ import foto from "./img/foto-prueba.jpg"
 import valijas from "./img/baggages.png"
 import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, clearCart, getFlights } from "../../Redux/Actions/flights";
+import { addToCart, getFlights, clearTickets } from "../../Redux/Actions/flights";
 
 const Detail = () => {
     const route = useRoute();
@@ -143,11 +143,11 @@ const Detail = () => {
                     </LinearGradient>
                 </Pressable>
                 <Modal
-                animationType="slide"
-                transparent
-                visible={modalVisible}
-                onRequestClose={() => {
-                setModalVisible(!modalVisible);
+                    animationType="slide"
+                    transparent
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                    setModalVisible(!modalVisible);
                 }}
                 >
                     <View style={{justifyContent: "center", alignItems: "center", marginTop: 23, flex:1}}>

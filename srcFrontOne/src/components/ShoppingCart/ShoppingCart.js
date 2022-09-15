@@ -15,7 +15,8 @@ const ShoppingCart = () => {
     const flights = useSelector((state) => state.flightsReducers.flights);
     const flightCart = useSelector((state) => state.flightsReducers.cart);
     const tickets = useSelector((state) => state.flightsReducers.tickets);
-
+    const {email} = useSelector((state) => state.userReducer.session);
+    
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -42,36 +43,18 @@ const ShoppingCart = () => {
         defaultFare,
         passengers
     } = route.params;
-
+    
     const del = (id) => {
         dispatch(removeFromCart(id))
     }
 
-    const send = () => {
-        dispatch(clearCart())
-    }
+    // const send = () => {
+    //     dispatch(clearCart())
+    // }
 
     const back = () => {
-        dispatch(clearCart());
-        dispatch(clearTickets())
-        navigation.navigate('Detail', {
-            flyId: flyId,
-            departCity: departCity,
-            departAirport: departAirport,
-            departDate: departDate,
-            departTime: departTime,
-            departAirportCode: departAirportCode,
-            arrivalCity: arrivalCity,
-            arrivalAirport: arrivalAirport,
-            arrivalDate: arrivalDate,
-            arrivalTime: arrivalTime,
-            arrivalAirportCode: arrivalAirportCode,
-            backgroundImage: backgroundImage,
-            flyNumber: flyNumber,
-            totalSeats: totalSeats,
-            duration: duration,
-            defaultFare: defaultFare,
-        })
+        //dispatch(clearCart());
+        navigation.navigate('HomePage')
     }
 
     return (
@@ -84,13 +67,15 @@ const ShoppingCart = () => {
             <Text style={{fontSize: 26, fontWeight: "bold", marginTop: 80, marginLeft: 36, marginBottom: 56}}>Shopping Cart</Text>
             {
                 flightCart && flightCart.map((item, index) => {
-                return <CartItem data={item} key={index} delFromCart={del}/>})
+                return <CartItem data={item} key={index} id={index} delFromCart={del}/>})
             }
-            <Pressable onPress={() => send()}>
-                    <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
-                            <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Buy Now</Text>
-                    </LinearGradient>
-                </Pressable>
+
+            {/* <Pressable onPress={() => send()}> */}
+            <Pressable onPress={() => {} }>
+                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
+                    <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Buy Now</Text>
+                </LinearGradient>
+            </Pressable>
         </ScrollView>
     )
 }
