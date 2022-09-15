@@ -39,6 +39,96 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
 
   },
+  buttonsFilterContainer: {
+    flexDirection: 'row',
+  },
+  findFilterButton: {
+    alignSelf: 'center',
+    top: 0,
+    borderWidth: 1.2,
+    color: '#dccbcb',
+    backgroundColor: '#31304e',
+    borderRadius: 5,
+    padding: 8,
+  },
+  filterButton: {
+    backgroundColor: '#25235a10',
+    marginRight: 10,
+    top: 2,
+    borderWidth: 1.2,
+    borderColor: '#dccbcb',
+    borderRadius: 5,
+    padding: 8,
+
+  },
+  filterButtonClear: {
+    backgroundColor: '#25235a10',
+    marginRight: 10,
+    top: 2,
+    borderWidth: 1.2,
+    borderColor: '#dccbcb',
+    borderRadius: 5,
+    padding: 8,
+
+  },
+  filterPriceComp: {
+    padding: 100,
+  },
+  inputsFilter: {
+    color: '#dccbcb'
+  },
+  containerModalFilter: {
+    zIndex: 0,
+    backgroundColor: 'transparent',
+    height: 1000
+  },
+  filterPriceView: {
+    top: 1,
+    borderRadius: 20,
+    // backgroundColor: '#31304e',
+    zIndex: 20,
+  },
+  textFilterMaximum: {
+    color: "#FFFFFF",
+    fontSize: 17,
+    fontWeight: "bold",
+    marginTop: 10
+  },
+  viewCustomInput: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 15,
+    marginTop: 30
+  },
+  modalView: {
+    right: 100,
+    top: 200,
+    width: 250,
+    height: 300,
+    margin: 20,
+    backgroundColor: "#0399AB",
+    borderRadius: 15,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalFilter: {
+    backgroundColor: 'transparent',
+    width: 160,
+    height: 100,
+    left: 160,
+    top: 68,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10
+  },
   closeModalIcon: {
     right: 25,
     top: 15
@@ -172,7 +262,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 100,
-    right: 165,
+    right: 189,
     top: 20,
 
   },
@@ -181,9 +271,8 @@ const styles = StyleSheet.create({
     top: 5,
   },
   selectSort: {
-    fontSize: 15,
+    fontSize: 13,
     height: 35,
-    left: 15
 
   },
   MainContainer: {
@@ -240,7 +329,7 @@ const styles = StyleSheet.create({
     left: 70,
     bottom: 26,
     color: '#ffff',
-    backgroundColor: '#ef8839de',
+    backgroundColor: '#f28c25',
 
   },
   buttonDateText: {
@@ -286,7 +375,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
     textAlign: 'start',
     margin: 2,
-    zIndex: 10,
+    zIndex: 100,
     alignSelf: 'flex-start',
     borderBottomColor: 'red'
   },
@@ -331,12 +420,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   suggestionText: {
+    color: '#ffff',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    borderTopWidth: 0,
+    // backgroundColor: '#f0a00c74',
+    borderTopColor: '#f0a10cde',
     alignSelf: 'center',
-    fontSize: 15
+    fontSize: 14,
   },
   suggestionTextTwo: {
+    top: 0,
+    paddingLeft: 200,
+    paddingRight: 200,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    backgroundColor: '#f0a10cde',
     alignSelf: 'center',
-    fontSize: 15
+    fontSize: 17
   },
 })
 

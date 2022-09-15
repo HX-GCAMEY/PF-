@@ -28,7 +28,7 @@ const CardNews = ({ item }) => {
     return (
       <Pressable style={styles.containerCards}>
         <View style={styles.imagenContainer}>
-          <Image source={{ uri: item.background }} style={[styles.imageCardNews, { height: ANCHO_CONTENEDOR * 0.9 }]} />
+          <Image source={{ uri: item.background }} style={[styles.imageCardNews, { height: 265 }]} />
           <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 300, alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ backgroundColor: '#252440a5', width: '86%', top: 30, borderRadius: 7, paddingTop: 5, paddingLeft: 10 }} >
               <Text style={{ color: 'white', fontSize: 20, alignSelf: 'center', bottom: 5 }} >{item.title}</Text>
