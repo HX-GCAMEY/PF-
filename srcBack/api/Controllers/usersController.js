@@ -1,6 +1,17 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import UsersDAO from "../../DAO/usersDAO.js";
+import cloudinary from "cloudinary";
+import fs from "fs-extra";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 // USER PASSWORD ENCRYPT
 const hashPassword = async (password) => await bcrypt.hash(password, 10);
@@ -43,7 +54,6 @@ export class User {
 
 export default class UserController {
   // NEW USER CREATION
-
   static async register(req, res) {
     try {
       const userFromBody = req.body;
@@ -88,12 +98,52 @@ export default class UserController {
     }
   }
 
+  //Register an google account
+  static async googleRegister(req, res) {
+    try {
+      const {email} = req.body;
+      let errors = {};
+
+      if (await UsersDAO.getUser(email)) {
+        errors.email = `${email} already exists`;
+      }
+
+      if (Object.keys(errors).length > 0) {
+        res.status(400).json(errors);
+        return;
+      }
+
+      const userPassword = email + ".fromGoogle";
+
+      const newUser = {
+        email: email,
+        password: await hashPassword(userPassword),
+      };
+
+      const registerResult = await UsersDAO.addUserFromGoogle(newUser);
+
+      if (!registerResult.success) {
+        errors.email = registerResult.error;
+      }
+
+      const userFromDB = await UsersDAO.getUser(email);
+      if (!userFromDB) {
+        errors.general = "Internal error, please try again later";
+      }
+
+      res.status(200).json(userFromDB);
+    } catch (e) {
+      res.status(500).json({error: e});
+    }
+  }
+
   // USER FIND IN DB
 
   static async findUser(req, res, next) {
     try {
       const {email} = req.params;
       let userData = await UsersDAO.getUser(email);
+      console.log(userData);
       if (!userData) {
         res.status(404).json({error: "User not found"});
         return;
@@ -196,6 +246,32 @@ export default class UserController {
       res.json(deleteResult);
     } catch (e) {
       res.status(500).json(e);
+    }
+  }
+
+  // PROFILE PIC
+
+  static async addImage(req, res) {
+    try {
+      const {email} = req.body;
+      const result = await cloudinary.v2.uploader.upload(req.file.path);
+      const image = {imageURL: result.url, image_id: result.public_id};
+      await UsersDAO.profilePic(email, image);
+      await fs.unlink(req.file.path);
+      res.status(200).send("Image Uploaded");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  static async getImage(req, res) {
+    try {
+      const {email} = req.params;
+      const user = await UsersDAO.getUser(email);
+      const profilePic = user.image.imageURL;
+      res.status(200).json(profilePic);
+    } catch (error) {
+      res.status(500).json(error);
     }
   }
 

@@ -4,24 +4,37 @@ const BACK_NET = "https://flymatepf.herokuapp.com"
 import axios from 'axios'
 import {
     GET_FLIGHTS,
+    GET_ALL_FLIGHTS,
     GET_FLIGHTS_ERROR,
     GET_FLIGHTS_SUCCESS,
     GET_FLIGHTS_BY_ROUTE,
     ADD_TO_CART,
     REMOVE_FROM_CART,
     CLEAR_CART,
+    SET_TICKET,
+    POST_TICKET,
     CLEAR_GET_FLIGHTS_BY_ROUTE,
     GET_CITIES,
-    SORT_PRICE
+    SORT_PRICE,
+    CLEAR_TICKETS,
 } from "../Constants/flights";
 
 
 export function getFlights() {
     return async function (dispatch) {
         const res = await axios.get(`${BACK_NET}/api/flights`);
-        // console.log(res.data)
         dispatch({
             type: GET_FLIGHTS,
+            payload: res.data
+        })
+    }
+}
+
+export function getAllFlights(){
+    return async function (dispatch){
+        const res = await axios.get(`${BACK_NET}/api/flights/all`);
+        dispatch({
+            type: GET_ALL_FLIGHTS,
             payload: res.data
         })
     }
@@ -82,6 +95,26 @@ export const addToCart = (id) => {
     return {
         type: ADD_TO_CART,
         payload: id
+    }
+}
+
+export const setTicket = (ticket) => {
+    return {
+        type: SET_TICKET,
+        payload: ticket
+    }
+}
+
+export const clearTickets = () => {
+    return {
+        type: CLEAR_TICKETS
+    }
+}
+
+export const postTicket = (ticket) => {
+    return {
+        type: POST_TICKET,
+        payload: ticket
     }
 }
 

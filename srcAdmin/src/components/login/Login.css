@@ -60,3 +60,22 @@ video {
 
   font-size: 16px;
 }
+
+.imagenGoogle {
+  margin-right: 30px;
+  width: 200px;
+  height: 40px;
+  background-color: aqua;
+}
+
+.inputLogin3 {
+}
+.ojoPadre {
+  position: relative;
+}
+.ojo {
+  position: absolute;
+  cursor: pointer;
+  top: -53px;
+  right: -85px;
+}

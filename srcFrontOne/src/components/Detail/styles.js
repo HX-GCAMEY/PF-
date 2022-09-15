@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     baggageInfo: {
         borderColor: "#0399AB",
         borderWidth: 3,
-        marginLeft: 60,
+        marginLeft: 50,
         borderRadius: 15,
         width: 304,
         height: 295,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flightInfo: {
         borderColor: "#0399AB",
         borderWidth: 3,
-        marginLeft: 40,
+        marginLeft: 20,
         marginTop: 21,
         borderRadius: 15,
         height: 253,
@@ -65,6 +65,23 @@ const styles = StyleSheet.create({
     },
     buttonAdd: {
         color: "#06C5C5"
+    },
+    modalView: {
+        width: 250,
+        height: 300,
+        margin: 20,
+        backgroundColor: "#0399AB",
+        borderRadius: 15, 
+        padding: 35, 
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     }
 })
 

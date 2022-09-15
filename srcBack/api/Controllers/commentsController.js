@@ -61,13 +61,18 @@ export default class CommentsController {
   static async apiGetComments(req, res, next) {
     try {
       const {email} = req.params;
-      if (email) {
-        let report = await CommentsDAO.getCommentsByEmail({email});
-        res.json({report});
-        return;
-      }
-      let report = await CommentsDAO.getAllComments();
-      res.json({report});
+      let report = await CommentsDAO.getCommentsByEmail({email});
+      res.json(report);
+      return;
+    } catch (error) {
+      res.status(500).json({error});
+    }
+  }
+
+  static async apiGetAllComments(req, res) {
+    try {
+      let all = await CommentsDAO.getAllComments();
+      res.json(all);
       return;
     } catch (error) {
       res.status(500).json({error});

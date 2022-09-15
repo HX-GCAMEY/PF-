@@ -1,5 +1,6 @@
 import {
     GET_FLIGHTS,
+    GET_ALL_FLIGHTS,
     GET_FLIGHTS_SUCCESS,
     GET_FLIGHTS_ERROR,
     GET_FLIGHTS_BY_ROUTE,
@@ -9,18 +10,22 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     CLEAR_CART,
+    SET_TICKET,
+    CLEAR_TICKETS,
+    POST_TICKET,
 } from "../Constants/flights";
 
 const initialState = {
     flights: [],
+    allFlights: [],
     cart: [], //estado global para el carrito
+    tickets: [],
     backup: [],
     flightsByRoute: {},
     getCities: [],
     isFetching: false,  //para controlar si se esta realizando el fetch a la api
     error: false //para cuando no se esta realizando el fetch a la api
 }
-
 
 export default flightsReducers = (state = initialState, action) => {
     switch (action.type) {
@@ -30,6 +35,11 @@ export default flightsReducers = (state = initialState, action) => {
                 flights: action.payload,
                 backup: action.payload,
                 isFetching: true
+            }
+        case GET_ALL_FLIGHTS:
+            return{
+                ...state,
+                allFlights: action.payload
             }
         case GET_FLIGHTS_BY_ROUTE:
             return {
@@ -59,11 +69,26 @@ export default flightsReducers = (state = initialState, action) => {
                 error: true
             }
         case ADD_TO_CART:
-            let info = state.flights
+            let info = state.allFlights
             let bookedFlight = info.find(f => f._id === action.payload)
             return {
                 ...state,
                 cart: [...state.cart, bookedFlight]
+            }
+        case SET_TICKET:
+            console.log('este es el reducer', state.tickets)
+            return {
+                ...state,
+                tickets: [...state.tickets, action.payload]
+            }
+        case CLEAR_TICKETS:
+            return {
+                ...state,
+                tickets: [],
+            }
+        case POST_TICKET:
+            return {
+
             }
         case REMOVE_FROM_CART:
             return {
@@ -99,7 +124,7 @@ export default flightsReducers = (state = initialState, action) => {
                     return 0
                 }
             }
-            // console.log('aaa\n\n\n', state.flightsByRoute.matchedFlights.length)
+
             let sort =
                 action.payload === 'low'
                     ? data && data?.sort((a, b) => {
@@ -128,7 +153,7 @@ export default flightsReducers = (state = initialState, action) => {
                 ? sort : sortHr
             final = flag === 1 ? { 'matchedFlights': data } :
                 flag === 2 ? { 'sameDateFlights': data } : data
-            console.log('hola', final)
+
             return {
                 ...state,
                 flightsByRoute: final

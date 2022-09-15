@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, SafeAreaView, FlatList, Pressable, Modal, TouchableOpacity, Alert, ScrollView, Image } from 'react-native';
 import { connect, useDispatch, useSelector } from 'react-redux'
-import { getFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction } from '../../Redux/Actions/flights'
+import { getFlights, getAllFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction } from '../../Redux/Actions/flights'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native';
 import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon } from 'native-base';
@@ -39,8 +39,9 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   useEffect(() => {
     function oneTime() {
       if (!cities || !flights) {
-        dispatch(getCities())
-        getFlights()
+        dispatch(getCities());
+        dispatch(getAllFlights());
+        getFlights();
       }
     }
     oneTime()
@@ -50,6 +51,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
     if (!depart || !arrival) {
       return Alert.alert('FlyMate', 'please select Departure and Arrival Airports')
     }
+    if (depart === arrival) return Alert.alert('FlyMate', 'you have to choose different places')
     const parsedDate = date.toISOString().slice(0, 10);
     getFlightsByRoute(depart, arrival, parsedDate)
     setView(true)
@@ -116,13 +118,15 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
             marginTop: 10,
             marginLeft: 24,
             width: 330,
-            borderRadius: 10,
+            borderTopLeftRadius: 36,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 36,
           }} colors={['#07C5C5', '#0184A0']}>
           <Text style={styles.textInputsNames} >Departure</Text>
           <Center>
             <View maxW='500' >
               <Searchbar
-
                 placeholderTextColor={'#d3e7e7'}
                 inputStyle={{ fontSize: 16.1 }}
                 style={styles.searchBar}
@@ -180,7 +184,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
           </View>
           <View style={{ marginBottom: 500 }} >
             <Button
-              style={styles.findButton} alignItems='center' title='Find it!' onPress={onSubmit}>Find it!</Button>
+              style={styles.findButton} alignItems='center' onPress={onSubmit}>Find it!</Button>
             <Modal
               animationType='slide'
               onDismiss={() => console.log('close')}
@@ -188,7 +192,6 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
               transparent
               visible={view}
             >
-
               <LinearGradient colors={['#07C5C5', '#0184A0']} style={{ flex: 1 }} >
                 <View style={{ flex: 1 }}>
                   <View style={{ height: '90%', width: '100%' }}>
@@ -202,7 +205,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                         paddingHorizontal: 5
                       }}>
                       <View style={styles.selectSortView}>
-                        <Image source={miniLogo} style={styles.miniLogoSearch} />
+                        {/* <Image source={miniLogo} style={styles.miniLogoSearch} /> */}
                         <Select
                           style={[styles.selectSort, { width: width }]}  //styles.selectSort
                           selectedValue={sortPrice}
@@ -214,10 +217,10 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                             endIcon: <CheckIcon size='5' />
                           }} mt={1} onValueChange={itemValue => submitPrice(itemValue)}>
                           <Select.Item label='Order Flights' value='' />
-                          <Select.Item label='💲⬇  Lower Price' value='low' />
+                          <Select.Item label='💲⬇ Lower Price' value='low' />
                           <Select.Item label='💲⬆ Higher Price' value='high' />
-                          <Select.Item label='🕑  Earlier' value='earlier' />
-                          <Select.Item label='🕣  Later' value='later' />
+                          <Select.Item label=' 🕑  Earlier' value='earlier' />
+                          <Select.Item label=' 🕣  Later' value='later' />
                         </Select>
                       </View>
                       <View>

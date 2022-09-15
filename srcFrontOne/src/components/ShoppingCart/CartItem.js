@@ -1,34 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text, Button, Image } from "react-native";
+import { Picker } from '@react-native-picker/picker';
+import imagePrueba from "./img/foto-prueba.jpg"
+import baggages from "./img/baggages.png"
+import { setTicket } from "../../Redux/Actions/flights";
 
-import image from "./LogoColor.png";
-import codigo from "./codigoBarra.png";
+const CartItem = ({ data, delFromCart }) => {
 
-const CartItem = ({ key, data, delFromCart }) => {
+    //const email = useSelector((state) => state.userReducer.session);
+    const tickets = useSelector((state) => state.flightsReducers.tickets);
 
-    let { _id, arrival, departure, duration, number, totalSeats  } = data;
+    const [clase, setClase] = useState('Flight Class');
+    const [ticket, setTicket] = useState({
+        clase: '',
+        _id: '',
+        email: ''
+    })
+
+    let { _id, arrival, departure, duration, number, totalSeats, defaultFare } = data;
+
+    const dispatch = useDispatch();
 
     return( 
-        <View>
         <View style={{
-            height: 193,
+            margin: 10,
+            marginLeft: 20,
             width: 357,
-            padding: 20,
-            margin: 20,
+            height: 173,
             borderRadius: 10,
-            backgroundColor: "#0399AB20",
+            backgroundColor: "#FFFFFF",
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 5,
+            shadowRadius: 0.05,
+
+            elevation: 6,
             }}>
-            <Image source={image} style={{resizeMode: "contain", height: 37, right: 100}}/>
-            <Text style={{fontSize: 20, position: "absolute", margin: 25, marginLeft: 86}}>FLYMATE</Text>
-            <Text style={{fontSize: 24, fontWeight: "bold", position: "absolute", top: 65, left: 46}}>{arrival.time}</Text>
-            <Text style={{fontSize: 24, fontWeight: "bold", position: "absolute", top: 65, left: 163}}>{arrival.date}</Text>
-            <Text style={{fontSize: 24, fontWeight: "bold", left: 163, position: "absolute", top: 95}}>{arrival.airportCode}  to  {departure.airportCode}</Text>
-            <Text style={{position: "absolute", top: 123, left: 40}}>Flight Number</Text>
-            <Text style={{position: "absolute", fontSize: 20, fontWeight: "bold", top: 143, left: 55}}>{number}</Text>
-            <Image source={codigo} style={{resizeMode: "contain", height: 39, position: "absolute", left: 156, top: 138}}/>
+            <Image source={imagePrueba} style={{width: 153, height: 173, position: "absolute"}}/>
+            <Text style={{fontSize:26, fontWeight: "bold", marginLeft: 190, marginTop: 15}}>{departure.airportCode} - {arrival.airportCode}</Text>
+            <Text style={{marginLeft: 190, marginTop: 5, fontSize: 15}}>date:     {departure.date}</Text>
+            <Text style={{marginLeft: 190, marginTop: 10, fontSize: 17, fontWeight: "bold"}}>${defaultFare}</Text>
+            <Image source={baggages} style={{resizeMode: "contain", height: 40, width: 90, marginLeft: 190, position: "absolute", top: 73, left: 60}}/>
             {/*<Button title="X" onPress={() => delFromCart(_id)}/>*/}
-        </View>
-        <View style={{backgroundColor: "#0399AB"}}></View>
+            <Picker
+            selectedValue = {clase}
+            onValueChange = {(itemValue, itemIndex) => {
+                setClase(itemValue)
+                let ticket = {
+                    clase: itemValue,
+                    _id: _id,
+                    email: "marce@gmail.com"
+                }
+                console.log(ticket)
+            }}
+            style = {{ width: 163, marginLeft: 180, marginTop: 10}}
+            >
+                <Picker.Item label="Flight Class" value="Flight Class"/>
+                <Picker.Item label="Basic" value="Basic"/>
+                <Picker.Item label="Business" value="Business"/>
+                <Picker.Item label="Premium" value="Premium"/>
+            </Picker>
         </View>
     )
 }

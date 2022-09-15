@@ -1,4 +1,4 @@
-/* import React from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
 import { auth, userExists } from "../../firebase/fire"
 import {
@@ -33,4 +33,4 @@ const authProvider = ({ children, onUserLoggedIn, onUserNotLoggedIn }) => {
 }
 
 export default authProvider
- */
+ 

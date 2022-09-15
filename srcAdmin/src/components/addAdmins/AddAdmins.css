@@ -1,0 +1,13 @@
+.form3 {
+}
+
+.ojoPadre2 {
+  position: relative;
+  background-color: brown;
+}
+.ojo2 {
+  position: absolute;
+  cursor: pointer;
+  top: -30px;
+  right: -190px;
+}

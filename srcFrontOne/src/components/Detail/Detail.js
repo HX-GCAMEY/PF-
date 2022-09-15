@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
-import { Image, View, Text, ScrollView, Button, Dimensions, Pressable } from "react-native";
+import { Image, View, Text, ScrollView, Dimensions, Pressable, Modal, TouchableOpacity } from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from '@react-navigation/native';
 import foto from "./img/foto-prueba.jpg"
 import valijas from "./img/baggages.png"
 import styles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, clearCart, getFlights } from "../../Redux/Actions/flights";
 
 const Detail = () => {
     const route = useRoute();
@@ -31,6 +34,67 @@ const Detail = () => {
     const navigation = useNavigation();
 
     const widthMax = Dimensions.get("window").height;
+
+    const dispatch = useDispatch();
+    const flights = useSelector((state) => state.flightsReducers.flights);
+    const flightCart = useSelector((state) => state.flightsReducers.cart)
+
+    useEffect(() => {
+        dispatch(getFlights())
+    }, [dispatch])
+
+    
+    //para crear el modal y seleccionar la cantidad de pasajes
+    const [modalVisible, setModalVisible] = useState(false);
+    const [passengers, setPassengers] = useState(1);
+
+    const sumar = () => {
+        if(passengers < 8) setPassengers(passengers + 1)
+    }
+
+    const restar = () => {
+        if(passengers > 1) setPassengers(passengers - 1)
+    }
+
+    const next = () => {
+        //renderiza un ticket por pasajero
+        for (let i = 0; i < passengers; i++){
+            dispatch(addToCart(flyId))
+        } 
+        navigation.navigate('ShoppingCart', {
+            flyId: flyId,
+            departCity: departCity,
+            departAirport: departAirport,
+            departDate: departDate,
+            departTime: departTime,
+            departAirportCode: departAirportCode,
+            arrivalCity: arrivalCity,
+            arrivalAirport: arrivalAirport,
+            arrivalDate: arrivalDate,
+            arrivalTime: arrivalTime,
+            arrivalAirportCode: arrivalAirportCode,
+            backgroundImage: backgroundImage,
+            flyNumber: flyNumber,
+            totalSeats: totalSeats,
+            duration: duration,
+            defaultFare: defaultFare,
+            passengers: passengers
+        })
+        //me quita el modal
+        setModalVisible(!modalVisible);
+        //setea el modal en 1
+        setPassengers(1)
+    }
+
+    const add = () => {
+        //dispatch(addToCart(flyId));
+        setModalVisible(true)
+    }
+
+    const onCloseModal = () => {
+        setPassengers(1)
+        setModalVisible(false)
+    }
 
     return (
         <ScrollView >
@@ -73,14 +137,48 @@ const Detail = () => {
                         <Text>Arrival Airport</Text>
                     </View>
                 </View>
-                <Pressable onPress={() => navigation.navigate('ShoppingCart', { 
-                    flyId: flyId,
-
-                    })}>
+                <Pressable onPress={() => add(flyId)}>
                     <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
                             <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Add to Cart</Text>
                     </LinearGradient>
                 </Pressable>
+                <Modal
+                animationType="slide"
+                transparent
+                visible={modalVisible}
+                onRequestClose={() => {
+                setModalVisible(!modalVisible);
+                }}
+                >
+                    <View style={{justifyContent: "center", alignItems: "center", marginTop: 23, flex:1}}>
+                        <View style={styles.modalView}>
+                            <View>
+                                <TouchableOpacity onPress={() => onCloseModal()}>
+                                    <Ionicons name='close-circle-outline' color={'#06C5C5'} size={37}/>
+                                </TouchableOpacity>
+                            </View>
+                            <Text style={{color: "#FFFFFF", fontSize: 26, fontWeight: "bold", marginTop: 10}}>Passengers</Text>
+                            <View style={{backgroundColor: "#FFFFFF", borderRadius: 15, marginTop: 30}}>
+                                <Pressable onPress={() => restar()} style={{marginRight: 50}}>
+                                    <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{borderRadius: 15, width: 65, height: 38}}>
+                                        <Text style={{justifyContent: "center", fontSize: 26, fontWeight: "bold", marginLeft: 20}}>-</Text>
+                                    </LinearGradient>
+                                </Pressable>
+                                <Pressable onPress={() => sumar()} style={{position: "absolute", marginLeft: 50}}>
+                                    <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{borderRadius: 15, width: 65, height: 38}}>
+                                        <Text style={{justifyContent: "center", fontSize: 26, fontWeight: "bold", marginLeft: 35}}>+</Text>
+                                    </LinearGradient>
+                                </Pressable>
+                                <Text style={{position: "absolute", marginLeft: 50, fontSize: 26, fontWeight: "bold", backgroundColor: "#FFFFFF"}}>{passengers}</Text>
+                            </View>
+                            <Pressable onPress={() => next()}>
+                                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{borderRadius: 20, width: 168, height: 42, marginTop: 40}}>
+                                    <Text style={{textAlign: "center", marginTop: 6, color: "#FFFFFF", fontSize: 20}}>Next</Text>
+                                </LinearGradient>
+                            </Pressable>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         </ScrollView>
     )

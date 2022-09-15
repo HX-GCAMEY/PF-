@@ -31,7 +31,9 @@ import Swal from "sweetalert2"
 const Customers = () => {
   const customers = useSelector(state => state.tasks.users)
   const customerFiltered = useSelector(state => state.tasks.customerFiltered)
-  const users = customers.filter(e => e.status === "user")
+  const users = customers.filter(
+    e => e.isAdmin === false && e.isBanned === false
+  )
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
 
@@ -53,8 +55,8 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
-          status: "admin",
+        await axios.put(`http://localhost:5000/api/users/makeAdmin`, {
+          email: b,
         })
         dispatch(customerFiltering(null))
         dispatch(getTask())
@@ -82,18 +84,20 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.delete(`https://pf-seraerror.herokuapp.com/user/${e}`)
+        await axios.post("http://localhost:5000/api/users/delete", {
+          email: b,
+        })
         dispatch(customerFiltering(null))
         dispatch(getTask())
         Swal.fire({
           icon: "success",
           tittle: "Success",
-          text: `${b} banned was removed`,
+          text: `${b} has been banned`,
           timer: 1500,
           confirmButtonColor: "#2f9b05",
         })
       } else {
-        return
+        return console.log("no se elimino")
       }
     })
   }
@@ -109,15 +113,15 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
-          status: "banned",
+        await axios.put(`http://localhost:5000/api/users/banUser`, {
+          email: b,
         })
         dispatch(customerFiltering(null))
         dispatch(getTask())
         Swal.fire({
           icon: "success",
           tittle: "Success",
-          text: `${b} was unbaned`,
+          text: `${b} has been banned`,
           timer: 1500,
           confirmButtonColor: "#2f9b05",
         })
@@ -224,7 +228,6 @@ const Customers = () => {
       </div>
 
       <TableContainer
-        className="centrando"
         component={Paper}
         style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
       >
@@ -239,13 +242,8 @@ const Customers = () => {
                   />
                 </div>
               </TableCell>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Surname</TableCell>
               <TableCell align="left">Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>DNI</TableCell>
-              <TableCell>Nationality</TableCell>
-              <TableCell>Sex</TableCell>
+              <TableCell align="left">ID</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
@@ -267,13 +265,8 @@ const Customers = () => {
                     </Button>
                   </div>
                 </TableCell>
-                <TableCell>{e.name}</TableCell>
-                <TableCell>{e.surname}</TableCell>
                 <TableCell>{e.email}</TableCell>
-                <TableCell>{e.phone}</TableCell>
-                <TableCell>{e.DNI}</TableCell>
-                <TableCell>{e.nationality}</TableCell>
-                <TableCell>{e.sex}</TableCell>
+                <TableCell>{e._id}</TableCell>
               </TableRow>
             ))}
           </TableBody>

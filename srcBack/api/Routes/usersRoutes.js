@@ -4,11 +4,14 @@ import UsersController from "../Controllers/usersController.js";
 const router = new Router();
 
 router.route("/register").post(UsersController.register);
+router.route("/googleRegister").post(UsersController.googleRegister);
 router.route("/login").post(UsersController.login);
 router.route("/logout").post(UsersController.logout);
 router.route("/delete").post(UsersController.delete);
 router.route("/updateProfile").put(UsersController.save);
 router.route("/findUser/:email").get(UsersController.findUser);
+router.route("/addProfilePic").post(UsersController.addImage);
+router.route("/getProfilePic/:email").get(UsersController.getImage);
 
 // ADMIN ROUTES
 router.route("/registerAdmin").post(UsersController.registerAdmin);
