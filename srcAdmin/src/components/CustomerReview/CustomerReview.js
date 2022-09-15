@@ -9,54 +9,60 @@ const CustomerReview = () => {
   const [sera, setSera] = useState()
 
   useEffect(() => {
-    setSera(datesFiltered)
+    const interval = setInterval(() => {
+      console.log("hola")
+      dispatch(getReviews())
+    }, 5000)
+
+    return () => clearInterval(interval)
   }, [])
 
-  const rate = reviews.map(e => e.rate)
-  const response = rate.slice(1, rate.length)
-  const date = reviews.map(e => e.date)
-  const dateSlice = date.slice(1, date.length)
-  console.log("soy fechas ", dateSlice)
-
   /////////////////////////////////////////////////////////////////////
-  const datesNow = []
-  for (let i of dateSlice) {
-    const datenow = new Date(i).getFullYear()
-    const datenow1 = new Date(i).getMonth() + 1
-    const t1 = datenow1 < 10 ? "0" + datenow1 : datenow1
-    const datenow2 = new Date(i).getDate()
-    const t2 = datenow2 < 10 ? "0" + datenow2 : datenow2
-    const datenow3 = new Date(i).getHours()
-    const t3 = datenow3 < 10 ? "0" + datenow3 : datenow3
-    const datenow4 = new Date(i).getMinutes()
-    const t4 = datenow4 < 10 ? "0" + datenow4 : datenow4
-    const datenow5 = new Date(i).getSeconds()
-    const t5 = datenow5 < 10 ? "0" + datenow5 : datenow5
-    const result = `${datenow}-${t1}-${t2}T${t3}:${t4}:${t5}.655Z`
+  let dates = reviews.map(e => e.date)
+  let datesNow = []
+  for (let i of dates) {
+    let datenow = new Date(i).getFullYear()
+    let datenow1 = new Date(i).getMonth() + 1
+    let t1 = datenow1 < 10 ? "0" + datenow1 : datenow1
+    let datenow2 = new Date(i).getDate()
+    let t2 = datenow2 < 10 ? "0" + datenow2 : datenow2
+    let datenow3 = new Date(i).getHours()
+    let t3 = datenow3 < 10 ? "0" + datenow3 : datenow3
+    let datenow4 = new Date(i).getMinutes()
+    let t4 = datenow4 < 10 ? "0" + datenow4 : datenow4
+    let datenow5 = new Date(i).getSeconds()
+    let t5 = datenow5 < 10 ? "0" + datenow5 : datenow5
+    let result = `${datenow}-${t1}-${t2}T${t3}:${t4}:${t5}.655Z`
     datesNow.push(result)
   }
 
-  const selector = new Date().getFullYear()
-  const selector2 = new Date().getMonth() + 1
-  const d1 = selector2 < 10 ? "0" + selector2 : selector2
-  const selector3 = new Date().getDate()
-  const d2 = selector3 < 10 ? "0" + selector3 : selector3
-  const selectorFinal = `${selector}-${d1}-${d2}`
-  const datesFiltered = datesNow.filter(e => e.slice(0, 10) === selectorFinal)
+  let selector = new Date().getFullYear()
+  let selector2 = new Date().getMonth() + 1
+  let d1 = selector2 < 10 ? "0" + selector2 : selector2
+  let selector3 = new Date().getDate()
+  let d2 = selector3 < 10 ? "0" + selector3 : selector3
+  let selectorFinal = `${selector}-${d1}-${d2}`
+  let datesFiltered = datesNow.filter(e => e.slice(0, 10) === selectorFinal)
+
   /////////////////////////////////////////////////////////////////////////////////////////////
-  console.log("soy datesNow", datesNow)
-  console.log("soy selectorFinal", selectorFinal)
-  console.log("soy datesFiltered", datesFiltered)
+  //console.log("soy datesNow", datesNow)
+  //console.log("soy selectorFinal", selectorFinal)
+
+  let rate = reviews.map(e => e.rate)
+  let response = rate.slice(-datesFiltered.length)
+
+  console.log("soy response", response)
+  console.log("soy dates fileterd", datesFiltered)
 
   //("Sep 14 2022 21:23:31 GMT-0300 (hora estándar de Argentina)")
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getReviews())
   }, [])
-  const data = {
+   */ let data = {
     series: [
       {
         name: "Review",
-        data: [1, 5, 3, 4, 4, 1, 1, 4, 5, 2],
+        data: response,
       },
     ],
     options: {
@@ -87,7 +93,7 @@ const CustomerReview = () => {
       xaxis: {
         type: "datetime",
 
-        categories: sera,
+        categories: datesFiltered,
       },
       yaxis: {
         show: false,
@@ -97,6 +103,7 @@ const CustomerReview = () => {
       },
     },
   }
+
   return (
     <div className="CustomerReview">
       <Chart options={data.options} series={data.series} type="area" />
