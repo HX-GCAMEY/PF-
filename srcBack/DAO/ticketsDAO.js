@@ -1,15 +1,51 @@
 import {ObjectId} from "bson";
 
 let tickets;
+let packages;
 export default class TicketsDAO {
   static async injectDB(conn) {
-    if (tickets) {
+
+    if (tickets && packages) {
       return;
     }
     try {
       tickets = await conn.db(process.env.FLYMATE_NS).collection("tickets");
+      packages = await conn.db(process.env.FLYMATE_NS).collection("packages");
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
+    }
+  }
+
+
+  static async addPackage(
+    code,
+    startDate,
+    endDate,
+    origin,
+    destination,
+    airport,
+    price,
+    amount,
+    description
+  ) {
+    try {
+      await packages.insertOne({
+        code: code,
+        startDate: startDate,
+        endDate: endDate,
+        origin: origin,
+        destination: destination,
+        airport: airport,
+        price: price,
+        amount: amount,
+        description: description,
+      });
+      return {success: true};
+    } catch (error) {
+      console.error(
+        `Error occurred while adding new flight's ticket, ${error}.`
+      );
+      return {error: error};
     }
   }
 
@@ -21,11 +57,10 @@ export default class TicketsDAO {
         availableTickets: totalTickets,
       });
       return {success: true};
-    } catch (e) {
-      console.error(`Error occurred while adding new flight's ticket, ${e}.`);
-      return {error: e};
-    }
-  }
+    } catch (error) {
+      console.error(
+        `Error occurred while adding new flight's ticket, ${error}.`
+      );
 
   static async addFlightTicket(
     {flight_id, user_id, type, fare},
@@ -66,6 +101,49 @@ export default class TicketsDAO {
     const flightTicket = await tickets.findOne({flight_id: flightNum});
     return flightTicket.availableTickets;
   }
+
+
+  static async getAllPackages() {
+    try {
+      const allPackages = await packages.find().toArray();
+
+      return allPackages;
+    } catch (error) {
+      console.error(`Error occurred while retrieving comments, ${error}`);
+      return null;
+    }
+  }
+
+  static async getPackageByCode(code) {
+    try {
+      const pipeline = [
+        {
+          $match: {
+            code: code,
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            code: 1,
+            startDate: 1,
+            endDate: 1,
+            origin: 1,
+            destination: 1,
+            airport: 1,
+            price: 1,
+            amount: 1,
+            description: 1,
+          },
+        },
+      ];
+      return await packages.aggregate(pipeline).toArray();
+    } catch (error) {
+      console.error(`Error occurred while retrieving packages, ${error}`);
+      return null;
+    }
+  }
+
 
   static async getFlightTicket(flightNum) {
     const flightTicket = await tickets.findOne({flight_id: flightNum});
