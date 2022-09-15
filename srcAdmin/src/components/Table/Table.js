@@ -6,6 +6,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
+import { motion } from "framer-motion"
 import "./Table.css"
 
 function createData(name, trackingId, date, status) {
@@ -40,7 +41,12 @@ const makeStyle = status => {
 
 export default function BasicTable() {
   return (
-    <div className="Table">
+    <motion.div
+      initial={{ y: 1000 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 1.5 }}
+      className="Table"
+    >
       <h3>Recent Orders</h3>
       <TableContainer
         component={Paper}
@@ -80,6 +86,6 @@ export default function BasicTable() {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </motion.div>
   )
 }

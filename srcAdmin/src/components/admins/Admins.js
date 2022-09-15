@@ -18,6 +18,7 @@ import { adminFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
 import AddAdmins from "../addAdmins/AddAdmins"
 import { Button } from "antd"
+import { motion } from "framer-motion"
 
 import Swal from "sweetalert2"
 
@@ -216,52 +217,60 @@ const Admins = () => {
           <span>Next</span>
         </button>
       </div>
-      <TableContainer
-        component={Paper}
-        style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+      <motion.div
+        initial={{ x: 1000, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <span className="dosiconos">
-                  <Filters
-                    flightsComponent={users}
-                    dispatched={adminFiltering}
-                  />
-                  <AddAdmins />
-                </span>
-              </TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>ID</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody style={{ color: "white" }}>
-            {isNull.slice(inicio, sumador).map((e, i) => (
-              <TableRow
-                key={i}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
+        <TableContainer
+          component={Paper}
+          style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+        >
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
                 <TableCell>
-                  <div className="icons3">
-                    <Button type="primary" size="small">
-                      <FaArrowDown onClick={() => degrade(e._id, e.email)} />
-                    </Button>
-                    <Button type="primary" size="small">
-                      <GiJumpAcross onClick={() => ban(e._id, e.email)} />
-                    </Button>
-                    <Button type="primary" size="small">
-                      <AiOutlineClose onClick={() => Delete(e._id, e.email)} />
-                    </Button>
-                  </div>
+                  <span className="dosiconos">
+                    <Filters
+                      flightsComponent={users}
+                      dispatched={adminFiltering}
+                    />
+                    <AddAdmins />
+                  </span>
                 </TableCell>
-                <TableCell>{e.email}</TableCell>
-                <TableCell>{e._id}</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>ID</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody style={{ color: "white" }}>
+              {isNull.slice(inicio, sumador).map((e, i) => (
+                <TableRow
+                  key={i}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>
+                    <div className="icons3">
+                      <Button type="primary" size="small">
+                        <FaArrowDown onClick={() => degrade(e._id, e.email)} />
+                      </Button>
+                      <Button type="primary" size="small">
+                        <GiJumpAcross onClick={() => ban(e._id, e.email)} />
+                      </Button>
+                      <Button type="primary" size="small">
+                        <AiOutlineClose
+                          onClick={() => Delete(e._id, e.email)}
+                        />
+                      </Button>
+                    </div>
+                  </TableCell>
+                  <TableCell>{e.email}</TableCell>
+                  <TableCell>{e._id}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </motion.div>
     </div>
   )
 }

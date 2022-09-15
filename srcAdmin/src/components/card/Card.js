@@ -33,21 +33,37 @@ function CompactCard({ param, setExpanded }) {
       layoutId="expandableCard"
       onClick={setExpanded}
     >
-      <div className="radialBar">
+      <motion.div
+        initial={{ x: -1000 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 1.5 }}
+        className="radialBar"
+      >
         <CircularProgressbar
           value={param.barValue}
           text={`${param.barValue}%`}
         />
         <span>{param.title}</span>
-      </div>
+      </motion.div>
       <div className="avionMet">
-        <img src={avionMet} alt="met" />
+        <motion.img
+          initial={{ x: -1000, y: -300 }}
+          animate={{ x: 0, y: 0 }}
+          transition={{ duration: 1.5 }}
+          src={avionMet}
+          alt="met"
+        />
       </div>
-      <div className="detail">
+      <motion.div
+        className="detail"
+        initial={{ x: 1000 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 1.5 }}
+      >
         <Png />
         <span>${param.value}</span>
         <span>Last 24 hours</span>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }
