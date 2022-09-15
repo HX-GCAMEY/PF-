@@ -28,9 +28,9 @@ export const getFlightsAvailables = createAsyncThunk(
 
 export const getReviews = createAsyncThunk("tasks/getReviews", async () => {
   const response = await axios.get(
-    "http://localhost:5000/api/comments/userComments/francoaresis@gmail.com"
+    "http://localhost:5000/api/comments/allComments"
   )
 
   console.log("soy response de getReviews", response.data)
-  return response.data.report
+  return response.data
 })

@@ -13,7 +13,7 @@ const Updates = () => {
   console.log("soy reviews", reviews)
   return (
     <div className="Updates">
-      {reviews.map((update, i) => {
+      {/* {reviews.map((update, i) => {
         return (
           <div className="update" key={i}>
             <img src={update.img} alt="profile" />
@@ -27,6 +27,7 @@ const Updates = () => {
           </div>
         )
       })}
+ */}
     </div>
   )
 }
