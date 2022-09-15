@@ -17,6 +17,7 @@ import {
     GET_CITIES,
     SORT_PRICE,
     CLEAR_TICKETS,
+    FILTER_PRICE
 } from "../Constants/flights";
 
 
@@ -30,8 +31,8 @@ export function getFlights() {
     }
 }
 
-export function getAllFlights(){
-    return async function (dispatch){
+export function getAllFlights() {
+    return async function (dispatch) {
         const res = await axios.get(`${BACK_NET}/api/flights/all`);
         dispatch({
             type: GET_ALL_FLIGHTS,
@@ -73,6 +74,15 @@ export function sortAction(payload) {
     return async function (dispatch) {
         dispatch({
             type: SORT_PRICE,
+            payload: payload
+        })
+    }
+}
+
+export function filterPrice(payload) {
+    return async function (dispatch) {
+        dispatch({
+            type: FILTER_PRICE,
             payload: payload
         })
     }

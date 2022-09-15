@@ -7,6 +7,7 @@ import flyMini from './img/flyMini.png'
 import styles from './styles'
 import { LinearGradient } from "expo-linear-gradient"
 
+
 const FlatListRender = ({ flightsByRoute1, flightSuggestions, flightsByRoute, date, onCloseModal }) => {
 
   if (!flightsByRoute1) {
@@ -18,7 +19,7 @@ const FlatListRender = ({ flightsByRoute1, flightSuggestions, flightsByRoute, da
     // console.log('2', flightsByRoute)
     return (
       <LinearGradient colors={['#8831d41d', '#07c5c505']} style={{ right: 10, width: 700, top: 16, marginBottom: 35 }}>
-        <Image source={flyMini} style={{ alignSelf: 'center', marginTop: 10 }} />
+        <Image source={flyMini} style={{ alignSelf: 'center', marginTop: 7 }} />
         <FlatList
           data={flightsByRoute}
           renderItem={({ item }) => <ListItem item={item} onCloseModal={onCloseModal} />}
@@ -32,9 +33,9 @@ const FlatListRender = ({ flightsByRoute1, flightSuggestions, flightsByRoute, da
     // console.log('1', flightSuggestions)
     return (
       <LinearGradient colors={['#8831d41d', '#07c5c505']} style={{ right: 10, width: 700, top: 16, marginBottom: 80 }}>
-        <Image source={flyMini} style={{ alignSelf: 'center', marginTop: 10 }} />
+        <Image source={flyMini} style={{ alignSelf: 'center', marginTop: 5 }} />
         <Text style={styles.suggestionText} >{`no available flights for ${date.toISOString().slice(0, 10)}`}</Text>
-        <Text style={styles.suggestionTextTwo} >{`nearest flights from ${flightSuggestions && flightSuggestions[0]?.departure.date}`}</Text>
+        <Text style={styles.suggestionTextTwo} >{`↘ nearest flights available ↙`}</Text>
         <FlatList
           data={flightSuggestions}
           renderItem={({ item }) => <ListItem item={item} onCloseModal={onCloseModal} />}

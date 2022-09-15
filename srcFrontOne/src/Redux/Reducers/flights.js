@@ -13,6 +13,7 @@ import {
     SET_TICKET,
     CLEAR_TICKETS,
     POST_TICKET,
+    FILTER_PRICE
 } from "../Constants/flights";
 
 const initialState = {
@@ -37,7 +38,7 @@ export default flightsReducers = (state = initialState, action) => {
                 isFetching: true
             }
         case GET_ALL_FLIGHTS:
-            return{
+            return {
                 ...state,
                 allFlights: action.payload
             }
@@ -99,20 +100,45 @@ export default flightsReducers = (state = initialState, action) => {
                 ...state,
                 cart: [],
             }
+        case FILTER_PRICE:
+            let flagFilt = 0
+            let dataFilt = []
+            state.flightsByRoute.matchedFlights
+                && state.flightsByRoute.matchedFlights.length > 0
+                ? (dataFilt = state.flightsByRoute.matchedFlights,
+                    flagFilt = 1)
+                : state.flightsByRoute.sameDateFlights
+                    ? (dataFilt = state.flightsByRoute.sameDateFlights,
+                        flagFilt = 2)
+                    : null;
+            let arr = dataFilt.filter((flight) => flight.defaultFare <= action.payload)
+            let finalFilt = flagFilt === 1
+                ? { 'matchedFlights': arr } :
+                flagFilt === 2
+                    ? { 'sameDateFlights': arr } : arr
+            return {
+                ...state,
+                flightsByRoute: finalFilt
+            }
         case SORT_PRICE:
             let flag = 0
             let sortHr = []
             let data = []
 
-            state.flightsByRoute.matchedFlights && state.flightsByRoute.matchedFlights.length > 0
-                ? (data = state.flightsByRoute.matchedFlights, flag = 1)
+            state.flightsByRoute.matchedFlights
+                && state.flightsByRoute.matchedFlights.length > 0
+                ? (data = state.flightsByRoute.matchedFlights,
+                    flag = 1)
                 : state.flightsByRoute.sameDateFlights
-                    ? (data = state.flightsByRoute.sameDateFlights, flag = 2)
+                    ? (data = state.flightsByRoute.sameDateFlights,
+                        flag = 2)
                     : null;
 
             function compareHour(a, b) {
-                let time1 = parseFloat(a.departure.time.replace(':', '.').replace(/[^\d.-]/g, ''))
-                let time2 = parseFloat(b.departure.time.replace(':', '.').replace(/[^\d.-]/g, ''))
+                let time1 = parseFloat(a.departure.time
+                    .replace(':', '.').replace(/[^\d.-]/g, ''))
+                let time2 = parseFloat(b.departure.time
+                    .replace(':', '.').replace(/[^\d.-]/g, ''))
                 if (action.payload === 'earlier') {
                     if (time1 < time2) return -1
                     if (time1 > time2) return 1
@@ -124,7 +150,6 @@ export default flightsReducers = (state = initialState, action) => {
                     return 0
                 }
             }
-
             let sort =
                 action.payload === 'low'
                     ? data && data?.sort((a, b) => {
@@ -146,13 +171,16 @@ export default flightsReducers = (state = initialState, action) => {
                             }
                             return 0
                         })
-                        : action.payload === 'earlier' || action.payload === 'later'
+                        : action.payload === 'earlier'
+                            || action.payload === 'later'
                             ? sortHr = data?.sort(compareHour)
                             : data ? data : null
             let final = action.payload === 'high' || action.payload === 'low'
                 ? sort : sortHr
-            final = flag === 1 ? { 'matchedFlights': data } :
-                flag === 2 ? { 'sameDateFlights': data } : data
+            final = flag === 1
+                ? { 'matchedFlights': data } :
+                flag === 2
+                    ? { 'sameDateFlights': data } : data
 
             return {
                 ...state,

@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, SafeAreaView, FlatList, Pressable, Modal, TouchableOpacity, Alert, ScrollView, Image } from 'react-native';
+import { Text, View, SafeAreaView, TouchableOpacity, Alert, Modal, Pressable } from 'react-native';
 import { connect, useDispatch, useSelector } from 'react-redux'
-import { getFlights, getAllFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction } from '../../Redux/Actions/flights'
+import { getFlights, getAllFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction, filterPrice } from '../../Redux/Actions/flights'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native';
-import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon } from 'native-base';
+import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon, Input } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Searchbar } from 'react-native-paper'
-import styles from "./styles";
-import FlightCard from "../FlightCard/FlightCard";
-// import logo from './img/logos.png'
-import miniLogo from '../HomePage/img/logoMini.png'
+import styles from './styles';
 import { Dimensions } from 'react-native';
 import FlatListRender from './FlatListRender'
+import CustomInput from './CustomInput'
+
+
 let { width } = Dimensions.get('window');
 
 const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByRoute }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  // const flights = useSelector((state) => state.flightsReducers.flights.flights);
   const cities = useSelector((state) => state.flightsReducers.getCities);
   const flightsByRoute1 = useSelector((state) => state.flightsReducers.flightsByRoute)
   let flightsByRoute = flightsByRoute1?.matchedFlights
@@ -33,8 +32,32 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   const today = new Date()
   const [date, setDate] = useState(today)
   const [view, setView] = useState(false);
+  const [viewFilter, setViewFilter] = useState(false)
   const [fav, setFav] = useState([]);
   const [sortPrice, setSortPrice] = useState('')
+  const [toFilter, setToFilter] = useState('')
+
+
+  const handleChangeToFilter = (text) => {
+    if (/[0-9(\s)]/g.test(text) || text === '') {
+      setToFilter(text)
+    }
+  }
+  const closeModalInvisible = () => {
+    setViewFilter(false)
+    setToFilter('')
+  }
+
+  const sendFilterData = (price) => {
+    if (price < 185000) return Alert.alert('FlyMate', 'price must be at least $185.000')
+    dispatch(filterPrice(price));
+    setViewFilter(false)
+    setToFilter('')
+  }
+  const resetFilter = () => {
+    const parsedDate = date.toISOString().slice(0, 10);
+    getFlightsByRoute(depart, arrival, parsedDate)
+  }
 
   useEffect(() => {
     function oneTime() {
@@ -69,7 +92,6 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
       dispatch(sortAction(value));
     }
   }
-
 
   const CustomDatePicker = () => {
 
@@ -107,7 +129,34 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
       </View>
     )
   }
-  // console.log('flightsByRoute', flightsByRoute)
+
+
+  const FilterPrice = () => {
+    return (
+      <View style={styles.modalFilter} >
+        <View keyboardShouldPersistTaps={true} style={styles.filterPriceView} >
+          <View style={styles.modalView}>
+            <View>
+              <TouchableOpacity onPress={() => closeModalInvisible()}>
+                <Ionicons name='close-circle-outline' color={'#06C5C5'} size={42} />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.textFilterMaximum}>Select maximum price</Text>
+            <View style={styles.viewCustomInput}>
+              <CustomInput handleChangeToFilter={handleChangeToFilter} toFilter={toFilter} />
+            </View>
+            <Pressable onPress={() => sendFilterData(Number(toFilter))}>
+              <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{ borderRadius: 20, width: 168, height: 42, marginTop: 40 }}>
+                <Text style={{ textAlign: "center", marginTop: 6, color: "#FFFFFF", fontSize: 20 }}>Filter</Text>
+              </LinearGradient>
+            </Pressable>
+          </View>
+          <Box alignItems='center'>
+          </Box>
+        </View>
+      </View>
+    )
+  }
 
   return (
     <NativeBaseProvider>
@@ -209,7 +258,10 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                         <Select
                           style={[styles.selectSort, { width: width }]}  //styles.selectSort
                           selectedValue={sortPrice}
-                          minWidth='200'
+                          backgroundColor={'#25235a10'}
+                          minWidth='130'
+                          maxWidth='130'
+                          marginRight={2}
                           accessibilityLabel='Order'
                           placeholder='Order'
                           _selectedItem={{
@@ -217,11 +269,32 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                             endIcon: <CheckIcon size='5' />
                           }} mt={1} onValueChange={itemValue => submitPrice(itemValue)}>
                           <Select.Item label='Order Flights' value='' />
-                          <Select.Item label='💲⬇ Lower Price' value='low' />
-                          <Select.Item label='💲⬆ Higher Price' value='high' />
-                          <Select.Item label=' 🕑  Earlier' value='earlier' />
-                          <Select.Item label=' 🕣  Later' value='later' />
+                          <Select.Item label='💲 Lower Price' value='low' />
+                          <Select.Item label='💲 Higher Price' value='high' />
+                          <Select.Item label='🕑 Earlier' value='earlier' />
+                          <Select.Item label='🕣 Later' value='later' />
                         </Select>
+                        <View style={styles.buttonsFilterContainer}>
+                          <TouchableOpacity
+                            onPress={() => setViewFilter(true)}
+                          >
+                            <Text style={styles.filterButton} >Filter Price</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={() => resetFilter()}
+                          >
+                            <Text style={styles.filterButtonClear} >Clear Filter</Text>
+                          </TouchableOpacity>
+                        </View>
+                        <Modal
+                          animationType='slide'
+                          onDismiss={() => console.log('close')}
+                          onShow={() => { }}
+                          transparent
+                          visible={viewFilter}
+                        >
+                          <FilterPrice />
+                        </Modal>
                       </View>
                       <View>
                         <TouchableOpacity onPress={() => onCloseModal()}>

@@ -12,6 +12,6 @@ export const CLEAR_CART = "CLEAR_CART";
 export const SET_TICKET = "SET_TICKET";
 export const CLEAR_TICKETS = "CLEAR_TICKETS";
 export const POST_TICKET = "POST_TICKET";
+export const FILTER_PRICE = "FILTER_PRICE";
 
 
-            
