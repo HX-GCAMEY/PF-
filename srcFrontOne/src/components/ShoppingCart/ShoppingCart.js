@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, Text, Pressable, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, Pressable, ScrollView, TouchableOpacity, Modal } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from "react-redux";
@@ -12,10 +12,13 @@ import { useNavigation } from '@react-navigation/native';
 const ShoppingCart = () => {
 
     const dispatch = useDispatch();
-    const flights = useSelector((state) => state.flightsReducers.flights);
+
+    //todos los elementos del carrito
     const flightCart = useSelector((state) => state.flightsReducers.cart);
     const tickets = useSelector((state) => state.flightsReducers.tickets);
     const {email} = useSelector((state) => state.userReducer.session);
+
+    const [modalVisible, setModalVisible] = useState(false);
     
     const navigation = useNavigation();
 
@@ -49,13 +52,22 @@ const ShoppingCart = () => {
         dispatch(removeFromCart(id))
     }
 
-    // const send = () => {
-    //     dispatch(clearCart())
-    // }
-
     const back = () => {
         //dispatch(clearCart());
         navigation.navigate('HomePage')
+    }
+
+    const shop = () => {
+        navigation.navigate('StripeApp')
+        //setModalVisible(!modalVisible);
+    }
+
+    const openModal = () => {
+        setModalVisible(true)
+    }
+
+    const onCloseModal = () => {
+        setModalVisible(false)
     }
 
     return (
@@ -73,11 +85,34 @@ const ShoppingCart = () => {
             }
 
             {/* <Pressable onPress={() => send()}> */}
-            <Pressable onPress={() => {} }>
+            <Pressable onPress={() => shop()}>
                 <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
                     <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Buy Now</Text>
                 </LinearGradient>
             </Pressable>
+            {/*<Modal
+            animationType="slide"
+            transparent
+            visible={modalVisible}
+            onRequestClose={() => {
+            setModalVisible(!modalVisible);
+            }}
+            >
+                <View style={{
+                    backgroundColor: "#06C5C5", 
+                    width: 400, 
+                    height: 250, 
+                    top: 535,
+                    right: 2,
+                    borderRadius: 40,
+                    }}>
+                    <View style={{left: 30, top: 30}}>
+                        <TouchableOpacity onPress={() => onCloseModal()}>
+                            <Ionicons name='close-circle-outline' color={'#FFFFFF90'} size={37}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                </Modal>*/}
         </ScrollView>
     )
 }
