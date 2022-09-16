@@ -20,6 +20,11 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 session: action.payload
             }
+        case 'GOOGLE_LOGIN':
+            return{
+                ...state,
+                session: action.payload
+            }
         default:
             return state
     }

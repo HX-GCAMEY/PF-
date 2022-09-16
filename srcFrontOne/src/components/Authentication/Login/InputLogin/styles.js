@@ -5,12 +5,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '70%',
 
-    borderColor: '#06C7C6',
+    borderColor: '#ffa333',
     borderWidth: 1,
     borderRadius: 5,
     
     paddingHorizontal: 10,
-    marginVertical: 5,
+    marginVertical: 8,
+    shadowOpacity: 80,
+    elevation: 15,
    }
 })
 

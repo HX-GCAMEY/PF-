@@ -4,6 +4,7 @@ import styles from "./styles";
 import InputSignUp from "../SignUp/InputSignUp/InputSignUp";
 import ButtonLogin from "../Login/ButtonLogin/ButtonLogin";
 import { firebase } from "../../../../firebase-config";
+import {LinearGradient} from "expo-linear-gradient";
 
 
 
@@ -31,6 +32,7 @@ const ForgotPassword = ({navigation}) => {
 
 
     return (
+        <LinearGradient colors={['#ffa333', '#07C5C5']} style={{height: '100%'}}>
         <View style={styles.rootF}>
             <Text style={styles.title}>Reset your password</Text>
 
@@ -57,6 +59,7 @@ const ForgotPassword = ({navigation}) => {
 
 
         </View>
+        </LinearGradient>
     )
 }
 

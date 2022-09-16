@@ -1,19 +1,15 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
 import HomePage from "../HomePage/HomePage";
-import Profile from "../Profile/Profile";
 import LoginScreen from '../Authentication/Login/LoginScreen'
 import About from "../About/About";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
-import styles from "./styles";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
-import Inputs from "../Profile/Inputs/Inputs";
 
 
 
-const FootBar = () => {
+
+const FootBarGuest = () => {
   const Tab = createBottomTabNavigator()
 
   return (
@@ -38,7 +34,7 @@ const FootBar = () => {
         )
       }} />
 
-      <Tab.Screen name="Profile" component={Profile} options={{
+      <Tab.Screen name="Profile" component={LoginScreen} options={{
         tabBarIcon: ({ color, size }) => (
           <Feather name="user" color={color} size={size} />
         )
@@ -47,4 +43,4 @@ const FootBar = () => {
   )
 }
 
-export default FootBar;
+export default FootBarGuest;
