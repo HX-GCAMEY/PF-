@@ -41,7 +41,8 @@ const ShoppingCart = () => {
         totalSeats,
         duration,
         defaultFare,
-        passengers
+        passengers,
+        type
     } = route.params;
     
     const del = (id) => {
@@ -67,7 +68,8 @@ const ShoppingCart = () => {
             <Text style={{fontSize: 26, fontWeight: "bold", marginTop: 80, marginLeft: 36, marginBottom: 56}}>Shopping Cart</Text>
             {
                 flightCart && flightCart.map((item, index) => {
-                return <CartItem data={item} key={index} id={index} delFromCart={del}/>})
+                    return <CartItem data={item} key={index} id={index} delFromCart={del}/>
+                })
             }
 
             {/* <Pressable onPress={() => send()}> */}

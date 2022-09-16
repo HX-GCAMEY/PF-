@@ -36,6 +36,28 @@ const HomePage = ({ navigation }) => {
     const categories = ["Featured", "Favorites", "Destinations"];
     const [categoryIndex, setCategoryIndex] = useState(0);
 
+    const navigateCart = () => {
+        navigation.navigate("ShoppingCart", {
+            flyId: "",
+            departCity: "",
+            departAirport: "",
+            departDate: "",
+            departTime: "",
+            departAirportCode: "",
+            arrivalCity: "",
+            arrivalAirport: "",
+            arrivalDate: "",
+            arrivalTime: "",
+            arrivalAirportCode: "",
+            backgroundImage: "",
+            flyNumber: "",
+            totalSeats: "",
+            duration: "",
+            defaultFare: "",
+            passengers: "",
+            type: ""
+        });
+    }
 
     const CategoryList = () => {
         return (
@@ -127,9 +149,9 @@ const HomePage = ({ navigation }) => {
                         <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                     </View>
                     <View>
-                        <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 51 }} onPress={() => navigation.navigate("Login")} />
+                        <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 100 }} onPress={() => navigation.navigate("Login")} />
                     </View>
-                    {/* <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} /> */}
+                    <Feather name="shopping-cart" size={30} style={{ marginTop: 38, right: 90}} onPress={ navigateCart } />
                 </View>
                 <View style={{ width: 30 }}>
                 </View>

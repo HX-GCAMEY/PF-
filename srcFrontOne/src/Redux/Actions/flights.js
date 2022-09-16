@@ -121,10 +121,10 @@ export const getError = () => {
     }
 }
 
-export const addToCart = (id) => {
+export const addToCart = (ticket) => {
     return {
         type: ADD_TO_CART,
-        payload: id
+        payload: ticket
     }
 }
 
