@@ -12,6 +12,14 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: 'transparent'
     },
+    imageSeeFavs: {
+        left: 87,
+        top: 4
+    },
+    favoritesHere: {
+        bottom: 94,
+        left: 116
+    },
     imgBorder: {
         width: 150,
         height: 150,
@@ -21,7 +29,7 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: '1%',
+        bottom: 60
     },
     textLoadingHome: {
         alignSelf: 'center',
@@ -42,12 +50,12 @@ const styles = StyleSheet.create({
         height: 300,
     },
     viewContainerFlat: {
-        // backgroundColor: '#0184A0',
+        backgroundColor: '#0183a010',
         paddingHorizontal: 0,
         paddingVertical: 0,
         left: 0,
         right: 0,
-        marginLeft: 4,
+        marginLeft: 0,
         paddingBottom: 10,
         paddingTop: 10
     },
@@ -73,7 +81,7 @@ const styles = StyleSheet.create({
     },
     categoryContainer: {
         // backgroundColor: 'red',
-        right: 5,
+        left: 2,
         justifyContent: 'center',
         flexDirection: 'row',
         marginTop: -123,
@@ -92,10 +100,10 @@ const styles = StyleSheet.create({
 
     },
     categoryText: {
+        bottom: -5,
         right: 10,
         padding: 10,
         marginLeft: 20,
-        // marginLeft: 70,
         fontSize: 16,
         color: '#1E1E1E',
         fontWeight: 'bold'
