@@ -123,6 +123,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    cardViewStyleClose: {
+        position: 'absolute',
+        top: 10,
+        right: 20,
+        height: 300,
+    },
+    closeIconFav: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        backgroundColor: 'red',
+
+    },
     imagenContainer: {
         backgroundColor: 'transparent'
     },

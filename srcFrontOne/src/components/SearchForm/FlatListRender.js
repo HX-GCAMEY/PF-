@@ -14,7 +14,6 @@ const FlatListRender = ({ flightsByRoute1, flightSuggestions, flightsByRoute, da
     return <Loading />
   }
 
-
   else if (flightsByRoute && flightsByRoute[0]?._id) {
     // console.log('2', flightsByRoute)
     return (
@@ -29,7 +28,7 @@ const FlatListRender = ({ flightsByRoute1, flightSuggestions, flightsByRoute, da
     )
   }
 
-  else if (flightSuggestions) {
+  else if (flightSuggestions && flightSuggestions[0]?._id) {
     // console.log('1', flightSuggestions)
     return (
       <LinearGradient colors={['#8831d41d', '#07c5c505']} style={{ right: 10, width: 700, top: 16, marginBottom: 80 }}>

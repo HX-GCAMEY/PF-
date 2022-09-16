@@ -13,7 +13,9 @@ import {
     SET_TICKET,
     CLEAR_TICKETS,
     POST_TICKET,
-    FILTER_PRICE
+    FILTER_PRICE,
+    SET_FAVORITES,
+    DELETE_FAVORITES
 } from "../Constants/flights";
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
     backup: [],
     flightsByRoute: {},
     getCities: [],
+    favorites: [],
     isFetching: false,  //para controlar si se esta realizando el fetch a la api
     error: false //para cuando no se esta realizando el fetch a la api
 }
@@ -104,6 +107,17 @@ export default flightsReducers = (state = initialState, action) => {
             return {
                 ...state,
                 cart: [],
+            }
+        case SET_FAVORITES:
+            return {
+                ...state,
+                favorites: [action.payload, ...state.favorites]
+            }
+        case DELETE_FAVORITES:
+            const filterFav = state.favorites.filter((flight) => flight.flyId !== action.payload)
+            return {
+                ...state,
+                favorites: filterFav
             }
         case FILTER_PRICE:
             let flagFilt = 0

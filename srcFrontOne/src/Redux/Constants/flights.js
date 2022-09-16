@@ -13,5 +13,5 @@ export const SET_TICKET = "SET_TICKET";
 export const CLEAR_TICKETS = "CLEAR_TICKETS";
 export const POST_TICKET = "POST_TICKET";
 export const FILTER_PRICE = "FILTER_PRICE";
-
-
+export const SET_FAVORITES = "SET_FAVORITES";
+export const DELETE_FAVORITES = "DELETE_FAVORITES";
