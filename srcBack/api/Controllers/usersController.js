@@ -169,7 +169,7 @@ export default class UserController {
 
   static async googleLogin(req, res, next) {
     try {
-      const email = req.body;
+      const {email} = req.body;
 
       if (!email || typeof email !== "string") {
         res.status(400).json({error: "Bad email format, expected string."});
