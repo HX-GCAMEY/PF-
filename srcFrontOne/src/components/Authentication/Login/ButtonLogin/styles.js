@@ -4,13 +4,18 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         alignItems: 'center',
-        marginVertical: 5,
+        marginVertical: 10,
         padding: 5,
     },
     container_PRIMARY:{
-        backgroundColor: '#06C5C5',
+        backgroundColor: '#A0C8C3',
+        marginTop: 10,
         borderRadius: 25,
-        width: '30%'
+        width: '30%',
+        borderBottomColor: 'black',
+        borderBottomWidth: 2,
+        borderLeftColor: 'black',
+        borderLeftWidth: 2
     },
 
     container_TERTIARY: {},
@@ -21,12 +26,17 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     container_FOURTH:{
-        backgroundColor: '#0E2F49',
+        backgroundColor: 'transparent',
+        width: '30%',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 10
     },
     container_GOOGLE: {
         backgroundColor: '#FAE9E4',
         color: '#DD4D44',   
-        marginTop: 10
+        marginTop: 10,
+        width: '40%'
     },
     container_SECONDARY:{
         borderColor: '#04AFB8',
@@ -36,16 +46,19 @@ const styles = StyleSheet.create({
     },
     text: {
         fontWeight: 'bold',
-        color: 'white',
+        color: '#131c46',
     },
     text_SECONDARY: {
         color: '#04AFB8'
     },
     text_TERTIARY:{
-        color: 'grey'
+        color: '#131c46'
     },
     text_PRIMARY: {
         marginTop: -1,
+    },
+    text_FOURTH: {
+        color: 'white'
     }
 })
 

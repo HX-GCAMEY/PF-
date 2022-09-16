@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Image, useWindowDimensions, View, Button} from "react-native";
-import logo from "../imgs/logo.png";
+import logo from "../../../images/flymateLogo.png";
 import styles from "./styles";
 import InputLogin from "./InputLogin/InputLogin";
 import ButtonLogin from "./ButtonLogin/ButtonLogin";
@@ -9,6 +9,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import { getUser } from "../../../Redux/Actions/users";
+import {LinearGradient} from "expo-linear-gradient";
+import FootBar from "../../FootBar/FootBar";
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -51,6 +53,8 @@ const LoginScreen = ({navigation}) => {
     }
 
     return (
+        <LinearGradient colors={['#ffa333', '#07C5C5']} style={{height: '100%'}}>
+
         <View style={styles.rootLogin}>
             <Image source={logo} style={[styles.logo, {height: height * 0.3}]} resizeMode="contain"  />
 
@@ -70,13 +74,15 @@ const LoginScreen = ({navigation}) => {
                 text="Login" 
                 onPress={() => login(email, password)} 
                 />
+                
+            <SocialButtons />
+            
             <ButtonLogin 
                 text="Forgot Password?" 
                 onPress={onForgotPasswordPress} 
                 type="TERTIARY"
                 />
             
-            <SocialButtons />
             
             <ButtonLogin
                 text="Don't have an account? Sign Up"
@@ -89,7 +95,9 @@ const LoginScreen = ({navigation}) => {
                 onPress={onGuest}
                 type="FOURTH"
                 />
+
         </View>
+        </LinearGradient>        
     )
 }
 
