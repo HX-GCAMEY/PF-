@@ -299,7 +299,6 @@ const styles = StyleSheet.create({
     width: 100,
     right: 189,
     top: 20,
-
   },
   miniLogoSearch: {
     right: 0,

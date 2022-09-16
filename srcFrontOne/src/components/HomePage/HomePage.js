@@ -10,8 +10,9 @@ import CardNews from "./cardNews";
 import SearchForm from "../SearchForm/SearchForm";
 import { useSelector } from 'react-redux'
 import logoMini from './img/logoMini.png'
-import dataCardNews from "./dataCardNews";
+import dataCardNews from './dataCardNews';
 import LoadingHome from './LoadingHome';
+import LoadingFavs from './LoadingFavs';
 
 
 const HomePage = ({ navigation }) => {
@@ -113,6 +114,7 @@ const HomePage = ({ navigation }) => {
                 ref={slidesRef}
             />
         )
+
     }
 
     const FlatListNews = () => {
@@ -153,8 +155,6 @@ const HomePage = ({ navigation }) => {
                     </View>
                     <Feather name="shopping-cart" size={30} style={{ marginTop: 38, right: 90}} onPress={ navigateCart } />
                 </View>
-                <View style={{ width: 30 }}>
-                </View>
                 <CategoryList />
                 <View style={styles.viewContainerFlat}>
                     {
@@ -162,10 +162,12 @@ const HomePage = ({ navigation }) => {
                             ? <LoadingHome />
                             : categoryIndex === 0
                                 ? <FlatListFlights />
-                                : categoryIndex === 1
-                                    ? <FlatListFavorites />
-                                    : categoryIndex === 2
-                                        ? <FlatListNews /> : null
+                                : categoryIndex === 1 && !favState[0]?.flyId
+                                    ? <LoadingFavs />
+                                    : categoryIndex === 1
+                                        ? <FlatListFavorites />
+                                        : categoryIndex === 2
+                                            ? <FlatListNews /> : null
                     }
                 </View>
             </SafeAreaView>
@@ -174,3 +176,4 @@ const HomePage = ({ navigation }) => {
 }
 
 export default HomePage;
+
