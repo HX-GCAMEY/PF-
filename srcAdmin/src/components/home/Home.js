@@ -11,9 +11,12 @@ import RightSide from "../RigtSide/RightSide"
 import Sidebar from "../Sidebar/Sidebar"
 import salmon from "../imgs/salmon.jpg"
 import "./home.css"
+import PreView from "../preView/PreView"
 
 const Home = () => {
   const [selected, setSelected] = useState(0)
+  const [visual, setVisual] = useState({})
+  const [effect2, setEffect2] = useState(null)
   return (
     <>
       <div className="App">
@@ -28,8 +31,18 @@ const Home = () => {
           {selected === 3 && <Banned />}
           {selected === 4 && <Flights />}
           {selected === 5 && <Products />}
-          {selected === 6 && <Orders />}
-          <RightSide />
+          {selected === 6 && (
+            <Orders
+              setVisual={setVisual}
+              visual={visual}
+              setEffect2={setEffect2}
+            />
+          )}
+          {selected === 6 ? (
+            <PreView visual={visual} setVisual={setVisual} effect2={effect2} />
+          ) : (
+            <RightSide />
+          )}
         </div>
       </div>
     </>

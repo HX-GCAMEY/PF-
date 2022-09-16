@@ -1,0 +1,47 @@
+.imgPackage {
+  height: 97vh;
+  width: 20rem;
+  top: 11px;
+
+  color: white;
+  z-index: 1;
+}
+
+.imgPackage img {
+  border-radius: 20px;
+}
+
+.originRight {
+  position: absolute;
+  font-size: 18px;
+  z-index: 10;
+  text-align: center;
+  width: 18rem;
+}
+.originSon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  z-index: 10;
+}
+
+.originSon > * {
+  z-index: 10;
+}
+
+.sera1 {
+  color: white;
+}
+
+.imgOrigin {
+  width: 100px;
+  height: 100px;
+  clip-path: circle(40% at center);
+  z-index: 10;
+}
+
+.avioncillo {
+  position: absolute;
+}

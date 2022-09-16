@@ -2,12 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
 export const getTask = createAsyncThunk("tasks/getTasks", async () => {
-  const responde = await axios.get("http://localhost:5000/api/users/all")
+  const responde = await axios.get(
+    "http://flymatepf.herokuapp.com/api/users/all"
+  )
   return responde.data
 })
 
 export const getFlights = createAsyncThunk("tasks/getFlights", async () => {
-  const response = await axios("http://localhost:5000/api/flights")
+  const response = await axios("http://flymatepf.herokuapp.com/api/flights")
 
   console.log("soy response", response.data)
   return response.data.flights
@@ -16,7 +18,9 @@ export const getFlights = createAsyncThunk("tasks/getFlights", async () => {
 export const getFlightsAvailables = createAsyncThunk(
   "tasks/getFlightsAvailables",
   async () => {
-    const response = await axios("http://localhost:5000/api/flights/all")
+    const response = await axios(
+      "http://flymatepf.herokuapp.com/api/flights/all"
+    )
     const response2 = response.data
     const response3 = response2.sort(
       (a, b) => parseInt(a.date) - parseInt(b.date)
@@ -28,7 +32,7 @@ export const getFlightsAvailables = createAsyncThunk(
 
 export const getReviews = createAsyncThunk("tasks/getReviews", async () => {
   const response = await axios.get(
-    "http://localhost:5000/api/comments/allComments"
+    "http://flymatepf.herokuapp.com/api/comments/allComments"
   )
 
   console.log("soy response de getReviews", response.data)
