@@ -8,6 +8,9 @@
 
 .botonSubmit {
   margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form {
@@ -17,8 +20,20 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  transition: all 1s;
+}
+.div {
+  background-color: black;
+  height: 32px;
 }
 
+.divPrice {
+  height: 48px;
+}
+
+.divText {
+  height: 209px;
+}
 .title {
   font-size: 20px;
 
