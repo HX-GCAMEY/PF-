@@ -61,6 +61,8 @@ export default class TicketsDAO {
       console.error(
         `Error occurred while adding new flight's ticket, ${error}.`
       );
+    }
+  }
 
   static async addFlightTicket(
     {flight_id, user_id, type, fare},
