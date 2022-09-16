@@ -7,6 +7,16 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     height: 100
   },
+  gradientContainerSearch: {
+    height: 300,
+    marginTop: 10,
+    marginLeft: 24,
+    width: 330,
+    borderTopLeftRadius: 36,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 36,
+  },
   findButton: {
     width: 100,
     height: 40,
@@ -33,7 +43,7 @@ const styles = StyleSheet.create({
     marginTop: 100
   },
   textInputsNames: {
-    marginTop: 21,
+    marginTop: 12,
     alignSelf: 'center',
     fontSize: 16,
     fontWeight: 'bold',
@@ -57,7 +67,7 @@ const styles = StyleSheet.create({
     top: 2,
     borderWidth: 1.2,
     borderColor: '#dccbcb',
-    borderRadius: 5,
+    borderRadius: 6,
     padding: 8,
 
   },
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
     top: 2,
     borderWidth: 1.2,
     borderColor: '#dccbcb',
-    borderRadius: 5,
+    borderRadius: 6,
     padding: 8,
 
   },
@@ -99,6 +109,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 15,
     marginTop: 30
+  },
+  gradientPressableFilter: {
+    borderRadius: 20,
+    width: 168,
+    height: 42,
+    marginTop: 40
+  },
+  gradientPressableTextFilter: {
+    textAlign: "center",
+    marginTop: 6,
+    color: "#FFFFFF",
+    fontSize: 20
   },
   modalView: {
     right: 100,
@@ -134,6 +156,11 @@ const styles = StyleSheet.create({
     right: 25,
     top: 15
   },
+  viewFlatListRender: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 0
+  },
   cardModal: {
     width: 360,
     height: 200,
@@ -167,7 +194,14 @@ const styles = StyleSheet.create({
     top: 5,
     left: 5
   },
-
+  iconFavs: {
+    left: 2,
+    top: 6,
+    fontSize: 15,
+    backgroundColor: '#31304e44',
+    padding: 5,
+    borderRadius: 100,
+  },
   airCodeText: {
     top: 5,
     left: 130,
@@ -276,6 +310,14 @@ const styles = StyleSheet.create({
     height: 35,
 
   },
+  viewContModalSearch: {
+    height: 52,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 5
+  },
   MainContainer: {
     borderRadius: 10,
     flex: 0,
@@ -330,10 +372,11 @@ const styles = StyleSheet.create({
     left: 70,
     bottom: 26,
     color: '#ffff',
-    backgroundColor: '#f28c25',
+    backgroundColor: '#eeb775',
 
   },
   buttonDateText: {
+    color: '#252440',
     fontSize: 15,
     fontWeight: '700'
   },

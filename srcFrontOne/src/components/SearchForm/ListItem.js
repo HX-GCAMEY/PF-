@@ -1,58 +1,73 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Pressable, View, Text, Image } from 'react-native'
 import { LinearGradient } from "expo-linear-gradient"
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles'
 import avion from '../HomePage/img/backCard.jpg'
+import { setFavorites, deleteFavorites } from '../../Redux/Actions/flights';
 
-
-const ListItem = ({ item, onCloseModal, fav, setFav }) => {
+const ListItem = ({ item, onCloseModal }) => {
+  const dispatch = useDispatch()
   const navigation = useNavigation()
+  const { _id, departure, arrival, defaultFare, totalSeats, duration, number } = item;
+  const favState = useSelector((state) => state.flightsReducers.favorites);
+  // console.log(favs)
+  const [fav, setFav] = useState(false)
 
-  const setFavorites = (item) => {
-    if (fav.includes(item._id)) {
-      setFav(fav.splice(indexOf(item._id), 1, ""))
-    } else {
-      setFav(...fav, item._id)
+  const flightData = {
+    flyId: _id,
+    departCity: departure.city,
+    departAirport: departure.airport,
+    departDate: departure.date,
+    departTime: departure.time,
+    departAirportCode: departure.airportCode,
+    arrivalCity: arrival.city,
+    arrivalAirport: arrival.airport,
+    arrivalDate: arrival.date,
+    arrivalTime: arrival.time,
+    arrivalAirportCode: arrival.airportCode,
+    backgroundImage: arrival.backgroundImage,
+    flyNumber: number,
+    totalSeats: totalSeats,
+    duration: duration,
+    defaultFare: defaultFare,
+  }
+
+  const searchById = favState.find(flight => flight.flyId === flightData.flyId)
+  const submitFav = () => {
+    setFav(!fav)
+    if (!fav) {
+      dispatch(setFavorites(flightData))
+    }
+    if (searchById) {
+      dispatch(deleteFavorites(flightData.flyId))
     }
   }
 
-  const delay = (e) => {
+  const navAndDelay = (e) => {
     setTimeout(() => {
       onCloseModal()
     }, 1000)
-
-    navigation.navigate('Detail', {
-      flyId: _id,
-      departCity: departure.city,
-      departAirport: departure.airport,
-      departDate: departure.date,
-      departTime: departure.time,
-      departAirportCode: departure.airportCode,
-      arrivalCity: arrival.city,
-      arrivalAirport: arrival.airport,
-      arrivalDate: arrival.date,
-      arrivalTime: arrival.time,
-      arrivalAirportCode: arrival.airportCode,
-      backgroundImage: arrival.backgroundImage,
-      flyNumber: number,
-      totalSeats: totalSeats,
-      duration: duration,
-      defaultFare: defaultFare,
-    })
+    navigation.navigate('Detail', flightData)
   }
 
-  const { _id, departure, arrival, defaultFare, totalSeats, duration, number } = item;
+  // console.log('en tu cara Marcelo\n\n', favState)
   return (
     <LinearGradient colors={['#8831d41d', '#07c5c505']} style={styles.gradientShadow} >
       <Pressable
         key={item._id}
         style={styles.rendInput}
-        onPress={() => delay()} >
+        onPress={() => navAndDelay()} >
         <Image source={avion} style={styles.cardModal} />
         <View style={styles.viewCard}>
           <Text style={styles.airCodeText} >{departure.airportCode} → {arrival.airportCode} </Text>
-          {/* <Pressable onPress={(item) => setFavorites(item)} style={{ left: 160, bottom: 30 }} ><Text>{fav === item._id ? '🧡' : '🖤'}</Text></Pressable> */}
+          <Pressable
+            onPress={() => submitFav()}
+            style={{ left: 160, bottom: 30 }}
+          >
+            <Text style={styles.iconFavs} >{searchById ? '🧡' : '🖤'}</Text>
+          </Pressable>
           <Text style={styles.date}>{departure.date}</Text>
           <Text style={styles.timeText} >{departure.time}</Text>
           <Text style={styles.departText} >↗ {departure.city}</Text>
