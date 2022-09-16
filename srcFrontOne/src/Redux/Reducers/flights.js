@@ -73,8 +73,14 @@ export default flightsReducers = (state = initialState, action) => {
                 error: true
             }
         case ADD_TO_CART:
-            let info = state.allFlights
-            let bookedFlight = info.find(f => f._id === action.payload)
+            
+            let info = state.allFlights;
+            let bookedFlight = info.find(f => f._id === action.payload.flyId);
+            bookedFlight = {
+                ...bookedFlight,
+                passengers: action.payload.passengers,
+                type: action.payload.type
+            };
             return {
                 ...state,
                 cart: [...state.cart, bookedFlight]

@@ -5,6 +5,7 @@ import { Picker } from '@react-native-picker/picker';
 import imagePrueba from "./img/foto-prueba.jpg"
 import baggages from "./img/baggages.png"
 import { setTicket } from "../../Redux/Actions/flights";
+import styles from './styles';
 
 const CartItem = ({ data, id, delFromCart }) => {
 
@@ -13,7 +14,7 @@ const CartItem = ({ data, id, delFromCart }) => {
 
     //const [clase, setClase] = useState('Flight Class'); //perdón Jacqui! te comenté algunas cosas
 
-    let { _id, arrival, departure, duration, number, totalSeats, defaultFare } = data;
+    let { _id, arrival, departure, duration, number, totalSeats, defaultFare, type, passengers } = data;
     const dispatch = useDispatch();
     return( 
         <View style={{
@@ -39,6 +40,8 @@ const CartItem = ({ data, id, delFromCart }) => {
             <Text style={{marginLeft: 190, marginTop: 10, fontSize: 17, fontWeight: "bold"}}>${defaultFare}</Text>
             <Image source={baggages} style={{resizeMode: "contain", height: 40, width: 90, marginLeft: 190, position: "absolute", top: 73, left: 60}}/>
             <Pressable style={{position:"absolute", top: 0, right: 0,backgroundColor: "#06C5C5", borderTopRightRadius: 10, borderBottomLeftRadius: 10, paddingLeft: 10, paddingTop: 6, width: 30, height: 30}} onPress={() => delFromCart(_id)}><Text style={{color:'#fff', fontWeight:"bold"}}>X</Text></Pressable>
+            <Text style={styles.textClass}>Class: <Text style={styles.typeClass}>{type}</Text></Text>
+            <Text style={styles.textPassengers}>Passengers: <Text style={styles.passengersNumber}>{passengers}</Text></Text>
             {/* <Picker
                 selectedValue = {clase}
                 onValueChange = {(itemValue, itemIndex) => { setClase(itemValue); }}
