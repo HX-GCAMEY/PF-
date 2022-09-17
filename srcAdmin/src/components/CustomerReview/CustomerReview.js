@@ -8,15 +8,15 @@ const CustomerReview = () => {
   const reviews = useSelector(state => state.tasks.reviews)
   const [sera, setSera] = useState()
 
-  useEffect(() => {
+  /* useEffect(() => {
     const interval = setInterval(() => {
       console.log("hola")
       dispatch(getReviews())
-    }, 5000)
+    }, 10000)
 
     return () => clearInterval(interval)
   }, [])
-
+ */
   /////////////////////////////////////////////////////////////////////
   let dates = reviews.map(e => e.date)
   let datesNow = []

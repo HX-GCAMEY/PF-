@@ -11,7 +11,7 @@ import { CgArrowDownR } from "react-icons/cg"
 import { MdDelete } from "react-icons/md"
 
 import "./Customers.css"
-import { getTask } from "../../features/orders"
+import { getReviews, getTask } from "../../features/orders"
 import axios from "axios"
 import {
   BsFillArrowDownSquareFill,
@@ -37,11 +37,15 @@ const Customers = () => {
   )
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
+  const [exist, setExist] = useState(true)
+  const [right, setRight] = useState(false)
+  const [left, setLeft] = useState(false)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getTask())
+    dispatch(getReviews())
   }, [dispatch])
   console.log("soy users", users)
 
@@ -56,7 +60,7 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`http://localhost:5000/api/users/makeAdmin`, {
+        await axios.put(`http://flymatepf.herokuapp.com/api/users/makeAdmin`, {
           email: b,
         })
         dispatch(customerFiltering(null))
@@ -85,7 +89,7 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.post("http://localhost:5000/api/users/delete", {
+        await axios.post("http://flymatepf.herokuapp.com/api/users/delete", {
           email: b,
         })
         dispatch(customerFiltering(null))
@@ -114,7 +118,7 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`http://localhost:5000/api/users/banUser`, {
+        await axios.put(`http://flymatepf.herokuapp.com/api/users/banUser`, {
           email: b,
         })
         dispatch(customerFiltering(null))
@@ -147,9 +151,21 @@ const Customers = () => {
 
   const paginado = e => {
     if (e.target.value === "suma") {
-      setSumador(sumador + 7)
+      setExist(false)
+      setLeft(false)
+      setTimeout(() => {
+        setRight(true)
+        setExist(true)
+        setSumador(sumador + 7)
+      })
     } else if (e.target.value === "resta") {
-      setSumador(sumador - 7)
+      setExist(false)
+      setRight(false)
+      setTimeout(() => {
+        setLeft(true)
+        setExist(true)
+        setSumador(sumador - 7)
+      })
     }
     setInputPaginado("")
   }
@@ -227,59 +243,80 @@ const Customers = () => {
           <span>Next</span>
         </button>
       </div>
-      <motion.div
-        initial={{ x: 1000, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <TableContainer
-          component={Paper}
-          style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+      {exist && (
+        <motion.div
+          initial={left || right ? "" : { y: 500, opacity: 0 }}
+          animate={left || right ? "" : { y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
         >
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <div className="centrarfilter">
-                    <Filters
-                      flightsComponent={users}
-                      dispatched={customerFiltering}
-                    />
-                  </div>
-                </TableCell>
-                <TableCell align="left">Email</TableCell>
-                <TableCell align="left">ID</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody style={{ color: "white" }}>
-              {isNull.slice(inicio, sumador).map((e, i) => (
-                <TableRow
-                  key={i}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>
-                    <div className="icons3">
-                      <Button size="small" type="primary">
-                        <FaArrowDown onClick={() => ban(e._id, e.email)} />
-                      </Button>
-                      <Button size="small" type="primary">
-                        <FaArrowUp onClick={() => upgrade(e._id, e.email)} />
-                      </Button>
-                      <Button size="small" type="primary">
-                        <AiOutlineClose
-                          onClick={() => Delete(e._id, e.email)}
-                        />
-                      </Button>
-                    </div>
-                  </TableCell>
-                  <TableCell>{e.email}</TableCell>
-                  <TableCell>{e._id}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </motion.div>
+          <motion.div
+            initial={right && { x: 500, opacity: 0 }}
+            animate={right && { x: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              initial={left && { x: -500, opacity: 0 }}
+              animate={left && { x: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <TableContainer
+                component={Paper}
+                style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+              >
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <div className="centrarfilter">
+                          <Filters
+                            flightsComponent={users}
+                            dispatched={customerFiltering}
+                          />
+                        </div>
+                      </TableCell>
+                      <TableCell align="left">Email</TableCell>
+                      <TableCell align="left">ID</TableCell>
+                    </TableRow>
+                  </TableHead>
+
+                  <TableBody style={{ color: "white" }}>
+                    {isNull.slice(inicio, sumador).map((e, i) => (
+                      <TableRow
+                        key={i}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>
+                          <div className="icons3">
+                            <Button size="small" type="primary">
+                              <FaArrowDown
+                                onClick={() => ban(e._id, e.email)}
+                              />
+                            </Button>
+                            <Button size="small" type="primary">
+                              <FaArrowUp
+                                onClick={() => upgrade(e._id, e.email)}
+                              />
+                            </Button>
+                            <Button size="small" type="primary">
+                              <AiOutlineClose
+                                onClick={() => Delete(e._id, e.email)}
+                              />
+                            </Button>
+                          </div>
+                        </TableCell>
+                        <TableCell>{e.email}</TableCell>
+                        <TableCell>{e._id}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   )
 }

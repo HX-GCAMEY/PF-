@@ -3,19 +3,19 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlights, getFlightsAvailables } from "../../features/orders"
 import argBS2 from "../imgs/argBS2.jpg"
-import argLaPlata2 from "../imgs/argLaPlata.jpg"
-import mexCancun2 from "../imgs/mexCancun.jpg"
-import mexCity2 from "../imgs/mexCity.jpg"
-import mexLosCabos2 from "../imgs/mexLosCabos.jpg"
-import mexMonterrey2 from "../imgs/mexMonterrey.jpg"
+import argLaPlata2 from "../imgs/argLaPlata2.jpg"
+import mexCancun2 from "../imgs/mexCancun2.jpg"
+import mexCity2 from "../imgs/mexCity2.png"
+import mexLosCabos2 from "../imgs/mexLosCabos2.png"
+import mexMonterrey2 from "../imgs/mexMonterrey2.jpg"
 import { motion } from "framer-motion"
 import mexico from "../imgs/mexico.jpg"
-import arg from "../imgs/arg.png"
+import arg from "../imgs/argentina.png"
 import "./PreView.css"
 import avioncillo from "../imgs/avioncillo.png"
 import { width } from "@mui/system"
 
-const PreView = ({ visual, setVisual, effect2 }) => {
+const PreView = ({ visual, setVisual, effect2, effect3 }) => {
   const flightsAv = useSelector(state => state.tasks.flightsAv)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -100,7 +100,7 @@ const PreView = ({ visual, setVisual, effect2 }) => {
 
   return (
     <div>
-      {visual.effect && (
+      {effect2 && (
         <motion.img
           src={avioncillo}
           className="avioncillo"
@@ -114,8 +114,8 @@ const PreView = ({ visual, setVisual, effect2 }) => {
 
       <motion.div
         className="sera1"
-        initial={effect2 ? { x: 0 } : ""}
-        animate={effect2 ? { x: -2000 } : ""}
+        initial={effect3 ? { x: 0 } : ""}
+        animate={effect3 ? { x: -2000 } : ""}
         transition={{
           duration: 2,
         }}
@@ -128,7 +128,7 @@ const PreView = ({ visual, setVisual, effect2 }) => {
               transition={{
                 duration: 0.7,
               }}
-              className="originSon"
+              className="originSon glass"
             >
               <span>Destination:</span>
               <img className="imgOrigin" src={flagDestination} alt="dsf" />
@@ -145,7 +145,7 @@ const PreView = ({ visual, setVisual, effect2 }) => {
               transition={{
                 duration: 0.7,
               }}
-              className="originSon"
+              className="originSon glass"
             >
               <span>Origin:</span>
               <motion.img className="imgOrigin" src={flagOrigin} alt="s" />
@@ -155,63 +155,64 @@ const PreView = ({ visual, setVisual, effect2 }) => {
               <div>{airOrigin}</div>
             </motion.div>
           )}
-
-          {visual.start && (
-            <motion.div
-              initial={{ x: -700, y: -200 }}
-              animate={{ x: 0, y: 0 }}
-              transition={{
-                duration: 0.7,
-              }}
-            >
-              <span>Start Date: {visual.start}</span>
-            </motion.div>
-          )}
-          {visual.end && (
-            <motion.div
-              initial={{ x: -680, y: -200 }}
-              animate={{ x: 0, y: 0 }}
-              transition={{
-                duration: 0.7,
-              }}
-            >
-              <span>End Date:{visual.end}</span>
-            </motion.div>
-          )}
-          {visual.price && (
-            <motion.div
-              initial={{ x: -670, y: -180 }}
-              animate={{ x: 0, y: 0 }}
-              transition={{
-                duration: 0.7,
-              }}
-            >
-              Price:{visual.price}
-            </motion.div>
-          )}
-          {visual.amount && (
-            <motion.div
-              initial={{ x: -670, y: -180 }}
-              animate={{ x: 0, y: 0 }}
-              transition={{
-                duration: 0.7,
-              }}
-            >
-              Amount:{visual.amount}
-            </motion.div>
-          )}
-          {visual.details && <motion.div>Details</motion.div>}
-          {visual.effect && (
-            <motion.div
-              initial={{ x: -650, y: -100 }}
-              animate={{ x: 0, y: 0 }}
-              transition={{
-                duration: 0.7,
-              }}
-            >
-              Details
-            </motion.div>
-          )}
+          <div className="originSon glass borderss">
+            {visual.start && (
+              <motion.div
+                initial={{ x: -670, y: -230 }}
+                animate={{ x: 0, y: 0 }}
+                transition={{
+                  duration: 0.7,
+                }}
+              >
+                <span>Start Date: {visual.start}</span>
+              </motion.div>
+            )}
+            {visual.end && (
+              <motion.div
+                initial={{ x: -670, y: -220 }}
+                animate={{ x: 0, y: 0 }}
+                transition={{
+                  duration: 0.7,
+                }}
+              >
+                <span>End Date:{visual.end}</span>
+              </motion.div>
+            )}
+            {visual.price && (
+              <motion.div
+                initial={{ x: -670, y: -180 }}
+                animate={{ x: 0, y: 0 }}
+                transition={{
+                  duration: 0.7,
+                }}
+              >
+                Price:{visual.price}
+              </motion.div>
+            )}
+            {visual.amount && (
+              <motion.div
+                initial={{ x: -670, y: -180 }}
+                animate={{ x: 0, y: 0 }}
+                transition={{
+                  duration: 0.7,
+                }}
+              >
+                Amount:{visual.amount}
+              </motion.div>
+            )}
+            {visual.details && <motion.div>Details</motion.div>}
+            {visual.effect && (
+              <motion.div
+                initial={{ x: -650, y: -100 }}
+                animate={{ x: 0, y: 0 }}
+                transition={{
+                  duration: 0.7,
+                }}
+              >
+                Details
+              </motion.div>
+            )}
+          </div>
         </section>
 
         {visual.destination && (

@@ -6,22 +6,28 @@ import moment from "moment"
 import TextArea from "antd/lib/input/TextArea"
 import { AnimateSharedLayout, motion } from "framer-motion"
 import Swal from "sweetalert2"
+import { getReviews } from "../../features/orders"
+import { useDispatch } from "react-redux"
 const { Option } = Select
 const { RangePicker } = DatePicker
 
-const Orders = ({ visual, setVisual, setEffect2 }) => {
+const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
   const [order, setOrder] = useState({ price: "", amount: "" })
+
   const [exit, setExit] = useState(null)
   const [start, setStart] = useState(null)
   const [end, setEnd] = useState(null)
   const [price, setPrice] = useState(null)
   const [amount, setAmount] = useState(null)
   const [text, setText] = useState(null)
+  const [paquete, setPaquete] = useState()
+
+  const dispatch = useDispatch()
   const initialSate = {
     origin: null,
     destination: null,
-    start: null,
-    end: null,
+    start: "",
+    end: "",
     text: "",
     price: "",
     amount: "",
@@ -29,6 +35,7 @@ const Orders = ({ visual, setVisual, setEffect2 }) => {
   }
   useEffect(() => {
     setVisual(initialSate)
+    dispatch(getReviews())
   }, [])
   const validation = e => {
     if (!/^([0-9])*$/.test(order.price)) {
@@ -65,13 +72,20 @@ const Orders = ({ visual, setVisual, setEffect2 }) => {
   const dateChange = e => {
     setVisual({ ...visual, start: null })
     setTimeout(() => {
-      const response = moment(e).format("DD-MM-YYYY")
-      setVisual({ ...visual, start: response })
-      setEnd(true)
+      if (!e) {
+        return setVisual({ ...visual, start: "" })
+      } else {
+        const response = moment(e).format("DD-MM-YYYY")
+        setVisual({ ...visual, start: response })
+        setEnd(true)
+      }
     })
   }
 
   const endChange = e => {
+    if (!e) {
+      return setVisual({ ...visual, end: "" })
+    }
     setVisual({ ...visual, end: null })
     setTimeout(() => {
       const response = moment(e).format("DD-MM-YYYY")
@@ -111,15 +125,35 @@ const Orders = ({ visual, setVisual, setEffect2 }) => {
         confirmButtonColor: "#1890ff",
       })
     }
-    setVisual({ ...visual, effect: true })
+    setEffect2(true)
+    setPaquete({ ...visual })
     setTimeout(() => {
-      setEffect2(true)
-    }, 800)
+      setEffect3(true)
+    }, 780)
     setTimeout(() => {
+      Swal.fire({
+        icon: "success",
+        tittle: "Success",
+        text: `package has been created`,
+        timer: 1000,
+
+        confirmButtonColor: "#2f9b05",
+      })
+    }, 2100)
+    setTimeout(() => {
+      setExit(null)
+      setStart(null)
+      setEnd(null)
+      setPrice(null)
+      setAmount(null)
+      setText(null)
       setVisual(initialSate)
-      setEffect2(null)
-    }, 3000)
+      setEffect2(false)
+      setEffect3(false)
+    }, 2200)
   }
+
+  console.log("soy páquete", paquete)
 
   const textChange = e => {
     setVisual({ ...visual, text: e.target.value })
@@ -205,7 +239,11 @@ const Orders = ({ visual, setVisual, setEffect2 }) => {
                 damping: 20,
               }}
             >
-              <DatePicker placeholder="select start" onChange={dateChange} />
+              <DatePicker
+                placeholder="select start"
+                onChange={dateChange}
+                defaultValue={visual.start}
+              />
             </motion.div>
           ) : (
             <div className="div" />
@@ -220,7 +258,11 @@ const Orders = ({ visual, setVisual, setEffect2 }) => {
                 damping: 20,
               }}
             >
-              <DatePicker placeholder="select end" onChange={endChange} />
+              <DatePicker
+                placeholder="select end"
+                onChange={endChange}
+                defaultValue={visual.end}
+              />
             </motion.div>
           ) : (
             <div className="div" />
