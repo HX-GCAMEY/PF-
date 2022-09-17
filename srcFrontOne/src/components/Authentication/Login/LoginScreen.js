@@ -10,7 +10,6 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import { getUser } from "../../../Redux/Actions/users";
 import {LinearGradient} from "expo-linear-gradient";
-import FootBar from "../../FootBar/FootBar";
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');

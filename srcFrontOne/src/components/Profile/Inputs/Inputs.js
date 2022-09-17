@@ -19,7 +19,8 @@ const Inputs = ({navigation}) => {
 
     const handleSubmit = (name, passport, nationality, phone) => {
         dispatch(updateUser(user.email, {name, passport, nationality, phone}))
-        navigation.navigate("Profile")
+        alert('To ensure your safety, we ask that you log in again')
+        navigation.navigate('Profile')
         setName('');
         setPassport('');
         setNationality('');
