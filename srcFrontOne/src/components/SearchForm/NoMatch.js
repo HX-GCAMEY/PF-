@@ -4,6 +4,7 @@ import logo from './img/logos.png'
 import gif from './img/loadingGif.gif'
 import styles from './styles'
 
+
 const NoMatch = ({ onCloseModal }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -16,7 +17,6 @@ const NoMatch = ({ onCloseModal }) => {
     }).start();
   }
   fadeIn()
-
 
   return (
     <SafeAreaView >

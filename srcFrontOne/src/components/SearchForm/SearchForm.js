@@ -3,8 +3,9 @@ import { Text, View, SafeAreaView, TouchableOpacity, Alert, Modal, Pressable } f
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { getFlights, getAllFlights, getFlightsByRoute, clearGetFlightsByRoute, getCities, sortAction, filterPrice } from '../../Redux/Actions/flights'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon } from 'native-base';
+import { Center, Box, NativeBaseProvider, Button, Select, CheckIcon, Input } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Foundation from 'react-native-vector-icons/Foundation'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Searchbar } from 'react-native-paper'
@@ -12,6 +13,7 @@ import styles from './styles';
 import { Dimensions } from 'react-native';
 import FlatListRender from './FlatListRender'
 import CustomInput from './CustomInput'
+import ModalLoading from './ModalLoading'
 
 let { width } = Dimensions.get('window');
 
@@ -31,6 +33,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   const [viewFilter, setViewFilter] = useState(false)
   const [sortPrice, setSortPrice] = useState('')
   const [toFilter, setToFilter] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     dispatch(getCities());
@@ -56,14 +59,17 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
   }
 
   const sendFilterData = (price) => {
-    if (price < 185000) {
+    if (price < 185) {
       return Alert.alert('FlyMate', 'price must be at least $185.000')
     }
-    dispatch(filterPrice(price));
+    const priceElevated = price * 1000
+    dispatch(filterPrice(priceElevated));
     setViewFilter(false)
     setToFilter('')
+    setLoading(true)
   }
   const resetFilter = () => {
+    setLoading(true)
     const parsedDate = date.toISOString().slice(0, 10);
     getFlightsByRoute(depart, arrival, parsedDate)
   }
@@ -130,6 +136,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
           <Text style={styles.textInputsNames} >Departure</Text>
           <Center>
             <View maxW='500' >
+              <ModalLoading loading={loading} setLoading={setLoading} />
               <Searchbar
                 placeholderTextColor={'#d3e7e7'}
                 inputStyle={{ fontSize: 16.1 }}
@@ -252,7 +259,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                           </TouchableOpacity>
                         </View>
                         <Modal
-                          animationType='slide'
+                          animationType='none'
                           onDismiss={() => console.log('close')}
                           onShow={() => { }}
                           transparent
@@ -262,8 +269,8 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                             <View keyboardShouldPersistTaps={true} style={styles.filterPriceView} >
                               <View style={styles.modalView}>
                                 <View>
-                                  <TouchableOpacity onPress={() => closeModalInvisible()}>
-                                    <Ionicons name='close-circle-outline' color={'#06C5C5'} size={42} />
+                                  <TouchableOpacity onPress={() => closeModalInvisible()} style={styles.closeModalFilter} >
+                                    <FontAwesome name='close' color={'#e5ab17ed'} size={44} />
                                   </TouchableOpacity>
                                 </View>
                                 <Text style={styles.textFilterMaximum}>Select maximum price</Text>
@@ -271,14 +278,19 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
                                   <CustomInput
                                     handleChangeToFilter={handleChangeToFilter}
                                     toFilter={toFilter} />
+                                  <View style={styles.textDecimals} >
+                                    <Text style={styles.textDecimals2} > .000</Text>
+                                  </View>
                                 </View>
-                                <Pressable onPress={() => sendFilterData(Number(toFilter))}>
-                                  <LinearGradient
-                                    colors={['#06C5C5', '#06C5C5']}
-                                    style={styles.gradientPressableFilter}>
-                                    <Text style={styles.gradientPressableTextFilter}>Filter</Text>
-                                  </LinearGradient>
-                                </Pressable>
+                                <View>
+                                  <Pressable onPress={() => sendFilterData(Number(toFilter))}>
+                                    <LinearGradient
+                                      colors={['#06C5C5', '#06C5C5']}
+                                      style={styles.gradientPressableFilter}>
+                                      <Text style={styles.gradientPressableTextFilter}>Filter</Text>
+                                    </LinearGradient>
+                                  </Pressable>
+                                </View>
                               </View>
                               <Box alignItems='center'>
                               </Box>
@@ -310,9 +322,9 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
               </LinearGradient>
             </Modal>
           </View>
-        </LinearGradient>
-      </SafeAreaView>
-    </NativeBaseProvider>
+        </LinearGradient >
+      </SafeAreaView >
+    </NativeBaseProvider >
   )
 }
 

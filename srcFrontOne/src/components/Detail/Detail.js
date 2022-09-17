@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Image, View, Text, ScrollView, Dimensions, Pressable, Modal, TouchableOpacity, Alert } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from '@react-navigation/native';
 import foto from "./img/foto-prueba.jpg"
@@ -33,9 +33,9 @@ const Detail = () => {
         duration,
         defaultFare,
     } = route.params;
-    
+
     const [clase, setClase] = useState('basic');
-    
+
     const navigation = useNavigation();
 
     const widthMax = Dimensions.get("window").height;
@@ -48,17 +48,17 @@ const Detail = () => {
         dispatch(getFlights())
     }, [dispatch])
 
-    
+
     //para crear el modal y seleccionar la cantidad de pasajes
     const [modalVisible, setModalVisible] = useState(false);
     const [passengers, setPassengers] = useState(1);
 
     const sumar = () => {
-        if(passengers < 8) setPassengers(passengers + 1)
+        if (passengers < 8) setPassengers(passengers + 1)
     }
 
     const restar = () => {
-        if(passengers > 1) setPassengers(passengers - 1)
+        if (passengers > 1) setPassengers(passengers - 1)
     }
 
     const next = () => {
@@ -70,7 +70,7 @@ const Detail = () => {
         }
         //for (let i = 0; i < passengers; i++){
         dispatch(addToCart(newTicket))
-        
+
         navigation.navigate('ShoppingCart', {
             flyId: flyId,
             departCity: departCity,
@@ -109,7 +109,7 @@ const Detail = () => {
 
     return (
         <ScrollView >
-            <Image source={foto} style={{height: 441, width: widthMax}}/>
+            <Image source={foto} style={{ height: 441, width: widthMax }} />
             <View style={styles.container}>
                 <Text style={styles.title}>Departure from: {departAirportCode} {departAirport}</Text>
                 <View style={styles.baggageInfo}>
@@ -131,7 +131,7 @@ const Detail = () => {
                     </View>
                 </View>
                 <View style={styles.flightInfo}>
-                    <Text style={{ fontWeight: "bold", fontSize: 17, position: "absolute", margin: 15}}>Flight Information</Text>
+                    <Text style={{ fontWeight: "bold", fontSize: 17, position: "absolute", margin: 15 }}>Flight Information</Text>
                     <Text></Text>
                     <View style={styles.flightDepartureInfo}>
                         <Text style={{ marginBottom: 5 }}>{departDate}</Text>
@@ -149,8 +149,8 @@ const Detail = () => {
                     </View>
                 </View>
                 <Pressable onPress={() => add(flyId)}>
-                    <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
-                            <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Add to Cart</Text>
+                    <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{ width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20 }}>
+                        <Text style={{ fontSize: 16, fontWeight: "bold", color: "#FFFFFF95", textAlign: "center", top: 8 }}>Add to Cart</Text>
                     </LinearGradient>
                 </Pressable>
                 <Modal
@@ -158,47 +158,47 @@ const Detail = () => {
                     transparent
                     visible={modalVisible}
                     onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
+                        setModalVisible(!modalVisible);
+                    }}
                 >
-                    <View style={{justifyContent: "center", alignItems: "center", marginTop: 20, flex:1}}>
+                    <View style={{ justifyContent: "center", alignItems: "center", marginTop: 20, flex: 1 }}>
                         <View style={styles.modalView}>
                             <View>
                                 <TouchableOpacity onPress={() => onCloseModal()}>
-                                    <Ionicons name='close-circle-outline' color={'#06C5C5'} size={40}/>
+                                    <FontAwesome name='close' color={'#e5ab17ed'} size={40} />
                                 </TouchableOpacity>
                             </View>
-                            <Text style={{color: "#FFFFFF", fontSize: 24, fontWeight: "bold", marginTop: 20}}>Passengers</Text>
-                            <View style={{backgroundColor: "#FFF", borderRadius: 15, marginTop: 5}}>
-                                <Pressable onPress={() => restar()} style={{marginRight: 50}}>
-                                    <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{borderRadius: 15, width: 65, height: 30}}>
-                                        <Text style={{justifyContent: "center", fontSize: 22, fontWeight: "bold", marginLeft: 20}}>-</Text>
+                            <Text style={{ color: "#FFFFFF", fontSize: 24, fontWeight: "bold", marginTop: 20 }}>Passengers</Text>
+                            <View style={{ backgroundColor: "#FFF", borderRadius: 15, marginTop: 5 }}>
+                                <Pressable onPress={() => restar()} style={{ marginRight: 50 }}>
+                                    <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{ borderRadius: 15, width: 65, height: 30 }}>
+                                        <Text style={{ justifyContent: "center", fontSize: 22, fontWeight: "bold", marginLeft: 20 }}>-</Text>
                                     </LinearGradient>
                                 </Pressable>
-                                <Pressable onPress={() => sumar()} style={{position: "absolute", marginLeft: 50}}>
-                                    <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{borderRadius: 15, width: 65, height: 30}}>
-                                        <Text style={{justifyContent: "center" ,fontSize: 22, fontWeight: "bold", marginLeft: 35}}>+</Text>
+                                <Pressable onPress={() => sumar()} style={{ position: "absolute", marginLeft: 50 }}>
+                                    <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{ borderRadius: 15, width: 65, height: 30 }}>
+                                        <Text style={{ justifyContent: "center", fontSize: 22, fontWeight: "bold", marginLeft: 35 }}>+</Text>
                                     </LinearGradient>
                                 </Pressable>
-                                <Text style={{position: "absolute", marginLeft: 50, fontSize: 22, fontWeight: "bold", backgroundColor: "#FFFFFF"}}>{passengers}</Text>
+                                <Text style={{ position: "absolute", marginLeft: 50, fontSize: 22, fontWeight: "bold", backgroundColor: "#FFFFFF" }}>{passengers}</Text>
                             </View>
 
-                            <Text style={{color: "#FFFFFF", fontSize: 24, fontWeight: "bold", marginTop: 20}}>Class</Text>
+                            <Text style={{ color: "#FFFFFF", fontSize: 24, fontWeight: "bold", marginTop: 10 }}>Class</Text>
                             <View style={styles.viewPicker} >
                                 <Picker
-                                    selectedValue = {clase}
-                                    onValueChange = { itemValue => setClase(itemValue) }
-                                    style = {styles.picker}
+                                    selectedValue={clase}
+                                    onValueChange={itemValue => setClase(itemValue)}
+                                    style={styles.picker}
                                 >
-                                    <Picker.Item label="Basic" value="Basic"/>
-                                    <Picker.Item label="Business" value="Business"/>
-                                    <Picker.Item label="Premium" value="Premium"/>
+                                    <Picker.Item label="Basic" value="Basic" />
+                                    <Picker.Item label="Business" value="Business" />
+                                    <Picker.Item label="Premium" value="Premium" />
                                 </Picker>
                             </View>
 
                             <Pressable onPress={() => next()}>
-                                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{borderRadius: 14, width: 168,justifyContent: 'center', height: 38, top: 35}}>
-                                    <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 20, fontWeight: 'bold'}}>Next</Text>
+                                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{ borderRadius: 14, width: 168, justifyContent: 'center', height: 38, top: 40 }}>
+                                    <Text style={{ textAlign: "center", color: "#FFFFFF", fontSize: 20, fontWeight: 'bold' }}>Next</Text>
                                 </LinearGradient>
                             </Pressable>
                         </View>

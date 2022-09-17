@@ -9,16 +9,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     fadingContainer: {
+        top: 20,
+        right: 2,
         padding: 20,
         backgroundColor: 'transparent'
     },
     imageSeeFavs: {
-        left: 87,
-        top: 4
+        zIndex: 0,
+        left: 93,
+        bottom: 15,
     },
     favoritesHere: {
-        bottom: 94,
-        left: 116
+        zIndexL: 10,
+        bottom: 91,
+        left: 98
     },
     imgBorder: {
         width: 150,
@@ -46,6 +50,7 @@ const styles = StyleSheet.create({
 
     },
     profilePicture: {
+        zIndex: 0,
         width: 400,
         height: 300,
     },

@@ -84,9 +84,24 @@ const styles = StyleSheet.create({
   filterPriceComp: {
     padding: 100,
   },
+  viewCustomInput: {
+    flexDirection: 'row',
+    backgroundColor: "#FFFFFF",
+    borderRadius: 15,
+    marginTop: 10
+  },
   inputsFilter: {
     fontSize: 15,
     color: '#2a293f'
+  },
+  textDecimals: {
+    // backgroundColor: 'red',
+    borderRadius: 10,
+    width: 50
+  },
+  textDecimals2: {
+    top: 11,
+    fontSize: 15
   },
   containerModalFilter: {
     zIndex: 0,
@@ -103,18 +118,13 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 17,
     fontWeight: "bold",
-    marginTop: 10
-  },
-  viewCustomInput: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 15,
-    marginTop: 30
+    marginTop: 20,
   },
   gradientPressableFilter: {
     borderRadius: 20,
     width: 168,
     height: 42,
-    marginTop: 40
+    marginTop: 50
   },
   gradientPressableTextFilter: {
     textAlign: "center",
@@ -140,6 +150,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5
+  },
+  closeModalFilter: {
+    // position: 'absolute',
+    bottom: 22,
+    left: 0
   },
   modalFilter: {
     backgroundColor: 'transparent',
@@ -461,6 +476,10 @@ const styles = StyleSheet.create({
   fadingContainer: {
     padding: 20,
     backgroundColor: 'transparent'
+  },
+  loadingLogo: {
+    left: 40,
+    top: 20
   },
   suggestionText: {
     color: '#ffff',

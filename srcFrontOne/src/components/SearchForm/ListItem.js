@@ -12,7 +12,6 @@ const ListItem = ({ item, onCloseModal }) => {
   const navigation = useNavigation()
   const { _id, departure, arrival, defaultFare, totalSeats, duration, number } = item;
   const favState = useSelector((state) => state.flightsReducers.favorites);
-  // console.log(favs)
   const [fav, setFav] = useState(false)
 
   const flightData = {
