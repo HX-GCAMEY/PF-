@@ -13,11 +13,17 @@
 
 .originRight {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
   font-size: 18px;
   z-index: 10;
   text-align: center;
-  width: 18rem;
+  width: 20rem;
 }
+
 .originSon {
   display: flex;
   justify-content: center;
@@ -25,6 +31,8 @@
   flex-direction: column;
   text-align: center;
   z-index: 10;
+  width: 18rem;
+  margin-top: 14px;
 }
 
 .originSon > * {
@@ -44,4 +52,17 @@
 
 .avioncillo {
   position: absolute;
+  z-index: 100;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 22px;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.borderss {
+  border: none;
 }

@@ -10,7 +10,7 @@ const RightSide = () => {
       <motion.div
         initial={{ y: 1000 }}
         animate={{ y: 0 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1 }}
       >
         <h3 className="right">Latest Reviews</h3>
         <Updates />
@@ -18,7 +18,7 @@ const RightSide = () => {
       <motion.div
         initial={{ y: -1000 }}
         animate={{ y: 0 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1 }}
       >
         <h3 className="right">Customer Review of Today</h3>
         <CustomerReview />

@@ -58,7 +58,7 @@ const AddAdmins = () => {
     }
 
     const response = await axios
-      .post("http://localhost:5000/api/users/registerAdmin", order)
+      .post("http://flymatepf.herokuapp.com/api/users/registerAdmin", order)
       .then(res =>
         Swal.fire({
           icon: "success",

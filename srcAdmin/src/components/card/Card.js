@@ -36,7 +36,7 @@ function CompactCard({ param, setExpanded }) {
       <motion.div
         initial={{ x: -1000 }}
         animate={{ x: 0 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1 }}
         className="radialBar"
       >
         <CircularProgressbar
@@ -49,7 +49,7 @@ function CompactCard({ param, setExpanded }) {
         <motion.img
           initial={{ x: -1000, y: -300 }}
           animate={{ x: 0, y: 0 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 1 }}
           src={avionMet}
           alt="met"
         />
@@ -58,7 +58,7 @@ function CompactCard({ param, setExpanded }) {
         className="detail"
         initial={{ x: 1000 }}
         animate={{ x: 0 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1 }}
       >
         <Png />
         <span>${param.value}</span>
