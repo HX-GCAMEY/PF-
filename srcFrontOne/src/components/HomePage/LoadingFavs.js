@@ -22,19 +22,19 @@ const LoadingFavs = () => {
   fadeIn()
 
   return (
-    <SafeAreaView >
+    <SafeAreaView>
       <View>
         <Animated.View
           style={[
             styles.fadingContainer,
             { opacity: fadeAnim }]}>
           <Image source={youWillSee} style={styles.imageSeeFavs} />
+          <View style={styles.imgBorder} >
+            <Image source={gif} style={styles.profilePicture} />
+          </View>
+          <Image source={favoritesHere} style={styles.favoritesHere} />
         </Animated.View>
       </View>
-      <View style={styles.imgBorder} >
-        <Image source={gif} style={styles.profilePicture} />
-      </View>
-      <Image source={favoritesHere} style={styles.favoritesHere} />
     </SafeAreaView>
   )
 }
