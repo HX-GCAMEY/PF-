@@ -25,6 +25,16 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 session: action.payload
             }
+        case 'LOGOUT':
+            return{
+                ...state,
+                session: action.payload
+            }
+        case 'DELETE':
+            return{
+                ...state,
+                session: {}
+            }
         default:
             return state
     }

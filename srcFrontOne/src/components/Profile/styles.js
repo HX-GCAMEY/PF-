@@ -49,6 +49,21 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white',
+    },
+    iconsP: {
+        marginRight: 15
+    },
+    btnAdd: {
+        color: 'white'
+    },
+    containerAdd: {
+        backgroundColor: 'white',
+        width: 30,
+        marginLeft: 210,
+        marginTop: -50,
+        borderRadius: 30,
+        borderColor: 'black',
+        borderWidth: 1
     }
 
 })

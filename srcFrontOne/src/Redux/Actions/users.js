@@ -43,3 +43,24 @@ export function googleLogin(email){
         })
     }
 }
+
+export function userLogout(email){
+    return async function(dispatch){
+        let res = await axios.post('https://flymatepf.herokuapp.com/api/users/logout', {user: email})
+        dispatch({
+            type: 'LOGOUT',
+            payload: res.data
+        })
+    }
+}
+
+
+export function userDelete(email){
+    return async function(dispatch){
+        let res = await axios.post("https://flymatepf.herokuapp.com/api/users/delete", email)
+        dispatch({
+            type: 'DELETE',
+            payload: res.data
+        })
+    }
+}
