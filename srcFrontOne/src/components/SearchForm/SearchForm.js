@@ -23,6 +23,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
   const flightsByRoute1 = useSelector((state) => state.flightsReducers.flightsByRoute)
   const flightsByRoute = flightsByRoute1?.matchedFlights
   const flightSuggestions = flightsByRoute1?.sameDateFlights
+  const userDate = useSelector((state) => state.userReducer.session)
 
   const [depart, setDepart] = useState('')
   const [arrival, setArrival] = useState('')
@@ -126,7 +127,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
       </View>
     )
   }
-
+  console.log('usuario\n\n', userDate)
   return (
     <NativeBaseProvider>
       <SafeAreaView style={styles.inputContainer} >
