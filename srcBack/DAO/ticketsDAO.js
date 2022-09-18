@@ -1,7 +1,9 @@
 import {ObjectId} from "bson";
+import FlightsDAO from "./flightsDAO.js";
 
 let tickets;
 let packages;
+let flights;
 export default class TicketsDAO {
   static async injectDB(conn) {
     if (tickets && packages) {
@@ -10,31 +12,24 @@ export default class TicketsDAO {
     try {
       tickets = await conn.db(process.env.FLYMATE_NS).collection("tickets");
       packages = await conn.db(process.env.FLYMATE_NS).collection("packages");
+      flights = await conn.db(process.env.FLYMATE_NS).collection("flights");
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
     }
   }
 
-  static async addPackage(
-    code,
-    startDate,
-    endDate,
-    origin,
-    destination,
-    airport,
-    price,
-    amount,
-    description
-  ) {
+  static async addPackage(code, flight_id, amount, description) {
+    console.log(flight_id);
     try {
+      const flight = await FlightsDAO.getFlightByID(flight_id);
+
+      console.log(flight);
+
       await packages.insertOne({
+        ...flight,
         code: code,
-        startDate: startDate,
-        endDate: endDate,
-        origin: origin,
-        destination: destination,
-        airport: airport,
-        price: price,
+        created: new Date(),
+        fare: flight.defaultFare - flight.defaultFare * amount,
         amount: amount,
         description: description,
       });

@@ -154,6 +154,8 @@ export default class FlightsDAO {
           $project: {
             _id: 0,
             number: 1,
+            departure: 1,
+            arrival: 1,
             totalSeats: 1,
             defaultFare: 1,
           },
