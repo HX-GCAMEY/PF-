@@ -30,6 +30,7 @@ const Sidebar = ({ selected, setSelected }) => {
       <motion.div
         className="bars"
         style={expanded ? { left: "60%" } : { left: "5%" }}
+        transition={{ duration: 1 }}
         onClick={() => setExpaned(!expanded)}
       >
         <UilBars />

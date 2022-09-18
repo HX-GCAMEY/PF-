@@ -54,7 +54,6 @@ export default class TicketsDAO {
       console.error(
         `Error occurred while adding new flight's ticket, ${error}.`
       );
-      return {error: error};
     }
   }
 
@@ -120,13 +119,12 @@ export default class TicketsDAO {
         {
           $project: {
             _id: 0,
+            flight_id: 1,
             code: 1,
-            startDate: 1,
-            endDate: 1,
-            origin: 1,
-            destination: 1,
-            airport: 1,
-            price: 1,
+            created: 1,
+            departure: 1,
+            arrival: 1,
+            fare: 1,
             amount: 1,
             description: 1,
           },

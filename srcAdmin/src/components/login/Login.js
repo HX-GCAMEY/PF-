@@ -57,7 +57,7 @@ const Login = () => {
       })
     }
     const response = await axios
-      .post("http://localhost:5000/api/users/adminLogin", data)
+      .post("http://flymatepf.herokuapp.com/api/users/adminLogin", data)
       .then(res =>
         Swal.fire({
           icon: "success",

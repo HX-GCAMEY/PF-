@@ -1,0 +1,68 @@
+.imgPackage {
+  height: 97vh;
+  width: 20rem;
+  top: 11px;
+
+  color: white;
+  z-index: 1;
+}
+
+.imgPackage img {
+  border-radius: 20px;
+}
+
+.originRight {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 18px;
+  z-index: 10;
+  text-align: center;
+  width: 20rem;
+}
+
+.originSon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  z-index: 10;
+  width: 18rem;
+  margin-top: 14px;
+}
+
+.originSon > * {
+  z-index: 10;
+}
+
+.sera1 {
+  color: white;
+}
+
+.imgOrigin {
+  width: 100px;
+  height: 100px;
+  clip-path: circle(40% at center);
+  z-index: 10;
+}
+
+.avioncillo {
+  position: absolute;
+  z-index: 100;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 22px;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.borderss {
+  border: none;
+}

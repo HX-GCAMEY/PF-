@@ -68,11 +68,12 @@ const styles = StyleSheet.create({
     },
     modalView: {
         width: 250,
-        height: 300,
+        height: 320,
         margin: 20,
         backgroundColor: "#0399AB",
-        borderRadius: 15, 
-        padding: 35, 
+        borderRadius: 15,
+        paddingHorizontal: 30,
+        paddingVertical: 10,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -82,7 +83,18 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
-    }
+    },
+    viewPicker: {
+        backgroundColor: '#fff',
+        borderRadius: 14,
+        top: 2,
+        height: 30,
+        justifyContent: 'center'
+    },
+    picker: { 
+        width: 130,
+        
+    },
 })
 
 export default styles;

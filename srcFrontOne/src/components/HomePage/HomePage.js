@@ -5,18 +5,20 @@ import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Feather from "react-native-vector-icons/Feather"
 import slides from "./slides";
 import Cards from "./cards";
+import CardsFavorites from './CardsFavorites'
 import CardNews from "./cardNews";
 import SearchForm from "../SearchForm/SearchForm";
 import { useSelector } from 'react-redux'
 import logoMini from './img/logoMini.png'
-import dataCardNews from "./dataCardNews";
+import dataCardNews from './dataCardNews';
 import LoadingHome from './LoadingHome';
-
+import LoadingFavs from './LoadingFavs';
 
 
 const HomePage = ({ navigation }) => {
 
     const flights = useSelector((state) => state.flightsReducers.flights.flights);
+    const favState = useSelector((state) => state.flightsReducers.favorites);
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height;
 
@@ -32,9 +34,31 @@ const HomePage = ({ navigation }) => {
     });
 
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 });
-    const categories = ["Featured", "News"];
+    const categories = ["Featured", "Favorites", "Destinations"];
     const [categoryIndex, setCategoryIndex] = useState(0);
 
+    const navigateCart = () => {
+        navigation.navigate("ShoppingCart", {
+            flyId: "",
+            departCity: "",
+            departAirport: "",
+            departDate: "",
+            departTime: "",
+            departAirportCode: "",
+            arrivalCity: "",
+            arrivalAirport: "",
+            arrivalDate: "",
+            arrivalTime: "",
+            arrivalAirportCode: "",
+            backgroundImage: "",
+            flyNumber: "",
+            totalSeats: "",
+            duration: "",
+            defaultFare: "",
+            passengers: "",
+            type: ""
+        });
+    }
 
     const CategoryList = () => {
         return (
@@ -68,6 +92,29 @@ const HomePage = ({ navigation }) => {
                 ref={slidesRef}
             />
         )
+    }
+
+    const FlatListFavorites = () => {
+        return (
+            <FlatList
+                data={favState}
+                renderItem={({ item }) => <CardsFavorites style={{ width: ANCHO_CONTENEDOR }} item={item} />}
+                horizontal
+                showsHorizontalScrollIndicator
+                pagingEnabled
+                decelerationRate={0}
+                snapToInterval={397} //330
+                bounces={false}
+                onScroll={Animated.event([{ nativeEvent: { contentOffSet: { x: scrollx } } }], {
+                    useNativeDriver: false
+                }).current}
+                scrollEventThrottle={45}
+                onViewableItemsChanged={itemsChanged.current}
+                viewabilityConfig={viewConfig.current}
+                ref={slidesRef}
+            />
+        )
+
     }
 
     const FlatListNews = () => {
@@ -104,11 +151,9 @@ const HomePage = ({ navigation }) => {
                         <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                     </View>
                     <View>
-                        <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 51 }} onPress={() => navigation.navigate("Login")} />
+                        <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 100 }} onPress={() => navigation.navigate("Login")} />
                     </View>
-                    {/* <Feather name="shopping-cart" size={30} style={{ marginTop: 47 }} /> */}
-                </View>
-                <View style={{ width: 30 }}>
+                    <Feather name="shopping-cart" size={30} style={{ marginTop: 38, right: 90 }} onPress={navigateCart} />
                 </View>
                 <CategoryList />
                 <View style={styles.viewContainerFlat}>
@@ -117,8 +162,12 @@ const HomePage = ({ navigation }) => {
                             ? <LoadingHome />
                             : categoryIndex === 0
                                 ? <FlatListFlights />
-                                : categoryIndex === 1
-                                    ? <FlatListNews /> : null
+                                : categoryIndex === 1 && !favState[0]?.flyId
+                                    ? <LoadingFavs />
+                                    : categoryIndex === 1
+                                        ? <FlatListFavorites />
+                                        : categoryIndex === 2
+                                            ? <FlatListNews /> : null
                     }
                 </View>
             </SafeAreaView>
@@ -127,3 +176,4 @@ const HomePage = ({ navigation }) => {
 }
 
 export default HomePage;
+

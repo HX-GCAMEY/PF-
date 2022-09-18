@@ -44,7 +44,7 @@ export default function BasicTable() {
     <motion.div
       initial={{ y: 1000 }}
       animate={{ y: 0 }}
-      transition={{ duration: 1.5 }}
+      transition={{ duration: 1 }}
       className="Table"
     >
       <h3>Recent Orders</h3>

@@ -13,7 +13,9 @@ import {
     SET_TICKET,
     CLEAR_TICKETS,
     POST_TICKET,
-    FILTER_PRICE
+    FILTER_PRICE,
+    SET_FAVORITES,
+    DELETE_FAVORITES
 } from "../Constants/flights";
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
     backup: [],
     flightsByRoute: {},
     getCities: [],
+    favorites: [],
     isFetching: false,  //para controlar si se esta realizando el fetch a la api
     error: false //para cuando no se esta realizando el fetch a la api
 }
@@ -70,17 +73,26 @@ export default flightsReducers = (state = initialState, action) => {
                 error: true
             }
         case ADD_TO_CART:
-            let info = state.allFlights
-            let bookedFlight = info.find(f => f._id === action.payload)
+            
+            let info = state.allFlights;
+            let bookedFlight = info.find(f => f._id === action.payload.flyId);
+            bookedFlight = {
+                ...bookedFlight,
+                passengers: action.payload.passengers,
+                type: action.payload.type
+            };
             return {
                 ...state,
                 cart: [...state.cart, bookedFlight]
             }
         case SET_TICKET:
-            console.log('este es el reducer', state.tickets)
+            let tickets = state.tickets;
+            let newTicket = action.payload;
+            console.log('este es el reducer', tickets);
+            if(ticket.length) tickets = tickets.filter(e => e.cardId !== newTicket.cardId);
             return {
                 ...state,
-                tickets: [...state.tickets, action.payload]
+                tickets: [...state.tickets, newTicket]
             }
         case CLEAR_TICKETS:
             return {
@@ -92,13 +104,26 @@ export default flightsReducers = (state = initialState, action) => {
 
             }
         case REMOVE_FROM_CART:
+            let newCart = state.cart.filter(e => e._id !== action.payload);
             return {
                 ...state,
+                cart: newCart
             }
         case CLEAR_CART:
             return {
                 ...state,
                 cart: [],
+            }
+        case SET_FAVORITES:
+            return {
+                ...state,
+                favorites: [action.payload, ...state.favorites]
+            }
+        case DELETE_FAVORITES:
+            const filterFav = state.favorites.filter((flight) => flight.flyId !== action.payload)
+            return {
+                ...state,
+                favorites: filterFav
             }
         case FILTER_PRICE:
             let flagFilt = 0

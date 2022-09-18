@@ -63,6 +63,11 @@ export default class UserController {
         errors.password = "Your password must be at least 8 characters.";
       }
 
+      if (!userFromBody.email || typeof userFromBody.email !== "string") {
+        res.status(400).json({error: "Bad email format, expected string."});
+        return;
+      }
+
       if (await UsersDAO.getUser(userFromBody.email)) {
         errors.email = `${userFromBody.email} already exists`;
       }
@@ -104,6 +109,11 @@ export default class UserController {
       const {email} = req.body;
       let errors = {};
 
+      if (!email || typeof email !== "string") {
+        res.status(400).json({error: "Bad email format, expected string."});
+        return;
+      }
+
       if (await UsersDAO.getUser(email)) {
         errors.email = `${email} already exists`;
       }
@@ -143,7 +153,7 @@ export default class UserController {
     try {
       const {email} = req.params;
       let userData = await UsersDAO.getUser(email);
-      console.log(userData);
+
       if (!userData) {
         res.status(404).json({error: "User not found"});
         return;
@@ -156,6 +166,34 @@ export default class UserController {
   }
 
   //  USERS LOGGIN / ADD USER TO SESSIONS COLLECTION
+
+  static async googleLogin(req, res, next) {
+    try {
+      const {email} = req.body;
+
+      if (!email || typeof email !== "string") {
+        res.status(400).json({error: "Bad email format, expected string."});
+        return;
+      }
+
+      let userData = await UsersDAO.getUser(email);
+      if (!userData) {
+        res.status(401).json({error: "Make sure your email is correct."});
+        return;
+      }
+      const user = new User(userData);
+
+      const loginResponse = await UsersDAO.loginUser(
+        user.email,
+        user.encoded()
+      );
+      if (!loginResponse.success) {
+        res.status(500).json({error: loginResponse.error});
+        return;
+      }
+      res.json({auth_token: user.encoded(), info: user.toJson()});
+    } catch (error) {}
+  }
 
   static async login(req, res, next) {
     try {

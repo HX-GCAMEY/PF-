@@ -6,12 +6,14 @@ const styles = StyleSheet.create({
     width: '70%',
     paddingBottom: 6,
 
-    borderColor: '#06C7C6',
+    borderColor: '#ffa333',
     borderWidth: 1,
     borderRadius: 5,
     
     paddingHorizontal: 10,
     marginVertical: 8,
+    shadowOpacity: 40,
+    elevation: 15,
    }
 })
 
