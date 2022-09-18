@@ -17,14 +17,17 @@ const styles = StyleSheet.create({
     imageSeeFavs: {
         zIndex: 0,
         left: 93,
-        bottom: 15,
+        bottom: 19,
     },
     favoritesHere: {
         zIndexL: 10,
-        bottom: 91,
+        bottom: 89,
         left: 98
     },
     imgBorder: {
+        borderWidth: 1,
+        borderColor: '#213163d2',
+        position: 'absolute',
         width: 150,
         height: 150,
         borderRadius: 300,
@@ -33,9 +36,24 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         alignItems: 'center',
         justifyContent: 'center',
-        bottom: 60
+        left: 130,
+        top: 30
+    },
+    imgBorderHome: {
+        position: 'absolute',
+        width: 150,
+        height: 150,
+        borderRadius: 300,
+        overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 130,
+        top: 80
     },
     textLoadingHome: {
+        left: 150,
         alignSelf: 'center',
         fontWeight: 'bold',
         fontSize: 19,
@@ -50,6 +68,9 @@ const styles = StyleSheet.create({
 
     },
     profilePicture: {
+        position: 'absolute',
+        alignSelf: 'center',
+        justifyContent: 'center',
         zIndex: 0,
         width: 400,
         height: 300,

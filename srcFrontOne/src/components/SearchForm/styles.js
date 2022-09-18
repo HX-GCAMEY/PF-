@@ -18,12 +18,23 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 36,
   },
   findButton: {
+    borderRadius: 7,
     width: 100,
     height: 40,
     alignSelf: 'center',
     bottom: 64,
-    color: '#ffff',
-    backgroundColor: '#252440'
+    color: '#D7C0D0',
+    // backgroundColor: '#252440'
+  },
+  findButtonText: { //////////////////////////////////
+    color: '#0399AB',
+    top: 10,
+    justifyContent: 'center'
+  },
+  findButtonTextPressed: {
+    color: '#0399AB',
+    top: 10,
+    justifyContent: 'center'
   },
   iconDate: {
     left: 40,
@@ -97,7 +108,7 @@ const styles = StyleSheet.create({
   textDecimals: {
     // backgroundColor: 'red',
     borderRadius: 10,
-    width: 50
+    width: 58
   },
   textDecimals2: {
     top: 11,
@@ -380,17 +391,16 @@ const styles = StyleSheet.create({
   },
 
   buttonDate: {
-    borderRadius: 6,
+    borderRadius: 7,
     width: 170,
     height: 40,
     left: 70,
     bottom: 26,
-    color: '#ffff',
-    backgroundColor: '#eeb775',
+    backgroundColor: '#213163',
 
   },
   buttonDateText: {
-    color: '#252440',
+    color: '#d5ccd2',
     fontSize: 15,
     fontWeight: '700'
   },
@@ -432,7 +442,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     cursor: 'pointer',
     textAlign: 'start',
-    margin: 2,
+    margin: 4,
     zIndex: 100,
     alignSelf: 'flex-start',
     borderBottomColor: 'red'

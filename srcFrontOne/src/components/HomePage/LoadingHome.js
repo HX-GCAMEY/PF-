@@ -19,8 +19,8 @@ const LoadingHome = ({ onCloseModal }) => {
   fadeIn()
 
   return (
-    <SafeAreaView >
-      <View>
+    <View style={{ position: 'absolute' }} >
+      <View style={{ position: 'absolute' }}>
         <Animated.View
           style={[
             styles.fadingContainer,
@@ -30,10 +30,10 @@ const LoadingHome = ({ onCloseModal }) => {
           </Text>
         </Animated.View>
       </View>
-      <View style={styles.imgBorder} >
+      <View style={styles.imgBorderHome} >
         <Image source={gif} style={styles.profilePicture} />
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

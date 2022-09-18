@@ -17,12 +17,13 @@ import ModalLoading from './ModalLoading'
 
 let { width } = Dimensions.get('window');
 
-const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByRoute }) => {
+const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) => {
   const dispatch = useDispatch()
   const cities = useSelector((state) => state.flightsReducers.getCities);
   const flightsByRoute1 = useSelector((state) => state.flightsReducers.flightsByRoute)
-  let flightsByRoute = flightsByRoute1?.matchedFlights
-  let flightSuggestions = flightsByRoute1?.sameDateFlights
+  const flightsByRoute = flightsByRoute1?.matchedFlights
+  const flightSuggestions = flightsByRoute1?.sameDateFlights
+  const userDate = useSelector((state) => state.userReducer.session)
 
   const [depart, setDepart] = useState('')
   const [arrival, setArrival] = useState('')
@@ -118,7 +119,6 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
           <Button
             style={styles.buttonDate}
             title='Select Date'
-            color='#376dac'
             onPress={showDatePickerDepart}
             alignItems='center'
             disabled={false}
@@ -127,7 +127,7 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
       </View>
     )
   }
-
+  console.log('usuario\n\n', userDate)
   return (
     <NativeBaseProvider>
       <SafeAreaView style={styles.inputContainer} >
@@ -208,10 +208,12 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
             />
           </View>
           <View style={{ marginBottom: 500 }} >
-            <Button
-              style={styles.findButton}
+            <Button style={styles.findButton}
+              colorScheme={'yellow'}
               alignItems='center'
-              onPress={onSubmit}>Find it!</Button>
+              onPress={onSubmit}>
+              Find it!
+            </Button>
             <Modal
               animationType='slide'
               onDismiss={() => console.log('close')}
@@ -322,9 +324,9 @@ const SearchForm = ({ flights, getFlights, getFlightsByRoute, clearGetFlightsByR
               </LinearGradient>
             </Modal>
           </View>
-        </LinearGradient >
-      </SafeAreaView >
-    </NativeBaseProvider >
+        </LinearGradient>
+      </SafeAreaView>
+    </NativeBaseProvider>
   )
 }
 
