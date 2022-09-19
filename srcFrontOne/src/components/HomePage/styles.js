@@ -9,10 +9,25 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     fadingContainer: {
+        top: 20,
+        right: 2,
         padding: 20,
         backgroundColor: 'transparent'
     },
+    imageSeeFavs: {
+        zIndex: 0,
+        left: 93,
+        bottom: 19,
+    },
+    favoritesHere: {
+        zIndexL: 10,
+        bottom: 89,
+        left: 98
+    },
     imgBorder: {
+        borderWidth: 1,
+        borderColor: '#213163d2',
+        position: 'absolute',
         width: 150,
         height: 150,
         borderRadius: 300,
@@ -21,9 +36,24 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: '1%',
+        left: 130,
+        top: 30
+    },
+    imgBorderHome: {
+        position: 'absolute',
+        width: 150,
+        height: 150,
+        borderRadius: 300,
+        overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 130,
+        top: 80
     },
     textLoadingHome: {
+        left: 150,
         alignSelf: 'center',
         fontWeight: 'bold',
         fontSize: 19,
@@ -38,16 +68,20 @@ const styles = StyleSheet.create({
 
     },
     profilePicture: {
+        position: 'absolute',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        zIndex: 0,
         width: 400,
         height: 300,
     },
     viewContainerFlat: {
-        // backgroundColor: '#0184A0',
+        backgroundColor: '#0183a010',
         paddingHorizontal: 0,
         paddingVertical: 0,
         left: 0,
         right: 0,
-        marginLeft: 4,
+        marginLeft: 0,
         paddingBottom: 10,
         paddingTop: 10
     },
@@ -73,7 +107,7 @@ const styles = StyleSheet.create({
     },
     categoryContainer: {
         // backgroundColor: 'red',
-        right: 5,
+        left: 2,
         justifyContent: 'center',
         flexDirection: 'row',
         marginTop: -123,
@@ -92,10 +126,10 @@ const styles = StyleSheet.create({
 
     },
     categoryText: {
+        bottom: -5,
         right: 10,
         padding: 10,
         marginLeft: 20,
-        // marginLeft: 70,
         fontSize: 16,
         color: '#1E1E1E',
         fontWeight: 'bold'
@@ -122,6 +156,19 @@ const styles = StyleSheet.create({
         height: 300,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    cardViewStyleClose: {
+        position: 'absolute',
+        top: 10,
+        right: 20,
+        height: 300,
+    },
+    closeIconFav: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        backgroundColor: 'red',
+
     },
     imagenContainer: {
         backgroundColor: 'transparent'
@@ -190,6 +237,24 @@ const styles = StyleSheet.create({
         marginTop: 20,
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    fullPriceText: {
+        textDecorationLine: 'line-through', 
+        textDecorationStyle: 'solid',
+        color: '#252440',
+        bottom: 120,
+        position: 'absolute',
+        marginRight: 10,
+        fontWeight: 'bold',
+        fontSize: 18
+    },
+    discountText: {
+        color: '#d3a247db',
+        bottom: 95,
+        position: 'absolute',
+        marginRight: 10,
+        fontWeight: 'bold',
+        fontSize: 22
     },
     textDep: {
         color: '#252440',

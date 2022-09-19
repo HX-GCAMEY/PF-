@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     avatarImg: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: 156,
+        marginLeft: 150,
         marginTop: 80,
         borderRadius: 45,
     },
@@ -24,20 +24,47 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 100,
         height: 100,
-        marginLeft: 156,
+        marginLeft: 150,
         marginTop: 80,
         borderRadius: 45
     },
-    inputModal: {
-        backgroundColor: '#ffd19b', 
-        width: '100%',
+    textInfo: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: '#7BB4E3',
+        width: '90%',
+        padding: 20,
+        paddingBottom: 22,
+        borderRadius: 5,
+        shadowOpacity: 80,
+        elevation: 15,
         marginTop: 20,
-        height: 50,
-        borderColor: 'black',
-        borderWidth: 0.5,
-        fontWeight: 'bold',
-        
+        borderBottomColor: 'black',
+        borderBottomWidth: 2,
+        borderLeftColor: 'black',
+        borderLeftWidth: 2
     },
+    editProfile: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    iconsP: {
+        marginRight: 15
+    },
+    btnAdd: {
+        color: 'white'
+    },
+    containerAdd: {
+        backgroundColor: 'white',
+        width: 30,
+        marginLeft: 210,
+        marginTop: -50,
+        borderRadius: 30,
+        borderColor: 'black',
+        borderWidth: 1
+    }
 
 })
 

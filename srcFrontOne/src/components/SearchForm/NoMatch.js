@@ -4,6 +4,7 @@ import logo from './img/logos.png'
 import gif from './img/loadingGif.gif'
 import styles from './styles'
 
+
 const NoMatch = ({ onCloseModal }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -17,14 +18,13 @@ const NoMatch = ({ onCloseModal }) => {
   }
   fadeIn()
 
-
   return (
     <SafeAreaView >
       <View>
         <Animated.View
           style={[
             styles.fadingContainer,
-            { opacity: fadeAnim }]}>
+            { opacity: fadeAnim, marginBottom: 15 }]}>
           <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 19, top: 40, backgroundColor: 'transparent' }} >
             {`The are no flights available`}
           </Text>
@@ -33,7 +33,7 @@ const NoMatch = ({ onCloseModal }) => {
       <View style={styles.imgBorder} >
         <Image source={gif} style={styles.profilePicture} />
       </View>
-      <Image source={logo} style={{ alignSelf: 'center', top: 50 }} />
+      <Image source={logo} style={{ alignSelf: 'center', top: 75 }} />
     </SafeAreaView>
   )
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { Text, View, Image, Animated, SafeAreaView, Button } from 'react-native'
 import logo from './img/logos.png'
 import gif from './img/loadingGif.gif'
+import loadingLogo from './img/loading.png'
 import styles from './styles'
 
 const Loading = ({ onCloseModal }) => {
@@ -25,9 +26,7 @@ const Loading = ({ onCloseModal }) => {
           style={[
             styles.fadingContainer,
             { opacity: fadeAnim }]}>
-          <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 19, top: 40, backgroundColor: 'transparent', marginBottom: 20 }} >
-            {`Loading...`}
-          </Text>
+          <Image source={loadingLogo} style={styles.loadingLogo} />
         </Animated.View>
       </View>
       <View style={styles.imgBorder} >

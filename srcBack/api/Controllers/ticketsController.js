@@ -131,26 +131,11 @@ export default class TicketsController {
 
   static async createPackage(req, res) {
     try {
-      const {
-        code,
-        startDate,
-        endDate,
-        origin,
-        destination,
-        airport,
-        price,
-        amount,
-        description,
-      } = req.body;
+      const {code, flight_id, amount, description} = req.body;
 
       let result = await TicketsDAO.addPackage(
         code,
-        startDate,
-        endDate,
-        origin,
-        destination,
-        airport,
-        price,
+        flight_id,
         amount,
         description
       );

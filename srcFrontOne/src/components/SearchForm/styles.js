@@ -7,13 +7,34 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     height: 100
   },
+  gradientContainerSearch: {
+    height: 300,
+    marginTop: 10,
+    marginLeft: 24,
+    width: 330,
+    borderTopLeftRadius: 36,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 36,
+  },
   findButton: {
+    borderRadius: 7,
     width: 100,
     height: 40,
     alignSelf: 'center',
     bottom: 64,
-    color: '#ffff',
-    backgroundColor: '#252440'
+    color: '#D7C0D0',
+    // backgroundColor: '#252440'
+  },
+  findButtonText: { //////////////////////////////////
+    color: '#0399AB',
+    top: 10,
+    justifyContent: 'center'
+  },
+  findButtonTextPressed: {
+    color: '#0399AB',
+    top: 10,
+    justifyContent: 'center'
   },
   iconDate: {
     left: 40,
@@ -33,7 +54,7 @@ const styles = StyleSheet.create({
     marginTop: 100
   },
   textInputsNames: {
-    marginTop: 21,
+    marginTop: 12,
     alignSelf: 'center',
     fontSize: 16,
     fontWeight: 'bold',
@@ -57,7 +78,7 @@ const styles = StyleSheet.create({
     top: 2,
     borderWidth: 1.2,
     borderColor: '#dccbcb',
-    borderRadius: 5,
+    borderRadius: 6,
     padding: 8,
 
   },
@@ -67,16 +88,31 @@ const styles = StyleSheet.create({
     top: 2,
     borderWidth: 1.2,
     borderColor: '#dccbcb',
-    borderRadius: 5,
+    borderRadius: 6,
     padding: 8,
 
   },
   filterPriceComp: {
     padding: 100,
   },
+  viewCustomInput: {
+    flexDirection: 'row',
+    backgroundColor: "#FFFFFF",
+    borderRadius: 15,
+    marginTop: 10
+  },
   inputsFilter: {
     fontSize: 15,
     color: '#2a293f'
+  },
+  textDecimals: {
+    // backgroundColor: 'red',
+    borderRadius: 10,
+    width: 58
+  },
+  textDecimals2: {
+    top: 11,
+    fontSize: 15
   },
   containerModalFilter: {
     zIndex: 0,
@@ -93,12 +129,19 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 17,
     fontWeight: "bold",
-    marginTop: 10
+    marginTop: 20,
   },
-  viewCustomInput: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 15,
-    marginTop: 30
+  gradientPressableFilter: {
+    borderRadius: 20,
+    width: 168,
+    height: 42,
+    marginTop: 50
+  },
+  gradientPressableTextFilter: {
+    textAlign: "center",
+    marginTop: 6,
+    color: "#FFFFFF",
+    fontSize: 20
   },
   modalView: {
     right: 100,
@@ -119,6 +162,11 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5
   },
+  closeModalFilter: {
+    // position: 'absolute',
+    bottom: 22,
+    left: 0
+  },
   modalFilter: {
     backgroundColor: 'transparent',
     width: 160,
@@ -133,6 +181,11 @@ const styles = StyleSheet.create({
   closeModalIcon: {
     right: 25,
     top: 15
+  },
+  viewFlatListRender: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 0
   },
   cardModal: {
     width: 360,
@@ -167,7 +220,14 @@ const styles = StyleSheet.create({
     top: 5,
     left: 5
   },
-
+  iconFavs: {
+    left: 2,
+    top: 6,
+    fontSize: 15,
+    backgroundColor: '#31304e44',
+    padding: 5,
+    borderRadius: 100,
+  },
   airCodeText: {
     top: 5,
     left: 130,
@@ -265,7 +325,6 @@ const styles = StyleSheet.create({
     width: 100,
     right: 189,
     top: 20,
-
   },
   miniLogoSearch: {
     right: 0,
@@ -275,6 +334,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     height: 35,
 
+  },
+  viewContModalSearch: {
+    height: 52,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 5
   },
   MainContainer: {
     borderRadius: 10,
@@ -324,16 +391,16 @@ const styles = StyleSheet.create({
   },
 
   buttonDate: {
-    borderRadius: 6,
+    borderRadius: 7,
     width: 170,
     height: 40,
     left: 70,
     bottom: 26,
-    color: '#ffff',
-    backgroundColor: '#f28c25',
+    backgroundColor: '#213163',
 
   },
   buttonDateText: {
+    color: '#d5ccd2',
     fontSize: 15,
     fontWeight: '700'
   },
@@ -375,7 +442,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     cursor: 'pointer',
     textAlign: 'start',
-    margin: 2,
+    margin: 4,
     zIndex: 100,
     alignSelf: 'flex-start',
     borderBottomColor: 'red'
@@ -419,6 +486,10 @@ const styles = StyleSheet.create({
   fadingContainer: {
     padding: 20,
     backgroundColor: 'transparent'
+  },
+  loadingLogo: {
+    left: 40,
+    top: 20
   },
   suggestionText: {
     color: '#ffff',

@@ -6,6 +6,7 @@ import ButtonLogin from "../Login/ButtonLogin/ButtonLogin";
 import SocialButtons from "../Login/SocialButtons/SocialButtons";
 import { firebase } from "../../../../firebase-config";
 import axios from "axios";
+import {LinearGradient} from "expo-linear-gradient";
 
 
 
@@ -55,6 +56,7 @@ const SignUp = ({navigation}) => {
 
 
     return (
+        <LinearGradient colors={['#ffa333', '#07C5C5']} style={{height: '100%'}}>
         <ScrollView showsVerticalScrollIndicator={true}>
         <View style={styles.root}>
             <Text style={styles.title}>Create an account</Text>
@@ -87,6 +89,7 @@ const SignUp = ({navigation}) => {
 
         </View>
         </ScrollView>
+        </LinearGradient>
     )
 }
 

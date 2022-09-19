@@ -1,42 +1,35 @@
 import {ObjectId} from "bson";
+import FlightsDAO from "./flightsDAO.js";
 
 let tickets;
 let packages;
+let flights;
 export default class TicketsDAO {
   static async injectDB(conn) {
-
     if (tickets && packages) {
       return;
     }
     try {
       tickets = await conn.db(process.env.FLYMATE_NS).collection("tickets");
       packages = await conn.db(process.env.FLYMATE_NS).collection("packages");
+      flights = await conn.db(process.env.FLYMATE_NS).collection("flights");
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
     }
   }
 
-
-  static async addPackage(
-    code,
-    startDate,
-    endDate,
-    origin,
-    destination,
-    airport,
-    price,
-    amount,
-    description
-  ) {
+  static async addPackage(code, flight_id, amount, description) {
+    console.log(flight_id);
     try {
+      const flight = await FlightsDAO.getFlightByID(flight_id);
+
+      console.log(flight);
+
       await packages.insertOne({
+        ...flight,
         code: code,
-        startDate: startDate,
-        endDate: endDate,
-        origin: origin,
-        destination: destination,
-        airport: airport,
-        price: price,
+        created: new Date(),
+        fare: flight.defaultFare - flight.defaultFare * amount,
         amount: amount,
         description: description,
       });
@@ -61,6 +54,8 @@ export default class TicketsDAO {
       console.error(
         `Error occurred while adding new flight's ticket, ${error}.`
       );
+    }
+  }
 
   static async addFlightTicket(
     {flight_id, user_id, type, fare},
@@ -102,7 +97,6 @@ export default class TicketsDAO {
     return flightTicket.availableTickets;
   }
 
-
   static async getAllPackages() {
     try {
       const allPackages = await packages.find().toArray();
@@ -125,13 +119,12 @@ export default class TicketsDAO {
         {
           $project: {
             _id: 0,
+            flight_id: 1,
             code: 1,
-            startDate: 1,
-            endDate: 1,
-            origin: 1,
-            destination: 1,
-            airport: 1,
-            price: 1,
+            created: 1,
+            departure: 1,
+            arrival: 1,
+            fare: 1,
             amount: 1,
             description: 1,
           },
@@ -143,7 +136,6 @@ export default class TicketsDAO {
       return null;
     }
   }
-
 
   static async getFlightTicket(flightNum) {
     const flightTicket = await tickets.findOne({flight_id: flightNum});

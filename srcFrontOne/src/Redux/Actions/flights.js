@@ -17,13 +17,15 @@ import {
     GET_CITIES,
     SORT_PRICE,
     CLEAR_TICKETS,
-    FILTER_PRICE
+    FILTER_PRICE,
+    SET_FAVORITES,
+    DELETE_FAVORITES
 } from "../Constants/flights";
 
 
 export function getFlights() {
     return async function (dispatch) {
-        const res = await axios.get(`${BACK_NET}/api/flights`);
+        const res = await axios.get(`${BACK_NET}/api/tickets/allPackages`);
         dispatch({
             type: GET_FLIGHTS,
             payload: res.data
@@ -88,6 +90,24 @@ export function filterPrice(payload) {
     }
 }
 
+export function setFavorites(payload) {
+    return async function (dispatch) {
+        dispatch({
+            type: SET_FAVORITES,
+            payload: payload
+        })
+    }
+}
+
+export function deleteFavorites(payload) {
+    return async function (dispatch) {
+        dispatch({
+            type: DELETE_FAVORITES,
+            payload: payload
+        })
+    }
+}
+
 export const getSuccess = payload => {
     return {
         type: GET_FLIGHTS_SUCCESS,
@@ -101,10 +121,10 @@ export const getError = () => {
     }
 }
 
-export const addToCart = (id) => {
+export const addToCart = (ticket) => {
     return {
         type: ADD_TO_CART,
-        payload: id
+        payload: ticket
     }
 }
 
@@ -140,3 +160,4 @@ export const clearCart = () => {
         type: CLEAR_CART
     }
 }
+
