@@ -13,6 +13,8 @@ router.route("/updateProfile").put(UsersController.save);
 router.route("/findUser/:email").get(UsersController.findUser);
 router.route("/addProfilePic").post(UsersController.addImage);
 router.route("/getProfilePic/:email").get(UsersController.getImage);
+router.route("/saveFavorites").post(UsersController.saveFavs);
+router.route("/getFavorites/:email").get(UsersController.getFavs);
 
 // ADMIN ROUTES
 router.route("/registerAdmin").post(UsersController.registerAdmin);
