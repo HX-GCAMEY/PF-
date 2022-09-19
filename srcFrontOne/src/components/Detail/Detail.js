@@ -62,13 +62,11 @@ const Detail = () => {
     }
 
     const next = () => {
-        //renderiza un ticket por pasajero
         const newTicket = {
             flyId: flyId,
             passengers: passengers,
             type: clase
         }
-        //for (let i = 0; i < passengers; i++){
         dispatch(addToCart(newTicket))
 
         navigation.navigate('ShoppingCart', {

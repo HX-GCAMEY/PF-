@@ -15,7 +15,8 @@ import {
     POST_TICKET,
     FILTER_PRICE,
     SET_FAVORITES,
-    DELETE_FAVORITES
+    DELETE_FAVORITES,
+    MODIFY_FROM_CART,
 } from "../Constants/flights";
 
 const initialState = {
@@ -43,7 +44,7 @@ export default flightsReducers = (state = initialState, action) => {
         case GET_ALL_FLIGHTS:
             return {
                 ...state,
-                allFlights: action.payload
+                allFlights: action.payload,
             }
         case GET_FLIGHTS_BY_ROUTE:
             return {
@@ -85,10 +86,20 @@ export default flightsReducers = (state = initialState, action) => {
                 ...state,
                 cart: [...state.cart, bookedFlight]
             }
+            /*case MODIFY_FROM_CART:
+                //el vuelo a modificar
+                let update = state.cart.find(f => f._id === action.payload.flyId)
+                update = {
+                    ...update,
+                    passengers: action.payload.passengers
+                }
+                console.log(update)
+            return {
+                ...state,
+            }*/
         case SET_TICKET:
             let tickets = state.tickets;
             let newTicket = action.payload;
-            console.log('este es el reducer', tickets);
             if(ticket.length) tickets = tickets.filter(e => e.cardId !== newTicket.cardId);
             return {
                 ...state,
