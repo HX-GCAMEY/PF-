@@ -19,8 +19,7 @@ import {
     CLEAR_TICKETS,
     FILTER_PRICE,
     SET_FAVORITES,
-    DELETE_FAVORITES,
-    MODIFY_FROM_CART,
+    DELETE_FAVORITES
 } from "../Constants/flights";
 
 
@@ -159,13 +158,6 @@ export const removeFromCart = (id) => {
 export const clearCart = () => {
     return {
         type: CLEAR_CART
-    }
-}
-
-export const modifyFromCart = (modify) => {
-    return {
-        type: MODIFY_FROM_CART,
-        payload: modify
     }
 }
 
