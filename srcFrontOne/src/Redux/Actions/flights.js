@@ -25,7 +25,7 @@ import {
 
 export function getFlights() {
     return async function (dispatch) {
-        const res = await axios.get(`${BACK_NET}/api/flights`);
+        const res = await axios.get(`${BACK_NET}/api/tickets/allPackages`);
         dispatch({
             type: GET_FLIGHTS,
             payload: res.data

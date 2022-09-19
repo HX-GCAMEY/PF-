@@ -85,9 +85,9 @@ const Detail = () => {
             arrivalAirportCode: arrivalAirportCode,
             backgroundImage: backgroundImage,
             flyNumber: flyNumber,
-            totalSeats: totalSeats,
-            duration: duration,
-            defaultFare: defaultFare,
+            totalSeatsParams: totalSeats,
+            durationParams: duration,
+            defaultFareParams: defaultFare,
             passengers: passengers,
             type: clase
         })
