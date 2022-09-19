@@ -43,7 +43,7 @@ export default flightsReducers = (state = initialState, action) => {
         case GET_ALL_FLIGHTS:
             return {
                 ...state,
-                allFlights: action.payload
+                allFlights: action.payload,
             }
         case GET_FLIGHTS_BY_ROUTE:
             return {
@@ -81,14 +81,25 @@ export default flightsReducers = (state = initialState, action) => {
                 passengers: action.payload.passengers,
                 type: action.payload.type
             };
-            return {
+            
+            let bookedFlightInCart = state.cart.find(f => f._id === bookedFlight._id)
+
+            return bookedFlightInCart 
+            ? {
                 ...state,
+                cart: state.cart.map(flight => 
+                    flight._id === bookedFlight._id 
+                    ? {...flight, passengers: flight.passengers + bookedFlight.passengers} 
+                    : flight
+                ),
+            } 
+            : {
+                ...state, 
                 cart: [...state.cart, bookedFlight]
             }
         case SET_TICKET:
             let tickets = state.tickets;
             let newTicket = action.payload;
-            console.log('este es el reducer', tickets);
             if(ticket.length) tickets = tickets.filter(e => e.cardId !== newTicket.cardId);
             return {
                 ...state,

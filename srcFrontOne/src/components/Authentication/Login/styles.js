@@ -12,24 +12,15 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     btnGoogle: {
-        marginLeft: 4, 
-        paddingRight: 5, 
-        paddingLeft: 15, 
-        paddingTop: 11, 
-        paddingBottom: 5, 
-        alignItems: 'center', 
-        backgroundColor: 'white', 
-        borderRadius: 30, 
-        borderWidth: 1, 
-        marginTop: 10, 
-        borderBottomColor: 'green', 
-        borderBottomWidth: 5, 
-        borderLeftColor: 'orange', 
-        borderLeftWidth: 5, 
-        borderRightColor: 'blue', 
-        borderRightWidth: 5, 
-        borderTopColor: 'red', 
-        borderTopWidth: 5
+        width: 50,
+        height: 50,
+        marginLeft: -30
+    },
+    googleText: {
+        marginLeft: 20,
+        marginTop: -34,
+        fontWeight: 'bold',
+    
     }
 })
 

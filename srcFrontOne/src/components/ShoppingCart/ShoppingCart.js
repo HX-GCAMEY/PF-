@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, Text, Pressable, ScrollView, TouchableOpacity, Modal } from "react-native";
+import { View, Text, Pressable, ScrollView, TouchableOpacity, Modal, Alert, Button } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { clearCart, clearTickets, getFlights, postTicket, removeFromCart } from "../../Redux/Actions/flights";
 import CartItem from "./CartItem";
 import { useNavigation } from '@react-navigation/native';
+import styles from "./styles";
 
 const ShoppingCart = () => {
 
@@ -16,7 +17,7 @@ const ShoppingCart = () => {
     //todos los elementos del carrito
     const flightCart = useSelector((state) => state.flightsReducers.cart);
     const tickets = useSelector((state) => state.flightsReducers.tickets);
-    const {email} = useSelector((state) => state.userReducer.session);
+    const usuario = useSelector((state) => state.userReducer.session);
 
     const [modalVisible, setModalVisible] = useState(false);
     
@@ -53,13 +54,11 @@ const ShoppingCart = () => {
     }
 
     const back = () => {
-        //dispatch(clearCart());
         navigation.navigate('HomePage')
     }
 
     const shop = () => {
-        navigation.navigate('StripeApp')
-        //setModalVisible(!modalVisible);
+        setModalVisible(!modalVisible);
     }
 
     const openModal = () => {
@@ -68,6 +67,11 @@ const ShoppingCart = () => {
 
     const onCloseModal = () => {
         setModalVisible(false)
+    }
+
+    const goToPay = () => {
+        if(usuario && usuario.email) navigation.navigate('StripeApp')
+        else navigation.navigate('Login')
     }
 
     return (
@@ -80,17 +84,15 @@ const ShoppingCart = () => {
             <Text style={{fontSize: 26, fontWeight: "bold", marginTop: 80, marginLeft: 36, marginBottom: 56}}>Shopping Cart</Text>
             {
                 flightCart && flightCart.map((item, index) => {
-                    return <CartItem data={item} key={index} id={index} delFromCart={del}/>
+                    return <CartItem data={item} key={index} id={index} delFromCart={del}/>  
                 })
             }
-
-            {/* <Pressable onPress={() => send()}> */}
             <Pressable onPress={() => shop()}>
-                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
-                    <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Buy Now</Text>
+                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20, marginBottom: 20}}>
+                    <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF90", textAlign: "center", top: 8}}>Confirm Payment</Text>
                 </LinearGradient>
             </Pressable>
-            {/*<Modal
+            <Modal
             animationType="slide"
             transparent
             visible={modalVisible}
@@ -100,9 +102,9 @@ const ShoppingCart = () => {
             >
                 <View style={{
                     backgroundColor: "#06C5C5", 
-                    width: 400, 
-                    height: 250, 
-                    top: 535,
+                    width: 400,
+                    height: 440,
+                    top: 300,
                     right: 2,
                     borderRadius: 40,
                     }}>
@@ -111,8 +113,24 @@ const ShoppingCart = () => {
                             <Ionicons name='close-circle-outline' color={'#FFFFFF90'} size={37}/>
                         </TouchableOpacity>
                     </View>
-                </View>
-                </Modal>*/}
+                    { flightCart.map((i, index) => {
+                        return (
+                        <View key={index}> 
+                            <Text style={styles.resumenTitle}>Flight number: {i.number} </Text>    
+                            <Text style={styles.resumen}>{i.passengers} passengers</Text>
+                            <Text style={styles.resumenFare}>$ {i.defaultFare * i.passengers}</Text>
+                            <Text style={styles.separacion}>-------------------------------</Text>
+                        </View>
+                        )
+                    }) 
+                    }
+                    <Pressable onPress={() => goToPay()}>
+                        <LinearGradient colors={["#FFFFFF", "#FFFFFF"]} style={styles.boton}>
+                            <Text style={{fontWeight: "400", fontSize: 16, left: 85, top: 4}}>Proceed to checkout</Text>
+                        </LinearGradient>
+                    </Pressable>
+                </View>     
+            </Modal>
         </ScrollView>
     )
 }
