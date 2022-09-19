@@ -38,3 +38,12 @@ export const getReviews = createAsyncThunk("tasks/getReviews", async () => {
   console.log("soy response de getReviews", response.data)
   return response.data
 })
+
+export const getPackages = createAsyncThunk("tasks/getPackages", async () => {
+  const response = await axios.get(
+    "http://flymatepf.herokuapp.com/api/tickets/allPackages"
+  )
+
+  console.log("soy response de getPackage", response.data)
+  return response.data
+})
