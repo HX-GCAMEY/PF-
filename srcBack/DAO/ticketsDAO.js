@@ -18,8 +18,7 @@ export default class TicketsDAO {
     }
   }
 
-  static async addPackage(code, flight_id, amount, description) {
-    console.log(flight_id);
+  static async addPackage(code, flight_id, amount, description, endDate) {
     try {
       const flight = await FlightsDAO.getFlightByID(flight_id);
 
@@ -32,6 +31,7 @@ export default class TicketsDAO {
         fare: flight.defaultFare - flight.defaultFare * amount,
         amount: amount,
         description: description,
+        endDate: endDate,
       });
       return {success: true};
     } catch (error) {
@@ -124,9 +124,11 @@ export default class TicketsDAO {
             created: 1,
             departure: 1,
             arrival: 1,
+            duration: 1,
             fare: 1,
             amount: 1,
             description: 1,
+            endDate: 1,
           },
         },
       ];
