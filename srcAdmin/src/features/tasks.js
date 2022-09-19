@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import { getFlights, getFlightsAvailables, getTask, getReviews } from "./orders"
 
 export const taskSlice = createSlice({
@@ -18,6 +18,7 @@ export const taskSlice = createSlice({
       final: 7,
     },
     isLoading: false,
+    isLoadingReviews: false,
   },
   reducers: {
     filtered: (state, action) => {
@@ -82,14 +83,14 @@ export const taskSlice = createSlice({
       state.isLoading = false
     },
     [getReviews.pending]: state => {
-      state.isLoading = true
+      state.isLoadingReviews = true
     },
     [getReviews.fulfilled]: (state, action) => {
-      state.isLoading = false
+      state.isLoadingReviews = false
       state.reviews = action.payload
     },
     [getReviews.rejected]: state => {
-      state.isLoading = false
+      state.isLoadingReviews = false
     },
   },
 })

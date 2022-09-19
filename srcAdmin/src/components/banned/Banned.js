@@ -16,7 +16,7 @@ import { getReviews, getTask } from "../../features/orders"
 import { GiJumpAcross } from "react-icons/gi"
 import { bannedFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
-import { Button } from "antd"
+import { Button, Spin } from "antd"
 import { FaArrowUp } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 import Swal from "sweetalert2"
@@ -26,6 +26,7 @@ const Banned = () => {
   const dispatch = useDispatch()
   const customers = useSelector(state => state.tasks.users)
   const bannedFiltered = useSelector(state => state.tasks.bannedFiltered)
+  const loading = useSelector(state => state.tasks.isLoadingReviews)
   const banned = customers.filter(e => e.isBanned === true)
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
@@ -169,6 +170,14 @@ const Banned = () => {
     }
     setInputPaginado(e.target.value)
     setSumador(e.target.value * 7)
+  }
+
+  if (!customers.length) {
+    return (
+      <div className="spinToWin">
+        <Spin className="spin" tip="Loading..."></Spin>
+      </div>
+    )
   }
 
   return (

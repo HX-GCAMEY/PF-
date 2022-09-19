@@ -36,8 +36,8 @@ const Login = () => {
   useEffect(() => {
     dispatch(getTask())
     dispatch(getReviews())
-  }, [dispatch])
-  console.log("soy reviews", reviews)
+  }, [])
+
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
   }

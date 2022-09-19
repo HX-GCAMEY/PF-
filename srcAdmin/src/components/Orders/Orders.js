@@ -31,7 +31,6 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     text: "",
     price: "",
     amount: "",
-    effect: false,
   }
   useEffect(() => {
     setVisual(initialSate)
