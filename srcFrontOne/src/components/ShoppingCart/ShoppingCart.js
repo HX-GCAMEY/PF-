@@ -16,9 +16,8 @@ const ShoppingCart = () => {
 
     //todos los elementos del carrito
     const flightCart = useSelector((state) => state.flightsReducers.cart);
-    console.log(flightCart.map(i => i.passengers))
     const tickets = useSelector((state) => state.flightsReducers.tickets);
-    const {email} = useSelector((state) => state.userReducer.session);
+    const usuario = useSelector((state) => state.userReducer.session);
 
     const [modalVisible, setModalVisible] = useState(false);
     
@@ -71,7 +70,8 @@ const ShoppingCart = () => {
     }
 
     const goToPay = () => {
-        navigation.navigate('StripeApp')
+        if(usuario && usuario.email) navigation.navigate('StripeApp')
+        else navigation.navigate('Login')
     }
 
     return (
@@ -100,10 +100,11 @@ const ShoppingCart = () => {
             setModalVisible(!modalVisible);
             }}
             >
-                <ScrollView style={{
+                <View style={{
                     backgroundColor: "#06C5C5", 
-                    width: 400, 
-                    height: 1000, 
+                    width: 400,
+                    height: 440,
+                    top: 300,
                     right: 2,
                     borderRadius: 40,
                     }}>
@@ -112,21 +113,23 @@ const ShoppingCart = () => {
                             <Ionicons name='close-circle-outline' color={'#FFFFFF90'} size={37}/>
                         </TouchableOpacity>
                     </View>
-                    <View>
-                        { flightCart.map(i => {
-                            console.log(i)
-                            return (
-                            <View> 
-                                <Text style={styles.resumenTitle}>Flight number: {i.number} </Text>    
-                                <Text style={styles.resumen}>{i.passengers} passengers</Text>
-                                <Text style={styles.resumenFare}>$ {i.defaultFare}</Text>
-                                <Text style={styles.separacion}>-------------------------------</Text>
-                            </View>
-                            )
-                        }) 
-                        }
-                    </View>
-                </ScrollView>
+                    { flightCart.map((i, index) => {
+                        return (
+                        <View key={index}> 
+                            <Text style={styles.resumenTitle}>Flight number: {i.number} </Text>    
+                            <Text style={styles.resumen}>{i.passengers} passengers</Text>
+                            <Text style={styles.resumenFare}>$ {i.defaultFare * i.passengers}</Text>
+                            <Text style={styles.separacion}>-------------------------------</Text>
+                        </View>
+                        )
+                    }) 
+                    }
+                    <Pressable onPress={() => goToPay()}>
+                        <LinearGradient colors={["#FFFFFF", "#FFFFFF"]} style={styles.boton}>
+                            <Text style={{fontWeight: "400", fontSize: 16, left: 85, top: 4}}>Proceed to checkout</Text>
+                        </LinearGradient>
+                    </Pressable>
+                </View>     
             </Modal>
         </ScrollView>
     )

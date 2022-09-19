@@ -44,6 +44,15 @@ const styles = StyleSheet.create({
         top: -10,
         left: 120,
         
+    },
+    boton: {
+        width: 318,
+        height: 32,
+        left: 40,
+        top: 10,
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 35,
+        borderTopLeftRadius: 25,
     }
 });
 
