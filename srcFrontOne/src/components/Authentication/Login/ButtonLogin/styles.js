@@ -12,10 +12,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 25,
         width: '30%',
-        borderBottomColor: 'black',
-        borderBottomWidth: 2,
-        borderLeftColor: 'black',
-        borderLeftWidth: 2
+       
     },
 
     container_TERTIARY: {},

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Image, useWindowDimensions, View, Button} from "react-native";
+import {Image, useWindowDimensions, View, Text} from "react-native";
 import logo from "../../../images/flymateLogo.png";
 import styles from "./styles";
 import InputLogin from "./InputLogin/InputLogin";
@@ -73,9 +73,9 @@ const LoginScreen = ({navigation}) => {
                 text="Login" 
                 onPress={() => login(email, password)} 
                 />
-                
+               
             <SocialButtons />
-            
+           
             <ButtonLogin 
                 text="Forgot Password?" 
                 onPress={onForgotPasswordPress} 

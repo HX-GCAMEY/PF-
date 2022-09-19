@@ -11,6 +11,8 @@ import welcome from "./imgs/welcome.png";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { userLogout, userDelete} from "../../Redux/Actions/users";
+import Categories from "./categories/categories";
+
 
 const Profile = ({navigation}) => {
     
@@ -18,9 +20,27 @@ const Profile = ({navigation}) => {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
     const [image, setImage] = useState(null);
     const user = useSelector((state) => state.userReducer.session);
+    const categories = ["Profile", "My Tickets", "Reviews"];
+    const [categoryIndex, setCategoryIndex] = useState(0);
     console.log('estamos aki', user)
     const dispatch  = useDispatch();
+  
     
+    const CategoryList = () => {
+        return (
+            <View style={styles.categoryContainer2}>
+                {categories.map((item, index) => (
+                    <TouchableOpacity key={index} onPress={() => setCategoryIndex(index)}>
+                        <Text style={[styles.categoryText2, categoryIndex === index && styles.categoryTextSelected2]}>{item}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+        )
+    }
+
+
+  
+
     useEffect(() => {
         (async () => {
             const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -55,13 +75,18 @@ const Profile = ({navigation}) => {
         }
         navigation.navigate("Login")
         alert("Session closed successfully")
-    } 
+    }
+    
+    
     const changePassword = () => {
         navigation.navigate("ForgotPassword")
     }
+
+
     const onEdit = () => {
         navigation.navigate("EditProfile")
     }
+
 
     const onDelete = () => {
         if(user.email){
@@ -69,9 +94,62 @@ const Profile = ({navigation}) => {
         }
         alert('Account deleted successfully')
     }
+
+    const ProfileCategory = () => {
+        return (
+        <View>
+        <View style={{alignItems: 'center'}}>
+        <Image source={welcome} style={{marginTop: 40, marginLeft: 25, height: 30}}/>
+        {user.email ? <Text style={{fontWeight: 'bold', fontSize: 15, marginTop: 10}}>{user.email}</Text> : <Text style={{color: '#131c46', fontSize: 18, fontWeight: 'bold', marginLeft: 10 }}>user@email.com</Text>}
+        
+   </View>
+
+         <View style={styles.textInfo}>
+           <Feather name="user" size={25} style={styles.iconsP}/>
+           {user.profile?.name ? <Text style={styles.textCat}>{user.profile.name}</Text> : <Text style={styles.textCat}>Full Name</Text>}
+         </View>
+
+         <View style={styles.textInfo}>
+           <FontAwesome5 name="passport" size={25} style={styles.iconsP}/>
+           {user.profile?.passport ? <Text style={styles.textCat}>{user.profile.passport}</Text> : <Text style={styles.textCat}>Passport</Text>}
+         </View>
+         
+         <View  style={styles.textInfo}>
+           <FontAwesome5 name="map-marker-alt" size={25}style={styles.iconsP} />
+           {user.profile?.nationality ? <Text style={styles.textCat}>{user.profile.nationality}</Text> : <Text style={styles.textCat}>Nationality</Text>}
+         </View>
+
+         <View  style={styles.textInfo}>
+           <FontAwesome5 name="phone-square-alt" size={25} style={styles.iconsP}/>
+           {user.profile?.phone ? <Text style={styles.textCat}>{user.profile.phone}</Text> : <Text style={styles.textCat}>Phone number</Text>}
+         </View>
+
+   <View>
+         <TouchableOpacity style={styles.editBtn} onPress={() => onEdit()}>
+           <Text style={styles.editProfile}>Edit profile</Text>
+         </TouchableOpacity>
+       <MaterialCommunityIcons 
+           name="logout" 
+           size={40} 
+           style={{marginLeft: 180, marginTop: 30}}
+           onPress={() => onLogout()}
+           />
+   </View>
+   <View style={styles.changeBtn}>
+   <MaterialCommunityIcons name="onepassword" size={25} style={{marginRight: 15}}/>
+   <Text style={{fontSize: 16, marginLeft: -5, color: 'black'}} onPress={() => changePassword()}>Change password</Text>
+   </View>
+   <TouchableOpacity style={styles.deleteBtn} onPress={() => onDelete()}>
+       <Text style={{color: 'red', fontSize: 15, fontWeight: 'bold'}}>Delete account</Text>
+   </TouchableOpacity>
+   </View>
+        )
+    }
+
+
     return (
         <ScrollView>
-        <LinearGradient colors={['#009DCF', '#07C5C5']}>
+        <LinearGradient colors={['#009DCF', '#07C5C5']} style={{height: '100%'}}>
         <View style={styles.containerProfile} onPress={() => pickImage()}>
             {image? 
                 <View style={styles.containerImage}>
@@ -86,75 +164,12 @@ const Profile = ({navigation}) => {
             <AntDesign name="addfolder" size={20} style={{paddingLeft: 4}} onPress={() => pickImage()}/>  
 
         </View>
-        <View style={{alignItems: 'center'}}>
-             <Image source={welcome} style={{marginTop: 40, marginLeft: 25, height: 30}}/>
-             {user.email ? <Text style={{fontWeight: 'bold', fontSize: 15, marginTop: 10}}>{user.email}</Text> : <Text style={{color: '#131c46', fontSize: 18, fontWeight: 'bold', marginLeft: 10 }}>user@email.com</Text>}
-             
-        </View>
-              <View style={styles.textInfo}>
-                <Feather name="user" size={25} style={styles.iconsP}/>
-                {user.profile.name ? <Text>{user.profile.name}</Text> : <Text>Full Name</Text>}
-              </View>
-
-              <View style={styles.textInfo}>
-                <FontAwesome5 name="passport" size={25} style={styles.iconsP}/>
-                {user.profile.passport ? <Text>{user.profile.passport}</Text> : <Text>Passport</Text>}
-              </View>
-              
-              <View  style={styles.textInfo}>
-                <FontAwesome5 name="map-marker-alt" size={25}style={styles.iconsP} />
-                {user.profile.nationality ? <Text>{user.profile.nationality}</Text> : <Text>Nationality</Text>}
-              </View>
-
-              <View  style={styles.textInfo}>
-                <FontAwesome5 name="phone-square-alt" size={25} style={styles.iconsP}/>
-                {user.profile.phone ? <Text>{user.profile.phone}</Text> : <Text>Phone number</Text>}
-              </View>
-
         <View>
-              <TouchableOpacity style={{backgroundColor: '#131c46', padding: 10, marginTop: 20, marginLeft: 40, borderRadius: 30, alignItems: 'center', marginRight: 40}} onPress={() => onEdit()}>
-                <Text style={styles.editProfile}>Edit profile</Text>
-              </TouchableOpacity>
-            <MaterialCommunityIcons 
-                name="logout" 
-                size={40} 
-                style={{marginLeft: 180, marginTop: 30}}
-                onPress={() => onLogout()}
-                />
         </View>
-        <View style={{
-            alignSelf: 'center',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            backgroundColor: '#7BB4E3',
-            width: '80%',
-            padding: 8,
-            paddingBottom: 10,
-            borderRadius: 5,
-            shadowOpacity: 80,
-            elevation: 15,
-            marginTop: 20,
-            marginBottom: 50
-            }}>
-        <MaterialCommunityIcons name="onepassword" size={25} style={{marginRight: 15}}/>
-        <Text style={{fontSize: 16, marginLeft: -5, color: 'black'}} onPress={() => changePassword()}>Change password</Text>
-        </View>
-        <TouchableOpacity style={{
-             alignSelf: 'center',
-             flexDirection: 'row',
-             justifyContent: 'center',
-             backgroundColor: '#7BB4E3',
-             width: '80%',
-             padding: 8,
-             paddingBottom: 10,
-             borderRadius: 5,
-             shadowOpacity: 80,
-             elevation: 15,
-             marginTop: 20,
-             marginBottom: 50
-            }}onPress={() => onDelete()}>
-            <Text style={{color: 'red', fontSize: 15, fontWeight: 'bold'}}>Delete account</Text>
-        </TouchableOpacity>
+            <CategoryList />
+            <View style={{height: '100%'}} >
+            {!user ? <Text>Loading...</Text> : categoryIndex === 0 ? <ProfileCategory/> : categoryIndex === 1 ? <Text>flights</Text> : categoryIndex === 2 ? <Text>reviews</Text> : null}
+              </View>
         </View>
         </LinearGradient>
         </ScrollView>

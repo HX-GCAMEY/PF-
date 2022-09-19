@@ -64,6 +64,70 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderColor: 'black',
         borderWidth: 1
+    },
+    categoryContainer2:{
+        left: 2,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginTop: 40,
+        paddingHorizontal: 0,
+    },
+    categoryText2: {
+        bottom: -5,
+        right: 10,
+        padding: 10,
+        marginLeft: 20,
+        fontSize: 16,
+        color: '#1E1E1E',
+        fontWeight: 'bold'
+    },
+    categoryTextSelected2: {
+        color: 'black',
+        paddingBottom: 5,
+        borderBottomWidth: 2,
+        borderColor: 'orange'
+    },
+    textCat:{
+        fontSize: 18,
+        fontWeight: 'bold',
+        
+    },
+    changeBtn: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: '#7BB4E3',
+        width: '80%',
+        padding: 8,
+        paddingBottom: 10,
+        borderRadius: 5,
+        shadowOpacity: 80,
+        elevation: 15,
+        marginTop: 20,
+        marginBottom: 50
+    },
+    deleteBtn: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: '#7BB4E3',
+        width: '80%',
+        padding: 8,
+        paddingBottom: 10,
+        borderRadius: 5,
+        shadowOpacity: 80,
+        elevation: 15,
+        marginTop: -5,
+        marginBottom: 50
+    },
+    editBtn: {
+        backgroundColor: '#ffa333', 
+        padding: 10, 
+        marginTop: 20, 
+        marginLeft: 140, 
+        borderRadius: 10, 
+        alignItems: 'center', 
+        marginRight: 140
     }
 
 })
