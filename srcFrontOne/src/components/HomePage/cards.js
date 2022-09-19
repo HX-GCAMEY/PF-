@@ -7,7 +7,9 @@ import card from './img/cardT.jpg'
 
 const Cards = ({ item }) => {
     const navigation = useNavigation()
-    const { _id, departure, arrival, defaultFare, totalSeats, duration, number } = item;
+    const { _id, departure, arrival, defaultFare, totalSeats, duration, number, fare, amount } = item;
+    const fareDisc = String(fare) 
+    const porcent = '-%' + amount * 100
 
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height;
@@ -33,7 +35,7 @@ const Cards = ({ item }) => {
             flyNumber: number,
             totalSeats: totalSeats,
             duration: duration,
-            defaultFare: defaultFare,
+            defaultFare: fareDisc,
         })
     }
 
@@ -50,7 +52,9 @@ const Cards = ({ item }) => {
                     <Text style={styles.textArr}>Arrival</Text>
                     <Text style={styles.dateCardArrival}>{arrival.date}</Text>
                     <Text style={styles.timeCardArrival}>{arrival.time}</Text>
-                    <Text style={styles.price}>$ {defaultFare.slice(0, 3) + "." + defaultFare.slice(3, 100)}</Text>
+                    <Text style={styles.fullPriceText} >${defaultFare.slice(0, 3) + "." + defaultFare.slice(3, 100)}</Text>
+                    <Text style={styles.discountText} >{porcent}</Text>
+                    <Text style={styles.price}>${fareDisc.slice(0, 3) + "." + fareDisc.slice(3, 100)}</Text>
                     <Text style={styles.duration}>• Duration: {duration}</Text>
                 </View>
             </View>

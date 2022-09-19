@@ -238,6 +238,24 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+    fullPriceText: {
+        textDecorationLine: 'line-through', 
+        textDecorationStyle: 'solid',
+        color: '#252440',
+        bottom: 120,
+        position: 'absolute',
+        marginRight: 10,
+        fontWeight: 'bold',
+        fontSize: 18
+    },
+    discountText: {
+        color: '#d3a247db',
+        bottom: 95,
+        position: 'absolute',
+        marginRight: 10,
+        fontWeight: 'bold',
+        fontSize: 22
+    },
     textDep: {
         color: '#252440',
         bottom: 148,
