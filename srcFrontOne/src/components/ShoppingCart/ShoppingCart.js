@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, Text, Pressable, ScrollView, TouchableOpacity, Modal } from "react-native";
+import { View, Text, Pressable, ScrollView, TouchableOpacity, Modal, Alert, Button } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ const ShoppingCart = () => {
 
     //todos los elementos del carrito
     const flightCart = useSelector((state) => state.flightsReducers.cart);
+    console.log(flightCart)
     const tickets = useSelector((state) => state.flightsReducers.tickets);
     const {email} = useSelector((state) => state.userReducer.session);
 
@@ -53,13 +54,11 @@ const ShoppingCart = () => {
     }
 
     const back = () => {
-        //dispatch(clearCart());
         navigation.navigate('HomePage')
     }
 
     const shop = () => {
-        navigation.navigate('StripeApp')
-        //setModalVisible(!modalVisible);
+        setModalVisible(!modalVisible);
     }
 
     const openModal = () => {
@@ -68,6 +67,10 @@ const ShoppingCart = () => {
 
     const onCloseModal = () => {
         setModalVisible(false)
+    }
+
+    const goToPay = () => {
+        navigation.navigate('StripeApp')
     }
 
     return (
@@ -80,17 +83,25 @@ const ShoppingCart = () => {
             <Text style={{fontSize: 26, fontWeight: "bold", marginTop: 80, marginLeft: 36, marginBottom: 56}}>Shopping Cart</Text>
             {
                 flightCart && flightCart.map((item, index) => {
-                    return <CartItem data={item} key={index} id={index} delFromCart={del}/>
+                    //cada vez q tenga un item --> guardo el id en un arreglo
+                    //busco si esta en ese arreglo
+                    //si no esta return: cart item
+                    //si esta: return alert 'elemento ya agregado al carrito'
+                    let ids = [];
+                    if(ids.includes(item._id)) return Alert.alert('This item is already in the cart')
+                    else {
+                        ids.push(item._id)
+                        //console.log(ids)
+                        return <CartItem data={item} key={index} id={index} delFromCart={del}/>
+                    }
                 })
             }
-
-            {/* <Pressable onPress={() => send()}> */}
             <Pressable onPress={() => shop()}>
                 <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
-                    <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Buy Now</Text>
+                    <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF90", textAlign: "center", top: 8}}>Confirm Payment</Text>
                 </LinearGradient>
             </Pressable>
-            {/*<Modal
+            <Modal
             animationType="slide"
             transparent
             visible={modalVisible}
@@ -111,8 +122,11 @@ const ShoppingCart = () => {
                             <Ionicons name='close-circle-outline' color={'#FFFFFF90'} size={37}/>
                         </TouchableOpacity>
                     </View>
+                    <View>
+                        <Button title="go to shop" onPress={() => goToPay()}></Button>
+                    </View>
                 </View>
-                </Modal>*/}
+            </Modal>
         </ScrollView>
     )
 }

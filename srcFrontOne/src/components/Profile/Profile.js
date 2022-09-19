@@ -11,7 +11,7 @@ import welcome from "./imgs/welcome.png";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { userLogout, userDelete} from "../../Redux/Actions/users";
-import Categories from "./categories/categories";
+//import Categories from "./categories/categories";
 
 
 const Profile = ({navigation}) => {
