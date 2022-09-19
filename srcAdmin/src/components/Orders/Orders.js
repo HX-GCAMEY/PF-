@@ -8,36 +8,33 @@ import { AnimateSharedLayout, motion } from "framer-motion"
 import Swal from "sweetalert2"
 import { getReviews } from "../../features/orders"
 import { useDispatch } from "react-redux"
+import { avioncilled } from "../../features/tasks"
 const { Option } = Select
 const { RangePicker } = DatePicker
 
 const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
-  const [order, setOrder] = useState({ price: "", amount: "" })
+  //const [order, setOrder] = useState({ amount: "" })
 
   const [exit, setExit] = useState(null)
-  const [start, setStart] = useState(null)
   const [end, setEnd] = useState(null)
-  const [price, setPrice] = useState(null)
   const [amount, setAmount] = useState(null)
   const [text, setText] = useState(null)
-  const [paquete, setPaquete] = useState()
 
   const dispatch = useDispatch()
   const initialSate = {
     origin: null,
     destination: null,
-    start: "",
+
     end: "",
     text: "",
-    price: "",
+
     amount: "",
-    effect: false,
   }
   useEffect(() => {
     setVisual(initialSate)
     dispatch(getReviews())
   }, [])
-  const validation = e => {
+  /* const validation = e => {
     if (!/^([0-9])*$/.test(order.price)) {
       setOrder({ ...order, price: "" })
       setVisual({ ...visual, price: "" })
@@ -46,7 +43,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       setOrder({ ...order, seating: "" })
       setVisual({ ...visual, amount: "" })
     }
-  }
+  } */
 
   const selectDestiny = e => {
     if (arg.includes(e)) {
@@ -66,10 +63,10 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
 
   const selectChange = e => {
     setVisual({ ...visual, origin: e })
-    setStart(true)
+    setEnd(true)
   }
 
-  const dateChange = e => {
+  /*  const dateChange = e => {
     setVisual({ ...visual, start: null })
     setTimeout(() => {
       if (!e) {
@@ -80,7 +77,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
         setEnd(true)
       }
     })
-  }
+  } */
 
   const endChange = e => {
     if (!e) {
@@ -90,17 +87,17 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     setTimeout(() => {
       const response = moment(e).format("DD-MM-YYYY")
       setVisual({ ...visual, end: response })
-      setPrice(true)
+      setAmount(true)
     })
   }
-
+  /* 
   const handlePrice = e => {
     setVisual({ ...visual, price: null })
     setTimeout(() => {
       setVisual({ ...visual, price: e.target.value })
       setAmount(true)
     })
-  }
+  } */
   const handleAmount = e => {
     setVisual({ ...visual, amount: null })
     setTimeout(() => {
@@ -109,7 +106,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     })
   }
 
-  const submit = () => {
+  const submit = async () => {
     const results = Object.values(visual)
     if (
       results.includes("") ||
@@ -125,8 +122,121 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
         confirmButtonColor: "#1890ff",
       })
     }
+    dispatch(avioncilled(true))
+    let destiny = null
+
+    if (
+      visual.origin === "San Jose Del Cabo, Mexico" &&
+      visual.destination === "Mar del Plata, Argentina"
+    ) {
+      destiny = "631584a308debbfa5dfb80a4"
+    }
+
+    if (
+      visual.origin === "San Jose Del Cabo, Mexico" &&
+      visual.destination === "Buenos Aires, Argentina"
+    ) {
+      destiny = "631e64482f4eceb2e217c505"
+    }
+    if (
+      visual.origin === "Monterrey, Mexico" &&
+      visual.destination === "Buenos Aires, Argentina"
+    ) {
+      destiny = "63126f6365bdb0e7625068a5"
+    }
+    if (
+      visual.origin === "Monterrey, Mexico" &&
+      visual.destination === undefined
+    ) {
+      destiny = "63126f6365bdb0e7625068a5"
+    }
+    if (
+      visual.origin === "Ciudad de Mexico, Mexico" &&
+      visual.destination === "Buenos Aires, Argentina"
+    ) {
+      destiny = "63126f6365bdb0e7625068a3"
+    }
+    if (
+      visual.origin === "Ciudad de Mexico, Mexico" &&
+      visual.destination === "Mar del Plata, Argentina"
+    ) {
+      destiny = "631e64482f4eceb2e217c50a"
+    }
+    if (
+      visual.origin === "Cancun, Mexico" &&
+      visual.destination === undefined //laplata
+    ) {
+      destiny = undefined
+    }
+    if (
+      visual.origin === "Cancun, Mexico" &&
+      visual.destination === "Buenos Aires, Argentina"
+    ) {
+      destiny = "631e64482f4eceb2e217c507"
+    }
+    if (
+      visual.origin === "Mar del Plata, Argentina" &&
+      visual.destination === "San Jose Del Cabo, Mexico"
+    ) {
+      destiny = undefined
+    }
+    if (
+      visual.origin === "Mar del Plata, Argentina" &&
+      visual.destination === "Cancun, Mexico"
+    ) {
+      destiny = "631e64482f4eceb2e217c502"
+    }
+    if (
+      visual.origin === "Mar del Plata, Argentina" &&
+      visual.destination === "Monterrey, Mexico"
+    ) {
+      destiny = undefined
+    }
+    if (
+      visual.origin === "Mar del Plata, Argentina" &&
+      visual.destination === "Ciudad de Mexico, Mexico"
+    ) {
+      destiny = "631e64482f4eceb2e217c50e"
+    }
+
+    if (
+      visual.origin === "Buenos Aires, Argentina" &&
+      visual.destination === "Ciudad de Mexico, Mexico"
+    ) {
+      destiny = "631e64482f4eceb2e217c50f"
+    }
+    if (
+      visual.origin === "Buenos Aires, Argentina" &&
+      visual.destination === "San Jose Del Cabo, Mexico"
+    ) {
+      destiny = "631e64482f4eceb2e217c4fe"
+    }
+    if (
+      visual.origin === "Buenos Aires, Argentina" &&
+      visual.destination === "Monterrey, Mexico"
+    ) {
+      destiny = "631e64482f4eceb2e217c4fd"
+    }
+    if (
+      visual.origin === "Buenos Aires, Argentina" &&
+      visual.destination === "Cancun, Mexico"
+    ) {
+      destiny = "631e64482f4eceb2e217c4ff"
+    }
+    const finalPackage = {
+      flight_id: destiny,
+      amount: visual.amount,
+      description: visual.text,
+      endDate: visual.end,
+    }
+    console.log("soy final package", finalPackage)
+    const response = await axios.post(
+      "http://flymatepf.herokuapp.com/api/tickets/createPackage",
+      finalPackage
+    )
+
+    console.log("soy response de axios put", response.data)
     setEffect2(true)
-    setPaquete({ ...visual })
     setTimeout(() => {
       setEffect3(true)
     }, 780)
@@ -142,18 +252,18 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     }, 2100)
     setTimeout(() => {
       setExit(null)
-      setStart(null)
+
       setEnd(null)
-      setPrice(null)
+
       setAmount(null)
       setText(null)
       setVisual(initialSate)
       setEffect2(false)
       setEffect3(false)
     }, 2200)
+    console.log("soy destiny", destiny)
+    //console.log("soy response data axioas", response.data)
   }
-
-  console.log("soy páquete", paquete)
 
   const textChange = e => {
     setVisual({ ...visual, text: e.target.value })
@@ -229,25 +339,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
           ) : (
             <div className="div"></div>
           )}
-          {start ? (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ rotate: 360, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 90,
-                damping: 20,
-              }}
-            >
-              <DatePicker
-                placeholder="select start"
-                onChange={dateChange}
-                defaultValue={visual.start}
-              />
-            </motion.div>
-          ) : (
-            <div className="div" />
-          )}
+
           {end ? (
             <motion.div
               initial={{ scale: 0 }}
@@ -267,36 +359,6 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
           ) : (
             <div className="div" />
           )}
-          {price ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                duration: 0.5,
-              }}
-            >
-              <div class="relative">
-                <input
-                  value={visual.price}
-                  type="text"
-                  name="price"
-                  onChange={handlePrice}
-                  onKeyUp={validation}
-                  id="floating_outlined6"
-                  class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  for="floating_outlined6"
-                  class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-                >
-                  Price:
-                </label>
-              </div>
-            </motion.div>
-          ) : (
-            <div className="divPrice" />
-          )}
           {amount ? (
             <motion.div
               initial={{ opacity: 0 }}
@@ -308,10 +370,9 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
               <div class="relative">
                 <input
                   value={visual.amount}
-                  type="text"
+                  type="number"
                   name="seating"
                   onChange={handleAmount}
-                  onKeyUp={validation}
                   id="floating_outlined8"
                   class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "

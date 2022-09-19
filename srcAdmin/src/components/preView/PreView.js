@@ -191,7 +191,7 @@ const PreView = ({ visual, setVisual, effect2, effect3 }) => {
             )}
             {visual.amount && (
               <motion.div
-                initial={{ x: -670, y: -180 }}
+                initial={{ x: -720, y: -200 }}
                 animate={{ x: 0, y: 0 }}
                 transition={{
                   duration: 0.7,
