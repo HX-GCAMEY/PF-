@@ -53,10 +53,6 @@ const CartItem = ({ data, id, delFromCart }) => {
         passengers: modificarPasajeros
     }
 
-    /*useEffect(() => {
-        dispatch(modifyFromCart(modify));
-    })*/
-
     return( 
         <View style={{
             margin: 10,
@@ -76,18 +72,18 @@ const CartItem = ({ data, id, delFromCart }) => {
             elevation: 6,
             }}>
             <Image source={imagePrueba} style={{width: 170, height: 210, position: "absolute"}}/>
-            <Text style={{fontSize:26, fontWeight: "bold", marginLeft: 185, marginTop: 5}}>{departure.airportCode} - {arrival.airportCode}</Text>
+            <Text style={{fontSize:26, fontWeight: "bold", marginLeft: 185, marginTop: 30}}>{departure.airportCode} - {arrival.airportCode}</Text>
             <Text style={{marginLeft: 185, marginTop: 5, fontSize: 15}}>date:     {departure.date}</Text>
             <Text style={{marginLeft: 185, marginTop: 10, fontSize: 17, fontWeight: "bold"}}>${defaultFare}</Text>
-            <Image source={baggages} style={{resizeMode: "contain", height: 40, width: 90, marginLeft: 190, position: "absolute", top: 63, left: 60}}/>
+            <Image source={baggages} style={{resizeMode: "contain", height: 40, width: 90, marginLeft: 190, position: "absolute", top: 88, left: 60}}/>
             <Pressable style={{position:"absolute", top: 0, right: 0,backgroundColor: "#06C5C5", borderTopRightRadius: 10, borderBottomLeftRadius: 10, paddingLeft: 10, paddingTop: 6, width: 30, height: 30}} onPress={() => delFromCart(_id)}><Text style={{color:'#fff', fontWeight:"bold"}}>X</Text></Pressable>
             <View style={{ top: 65, right: 5}}>
                 <Text style={styles.textClass}>Class: <Text style={styles.typeClass}>{type}</Text></Text>
             </View>
             <View style={{ top: 65, right: 20 }}>
-                <Text style={styles.textPassengers}>Passengers:</Text>
+                <Text style={styles.textPassengers}>Passengers: <Text style={styles.typeClass}>{passengers}</Text></Text>
             </View>
-            <Pressable onPress={() => suma()} style={{position: "absolute", left: 295, top: 164}}>
+            {/*<Pressable onPress={() => suma()} style={{position: "absolute", left: 295, top: 164}}>
                 <Text style={{fontSize: 28}}>+</Text>
             </Pressable>
             <Pressable onPress={() => resta()} style={{position: "absolute", left: 210, top: 164}}>
@@ -95,7 +91,7 @@ const CartItem = ({ data, id, delFromCart }) => {
             </Pressable>
             <View style={{ left: 250, top: 65, width: 30}}>
                 <Text style={{fontSize: 28, fontWeight: "bold"}}>{modificarPasajeros}</Text>
-            </View>
+        </View>*/}
         </View>
     )
 }

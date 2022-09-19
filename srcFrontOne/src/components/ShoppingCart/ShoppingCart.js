@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { clearCart, clearTickets, getFlights, postTicket, removeFromCart } from "../../Redux/Actions/flights";
 import CartItem from "./CartItem";
 import { useNavigation } from '@react-navigation/native';
+import styles from "./styles";
 
 const ShoppingCart = () => {
 
@@ -15,7 +16,7 @@ const ShoppingCart = () => {
 
     //todos los elementos del carrito
     const flightCart = useSelector((state) => state.flightsReducers.cart);
-    console.log(flightCart)
+    console.log(flightCart.map(i => i.passengers))
     const tickets = useSelector((state) => state.flightsReducers.tickets);
     const {email} = useSelector((state) => state.userReducer.session);
 
@@ -83,21 +84,11 @@ const ShoppingCart = () => {
             <Text style={{fontSize: 26, fontWeight: "bold", marginTop: 80, marginLeft: 36, marginBottom: 56}}>Shopping Cart</Text>
             {
                 flightCart && flightCart.map((item, index) => {
-                    //cada vez q tenga un item --> guardo el id en un arreglo
-                    //busco si esta en ese arreglo
-                    //si no esta return: cart item
-                    //si esta: return alert 'elemento ya agregado al carrito'
-                    let ids = [];
-                    if(ids.includes(item._id)) return Alert.alert('This item is already in the cart')
-                    else {
-                        ids.push(item._id)
-                        //console.log(ids)
-                        return <CartItem data={item} key={index} id={index} delFromCart={del}/>
-                    }
+                    return <CartItem data={item} key={index} id={index} delFromCart={del}/>  
                 })
             }
             <Pressable onPress={() => shop()}>
-                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
+                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20, marginBottom: 20}}>
                     <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF90", textAlign: "center", top: 8}}>Confirm Payment</Text>
                 </LinearGradient>
             </Pressable>
@@ -109,11 +100,10 @@ const ShoppingCart = () => {
             setModalVisible(!modalVisible);
             }}
             >
-                <View style={{
+                <ScrollView style={{
                     backgroundColor: "#06C5C5", 
                     width: 400, 
-                    height: 250, 
-                    top: 535,
+                    height: 1000, 
                     right: 2,
                     borderRadius: 40,
                     }}>
@@ -123,9 +113,20 @@ const ShoppingCart = () => {
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <Button title="go to shop" onPress={() => goToPay()}></Button>
+                        { flightCart.map(i => {
+                            console.log(i)
+                            return (
+                            <View> 
+                                <Text style={styles.resumenTitle}>Flight number: {i.number} </Text>    
+                                <Text style={styles.resumen}>{i.passengers} passengers</Text>
+                                <Text style={styles.resumenFare}>$ {i.defaultFare}</Text>
+                                <Text style={styles.separacion}>-------------------------------</Text>
+                            </View>
+                            )
+                        }) 
+                        }
                     </View>
-                </View>
+                </ScrollView>
             </Modal>
         </ScrollView>
     )
