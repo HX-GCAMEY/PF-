@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export function getUser(email){
     return async function(dispatch){
         let res = await axios.get(`https://flymatepf.herokuapp.com/api/users/findUser/${email}`)
@@ -10,7 +9,6 @@ export function getUser(email){
         })
     }
 }
-
 
 export function updateUser (email, profile){
     return async function(dispatch){
@@ -22,7 +20,6 @@ export function updateUser (email, profile){
     }
 }
 
-
 export function googleRegister(email){
     return async function(dispatch){
         let res = await axios.post('https://flymatepf.herokuapp.com/api/users/googleRegister', email)
@@ -32,7 +29,6 @@ export function googleRegister(email){
         })
     }
 }
-
 
 export function googleLogin(email){
     return async function(dispatch){
@@ -54,12 +50,49 @@ export function userLogout(email){
     }
 }
 
-
 export function userDelete(email){
     return async function(dispatch){
         let res = await axios.post("https://flymatepf.herokuapp.com/api/users/delete", email)
         dispatch({
             type: 'DELETE',
+            payload: res.data
+        })
+    }
+}
+//estado global
+export function setFavorites(payload) {
+    return async function (dispatch) {
+        dispatch({
+            type: 'SET_FAVORITES',
+            payload: payload
+        })
+    }
+}
+//estado global
+export function deleteFavorites(payload) {
+    return async function (dispatch) {
+        dispatch({
+            type: 'DELETE_FAVORITES',
+            payload: payload
+        })
+    }
+}
+//database
+export function postFavorites(email, favorites) {
+    return async function (dispatch) {
+        let res = await axios.post("https://flymatepf.herokuapp.com/api/users/saveFavorites", email, favorites)
+        dispatch({
+            type: 'POST_FAVORITES',
+            payload: res.data
+        })
+    }
+}
+//database
+export function getFavorites(email) {
+    return async function (dispatch) {
+        let res = await axios.get(`https://flymatepf.herokuapp.com/api/users/getFavorites/${email}`)
+        dispatch({
+            type: 'GET_FAVORITES',
             payload: res.data
         })
     }

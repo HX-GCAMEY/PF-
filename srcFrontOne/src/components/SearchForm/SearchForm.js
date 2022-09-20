@@ -150,6 +150,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
                   const searchTerm = depart.toLowerCase();
                   const city = item.toLowerCase();
                   return searchTerm
+                  && searchTerm.length > 1
                     && city.includes(searchTerm)
                     && city !== searchTerm
                 })
@@ -184,6 +185,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
                   const searchTerm = arrival.toLowerCase();
                   const city = item.toLowerCase();
                   return searchTerm
+                  && searchTerm.length > 1
                     && city.includes(searchTerm)
                     && city !== searchTerm
                 })

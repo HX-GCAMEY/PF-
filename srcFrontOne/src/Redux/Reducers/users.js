@@ -1,5 +1,6 @@
 const initialState = {
-    session: {}
+    session: {},
+    favorites: []
 }
 
 
@@ -34,6 +35,29 @@ export const userReducer = (state = initialState, action) => {
             return{
                 ...state,
                 session: {}
+            }
+            //estado global
+        case 'SET_FAVORITES':
+            return {
+                ...state,
+                favorites: [action.payload, ...state.favorites]
+            }
+        case 'DELETE_FAVORITES':
+            const filterFav = state.favorites.filter((flight) => flight.flyId !== action.payload)
+            return {
+                ...state,
+                favorites: filterFav
+            }
+            //database
+        case 'POST_FAVORITES':
+            return {
+                ...state,
+                favorites: action.payload
+            }
+        case 'GET_FAVORITES':
+            return {
+                ...state,
+                favorites: action.payload
             }
         default:
             return state
