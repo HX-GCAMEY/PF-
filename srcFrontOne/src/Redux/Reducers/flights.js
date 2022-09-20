@@ -73,30 +73,35 @@ export default flightsReducers = (state = initialState, action) => {
                 error: true
             }
         case ADD_TO_CART:
-            
             let info = state.allFlights;
             let bookedFlight = info.find(f => f._id === action.payload.flyId);
+            const {departAirportCode, arrivalAirportCode, departDate, defaultFare} = action.payload;
+
             bookedFlight = {
                 ...bookedFlight,
+                departAirportCode,
+                arrivalAirportCode,
+                departDate,
+                defaultFare,
                 passengers: action.payload.passengers,
                 type: action.payload.type
             };
             
             let bookedFlightInCart = state.cart.find(f => f._id === bookedFlight._id)
 
-            return bookedFlightInCart 
-            ? {
-                ...state,
-                cart: state.cart.map(flight => 
-                    flight._id === bookedFlight._id 
-                    ? {...flight, passengers: flight.passengers + bookedFlight.passengers} 
-                    : flight
-                ),
-            } 
-            : {
-                ...state, 
-                cart: [...state.cart, bookedFlight]
-            }
+            return bookedFlightInCart ? 
+                {
+                    ...state,
+                    cart: state.cart.map(
+                        flight => flight._id === bookedFlight._id ? 
+                            {...flight, passengers: flight.passengers + bookedFlight.passengers} : 
+                            flight 
+                    )
+                } : 
+                {
+                    ...state, 
+                    cart: [...state.cart, bookedFlight]
+                }
         case SET_TICKET:
             let tickets = state.tickets;
             let newTicket = action.payload;

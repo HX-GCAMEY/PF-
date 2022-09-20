@@ -16,6 +16,8 @@ const ShoppingCart = () => {
 
     //todos los elementos del carrito
     const flightCart = useSelector((state) => state.flightsReducers.cart);
+    //console.log(flightCart);
+
     const tickets = useSelector((state) => state.flightsReducers.tickets);
     const usuario = useSelector((state) => state.userReducer.session);
 
@@ -27,27 +29,27 @@ const ShoppingCart = () => {
         dispatch(getFlights())
     }, [dispatch])
 
-    const route = useRoute();
-    const {
-        flyId,
-        departCity,
-        departAirport,
-        departDate,
-        departTime,
-        departAirportCode,
-        arrivalCity,
-        arrivalAirport,
-        arrivalDate,
-        arrivalTime,
-        arrivalAirportCode,
-        backgroundImage,
-        flyNumber,
-        totalSeats,
-        duration,
-        defaultFare,
-        passengers,
-        type
-    } = route.params;
+    //const route = useRoute();
+    // const {
+    //     flyId,
+    //     departCity,
+    //     departAirport,
+    //     departDate,
+    //     departTime,
+    //     departAirportCode,
+    //     arrivalCity,
+    //     arrivalAirport,
+    //     arrivalDate,
+    //     arrivalTime,
+    //     arrivalAirportCode,
+    //     backgroundImage,
+    //     flyNumber,
+    //     totalSeats,
+    //     duration,
+    //     defaultFare,
+    //     passengers,
+    //     type
+    // } = route.params;
     
     const del = (id) => {
         dispatch(removeFromCart(id))
@@ -134,5 +136,7 @@ const ShoppingCart = () => {
         </ScrollView>
     )
 }
+
+//
 
 export default ShoppingCart

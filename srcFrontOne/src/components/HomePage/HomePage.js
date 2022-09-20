@@ -38,26 +38,28 @@ const HomePage = ({ navigation }) => {
     const [categoryIndex, setCategoryIndex] = useState(0);
 
     const navigateCart = () => {
-        navigation.navigate("ShoppingCart", {
-            flyId: "",
-            departCity: "",
-            departAirport: "",
-            departDate: "",
-            departTime: "",
-            departAirportCode: "",
-            arrivalCity: "",
-            arrivalAirport: "",
-            arrivalDate: "",
-            arrivalTime: "",
-            arrivalAirportCode: "",
-            backgroundImage: "",
-            flyNumber: "",
-            totalSeats: "",
-            duration: "",
-            defaultFare: "",
-            passengers: "",
-            type: ""
-        });
+        navigation.navigate("ShoppingCart"
+        // , {
+        //     flyId: "",
+        //     departCity: "",
+        //     departAirport: "",
+        //     departDate: "",
+        //     departTime: "",
+        //     departAirportCode: "",
+        //     arrivalCity: "",
+        //     arrivalAirport: "",
+        //     arrivalDate: "",
+        //     arrivalTime: "",
+        //     arrivalAirportCode: "",
+        //     backgroundImage: "",
+        //     flyNumber: "",
+        //     totalSeats: "",
+        //     duration: "",
+        //     defaultFare: "",
+        //     passengers: "",
+        //     type: ""
+        // }
+        );
     }
 
     const CategoryList = () => {
