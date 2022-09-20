@@ -18,7 +18,7 @@ import LoadingFavs from './LoadingFavs';
 const HomePage = ({ navigation }) => {
 
     const flights = useSelector((state) => state.flightsReducers.flights);
-    const favState = useSelector((state) => state.flightsReducers.favorites);
+    const favState = useSelector((state) => state.userReducer.favorites);
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height;
 

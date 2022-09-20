@@ -18,8 +18,7 @@ import {
     SORT_PRICE,
     CLEAR_TICKETS,
     FILTER_PRICE,
-    SET_FAVORITES,
-    DELETE_FAVORITES
+    MODIFY_FROM_CART,
 } from "../Constants/flights";
 
 
@@ -85,24 +84,6 @@ export function filterPrice(payload) {
     return async function (dispatch) {
         dispatch({
             type: FILTER_PRICE,
-            payload: payload
-        })
-    }
-}
-
-export function setFavorites(payload) {
-    return async function (dispatch) {
-        dispatch({
-            type: SET_FAVORITES,
-            payload: payload
-        })
-    }
-}
-
-export function deleteFavorites(payload) {
-    return async function (dispatch) {
-        dispatch({
-            type: DELETE_FAVORITES,
             payload: payload
         })
     }

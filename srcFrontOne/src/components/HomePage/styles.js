@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         opacity: 1
     },
     categoryContainer: {
-        // backgroundColor: 'red',
+        zIndex: 0,
         left: 2,
         justifyContent: 'center',
         flexDirection: 'row',
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
 
     },
     categoryText: {
+        zIndex: 1,
         bottom: -5,
         right: 10,
         padding: 10,
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     categoryTextSelected: {
+        zIndex: 1,
         color: '#0183A0',
         paddingBottom: 5,
         borderBottomWidth: 2,
