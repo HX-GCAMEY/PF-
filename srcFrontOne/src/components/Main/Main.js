@@ -5,6 +5,7 @@ import Detail from '../Detail/Detail';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import StripeApp from '../StripeApp/StripeApp';
 import Success from '../Success/Success';
+import ReviewForm from '../Review/ReviewForm'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -53,6 +54,7 @@ const Auth = () => {
                     <Stack.Screen name="EditProfile" component={Inputs} options={{headerShown: false}} />
                     <Stack.Screen name="StripeApp" component={StripeApp} options={{ headerShown: false }}/>
                     <Stack.Screen name="Success" component={Success} options={{ headerShown: false }}/>
+                    <Stack.Screen name="ReviewForm" component={ReviewForm} options={{ headerShown: false }}/>
                 </Stack.Navigator>
             </NavigationContainer>
             </Provider>

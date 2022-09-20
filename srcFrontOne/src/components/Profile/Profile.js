@@ -11,6 +11,7 @@ import welcome from "./imgs/welcome.png";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { userLogout, userDelete} from "../../Redux/Actions/users";
+import FlatListReviews from "../Review/FlatListReviews";
 //import Categories from "./categories/categories";
 
 
@@ -168,7 +169,7 @@ const Profile = ({navigation}) => {
         </View>
             <CategoryList />
             <View style={{height: '100%'}} >
-            {!user ? <Text>Loading...</Text> : categoryIndex === 0 ? <ProfileCategory/> : categoryIndex === 1 ? <Text>flights</Text> : categoryIndex === 2 ? <Text>reviews</Text> : null}
+            {!user ? <Text>Loading...</Text> : categoryIndex === 0 ? <ProfileCategory/> : categoryIndex === 1 ? <Text> tickets </Text> : categoryIndex === 2 ? <FlatListReviews /> : null}
               </View>
         </View>
         </LinearGradient>
