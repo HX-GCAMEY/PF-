@@ -29,6 +29,7 @@
     "expo-status-bar": "~1.4.0",
     "expo-web-browser": "^11.0.0",
     "firebase": "^9.6.11",
+    "formik": "^2.2.9",
     "i": "^0.3.7",
     "install": "^0.13.0",
     "moment": "^2.29.4",

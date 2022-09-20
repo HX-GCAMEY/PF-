@@ -64,31 +64,37 @@ const Detail = () => {
     const next = () => {
         const newTicket = {
             flyId: flyId,
+            departDate: departDate,
+            departAirportCode: departAirportCode,
+            arrivalAirportCode: arrivalAirportCode,
+            defaultFare: defaultFare,
             passengers: passengers,
             type: clase
         }
         dispatch(addToCart(newTicket))
-
-        navigation.navigate('ShoppingCart', {
-            flyId: flyId,
-            departCity: departCity,
-            departAirport: departAirport,
-            departDate: departDate,
-            departTime: departTime,
-            departAirportCode: departAirportCode,
-            arrivalCity: arrivalCity,
-            arrivalAirport: arrivalAirport,
-            arrivalDate: arrivalDate,
-            arrivalTime: arrivalTime,
-            arrivalAirportCode: arrivalAirportCode,
-            backgroundImage: backgroundImage,
-            flyNumber: flyNumber,
-            totalSeatsParams: totalSeats,
-            durationParams: duration,
-            defaultFareParams: defaultFare,
-            passengers: passengers,
-            type: clase
-        })
+        
+        navigation.navigate('ShoppingCart'
+        // , {
+        //     flyId: flyId,
+        //     departCity: departCity,
+        //     departAirport: departAirport,
+        //     departDate: departDate,
+        //     departTime: departTime,
+        //     departAirportCode: departAirportCode,
+        //     arrivalCity: arrivalCity,
+        //     arrivalAirport: arrivalAirport,
+        //     arrivalDate: arrivalDate,
+        //     arrivalTime: arrivalTime,
+        //     arrivalAirportCode: arrivalAirportCode,
+        //     backgroundImage: backgroundImage,
+        //     flyNumber: flyNumber,
+        //     totalSeatsParams: totalSeats,
+        //     durationParams: duration,
+        //     defaultFareParams: defaultFare,
+        //     passengers: passengers,
+        //     type: clase
+        // }
+        )
         //me quita el modal
         setModalVisible(!modalVisible);
         //setea el modal en 1
@@ -206,5 +212,7 @@ const Detail = () => {
         </ScrollView>
     )
 }
+
+//
 
 export default Detail;

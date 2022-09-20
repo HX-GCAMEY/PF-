@@ -23,6 +23,29 @@ th {
   color: #00b5ff !important;
 }
 
+.avioncillo2 {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+}
+.avioncillo2 > * {
+  z-index: 2000;
+}
+.paquete {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 80px;
+  left: 45%;
+}
+
+.divfantasma {
+  height: 25px;
+  width: 100%;
+}
 @media screen and (max-width: 1200px) {
   .Table {
     width: 100%;

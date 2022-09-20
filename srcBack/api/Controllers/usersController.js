@@ -536,4 +536,24 @@ export default class UserController {
       res.status(500).json({error: e});
     }
   }
+
+  static async saveFavs(req, res){
+    try{
+      const {email, favorites} = req.body;
+      let resp = await UsersDAO.saveFavsInDB(email, favorites);
+      res.status(200).json(resp);
+    }catch(e){
+      res.status(500).json({error: e});
+    }
+  }
+
+  static async getFavs(req, res){
+    try{
+      const {email} = req.params;
+      let resp = await UsersDAO.findFavsByEmail(email);
+      res.status(200).json(resp[0].favorites);
+    }catch(e){
+      res.status(500).json({error: e});
+    }
+  }
 }

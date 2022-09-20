@@ -1,16 +1,11 @@
 import React from "react"
 import { motion, AnimateSharedLayout } from "framer-motion"
+import { Alert, Spin } from "antd"
 
 const Prueba = () => {
   return (
     <div>
-      <motion.div
-        initial={{ x: 1000 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 2 }}
-      >
-        HLAAAAAAAAAAAAAAAAA
-      </motion.div>
+      <Spin tip="Loading..."></Spin>
     </div>
   )
 }

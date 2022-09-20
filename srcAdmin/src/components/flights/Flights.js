@@ -7,7 +7,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material"
-import { Button, DatePicker, Modal, TimePicker } from "antd"
+import { Button, DatePicker, Modal, Spin, TimePicker } from "antd"
 import axios from "axios"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
@@ -111,6 +111,14 @@ const Flights = () => {
     }
     setInputPaginado(e.target.value)
     setSumador(e.target.value * 7)
+  }
+
+  if (!flights.length) {
+    return (
+      <div className="spinToWin">
+        <Spin className="spin" tip="Loading..."></Spin>
+      </div>
+    )
   }
 
   console.log("soy flights", flights)
