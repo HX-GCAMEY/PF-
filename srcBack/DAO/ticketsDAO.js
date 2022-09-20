@@ -202,7 +202,7 @@ export default class TicketsDAO {
         $match: {
           tickets: {
             $elemMatch: {
-              user_id: email,
+              email: email,
             },
           },
         },
