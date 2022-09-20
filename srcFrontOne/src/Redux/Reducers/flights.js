@@ -127,20 +127,6 @@ export default flightsReducers = (state = initialState, action) => {
                 ...state,
                 cart: [],
             }
-<<<<<<< Updated upstream
-=======
-        // case SET_FAVORITES:
-        //     return {
-        //         ...state,
-        //         favorites: [action.payload, ...state.favorites]
-        //     }
-        // case DELETE_FAVORITES:
-        //     const filterFav = state.favorites.filter((flight) => flight.flyId !== action.payload)
-        //     return {
-        //         ...state,
-        //         favorites: filterFav
-        //     }
->>>>>>> Stashed changes
         case FILTER_PRICE:
             let flagFilt = 0
             let dataFilt = []
