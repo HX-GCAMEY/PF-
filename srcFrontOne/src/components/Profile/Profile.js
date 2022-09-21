@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Button, Text, TouchableOpacity, Modal, TextInput, ScrollView } from "react-native";
+import { View, Image, Button, Text, TouchableOpacity, Modal, TextInput, ScrollView, Pressable } from "react-native";
 import styles from "./styles";
 import avatar from "./imgs/avatar.png"
 import * as ImagePicker from "expo-image-picker";
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import welcome from "./imgs/welcome.png";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { userLogout, userDelete} from "../../Redux/Actions/users";
 import FlatListReviews from "../Review/FlatListReviews";
 //import Categories from "./categories/categories";
@@ -23,7 +23,6 @@ const Profile = ({navigation}) => {
     const user = useSelector((state) => state.userReducer.session);
     const categories = ["Profile", "My Tickets", "Reviews"];
     const [categoryIndex, setCategoryIndex] = useState(0);
-    console.log('estamos aki', user)
     const dispatch  = useDispatch();
   
     
@@ -100,8 +99,8 @@ const Profile = ({navigation}) => {
         return (
         <View>
         <View style={{alignItems: 'center'}}>
-        <Image source={welcome} style={{marginTop: 40, marginLeft: 25, height: 30}}/>
-        {user.email ? <Text style={{fontWeight: 'bold', fontSize: 15, marginTop: 10}}>{user.email}</Text> : <Text style={{color: '#131c46', fontSize: 18, fontWeight: 'bold', marginLeft: 10 }}>user@email.com</Text>}
+        <Image source={welcome} style={{marginTop: 40, marginLeft: 18, height: 30}}/>
+        {user.email ? <Text style={{fontWeight: 'bold',fontSize: 18, marginTop: 10}}>{user.email}</Text> : <Text style={{color: '#131c46', fontSize: 18, fontWeight: 'bold', marginLeft: 10 }}>user@email.com</Text>}
         
    </View>
 
@@ -150,23 +149,20 @@ const Profile = ({navigation}) => {
 
     return (
         <ScrollView>
-        <LinearGradient colors={['#009DCF', '#07C5C5']} style={{height: '100%'}}>
-        <View style={styles.containerProfile} onPress={() => pickImage()}>
+         <LinearGradient colors={[ '#07C5C5', '#028DA4']} style={{height: '100%'}}>
+        <Pressable style={styles.containerProfile} onPress={() => pickImage()}>
             {image? 
                 <View style={styles.containerImage}>
                 <Image source={{uri: image}} style={styles.imgUser} /> 
                 </View>
             
             : <View style={styles.containerImage}>
-                <Image source={avatar} style={[styles.avatarImg, {width:100, height:100}]} />
+                <Image source={avatar} style={[styles.avatarImg, {width:110, height:110}]} />
               </View>
               }
-        <View style={styles.containerAdd}>
-            <AntDesign name="addfolder" size={20} style={{paddingLeft: 4}} onPress={() => pickImage()}/>  
-
-        </View>
+            <MaterialIcons name="add-a-photo" color={'#072f4e'} size={25} style={{marginLeft: 220, marginTop: -20}}/>
+        </Pressable>
         <View>
-        </View>
             <CategoryList />
             <View style={{height: '100%'}} >
             {!user ? <Text>Loading...</Text> : categoryIndex === 0 ? <ProfileCategory/> : categoryIndex === 1 ? <Text> tickets </Text> : categoryIndex === 2 ? <FlatListReviews /> : null}
