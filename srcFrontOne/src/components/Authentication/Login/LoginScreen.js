@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Image, useWindowDimensions, View, Text} from "react-native";
+import {Image, useWindowDimensions, View, Text, Keyboard} from "react-native";
 import logo from "../../../images/flymateLogo.png";
 import styles from "./styles";
 import InputLogin from "./InputLogin/InputLogin";
@@ -14,12 +14,14 @@ import {LinearGradient} from "expo-linear-gradient";
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
     const findUser = useSelector((state) => state.userReducer.session)
     console.log("encontre a tu vieja",findUser)
     const dispatch = useDispatch();
 
-  
 
+   
+    
     const {height} = useWindowDimensions();
 
     const login = async(email, password) => {
@@ -33,7 +35,6 @@ const LoginScreen = ({navigation}) => {
               navigation.navigate("HomePage")
             }
             return response.data;
-
           })
       };
 
@@ -58,15 +59,17 @@ const LoginScreen = ({navigation}) => {
             <Image source={logo} style={[styles.logo, {height: height * 0.3}]} resizeMode="contain"  />
 
             <InputLogin 
-                placeholder="Email" 
+                placeholder="Enter your email address"
+                iconName="email-outline"
                 value={email} 
                 setValue={(email) => setEmail(email)}
                 />
             <InputLogin 
-                placeholder="Password" 
+                placeholder="Enter your password" 
+                iconName="onepassword"
                 value={password} 
                 setValue={(password) => setPassword(password)}
-                secureTextEntry={true}
+                password
                 />
 
             <ButtonLogin 
