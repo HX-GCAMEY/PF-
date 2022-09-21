@@ -5,11 +5,15 @@ import { Formik, useField } from 'formik'
 import StyledReviewInput from './StyledReviewInput'
 import { postReview } from '../../Redux/Actions/reviews'
 import { useNavigate } from "react-router-native";
+import { useRoute } from "@react-navigation/native";
 
-const ReviewForm = ({flight_id}) => {
+const ReviewForm = () => {
 
-    console.log('se levanta??')
+    //console.log('is it UP??')
 
+    const route = useRoute();
+    const flight_id = route.params;
+    console.log(flight_id);
     const styles = StyleSheet.create({
         form: {
             margin: 20
@@ -56,7 +60,7 @@ const ReviewForm = ({flight_id}) => {
     const initialValues = {
         user_id: `${user.email}`,
         comment: '',
-        rating: 3,
+        rate: 3,
         flight_id: `${flight_id}`
     }
     
@@ -88,7 +92,7 @@ const ReviewForm = ({flight_id}) => {
                             <Text style={{color: 'black', fontSize:20, fontWeight: 'bold'}}>Post a review:</Text>
                         </View>
                         <InputValue
-                            name='rating'
+                            name='rate'
                             placeholder='Rating'/>
                         <InputValue
                             name='comment'

@@ -6,7 +6,7 @@ const ModalLoading = ({ loading, setLoading }) => {
 
   setTimeout(() => {
     setLoading(false)
-  }, 600)
+  }, 900)
 
   return (
     <Modal

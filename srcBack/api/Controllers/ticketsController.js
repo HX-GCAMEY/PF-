@@ -15,7 +15,7 @@ export default class TicketsController {
       const {flyId, defaultFare, type, passengers} = ticket;
       const flightData = await FlightsDAO.getFlightByID(flyId);
 
-      if (ticket && flyId){
+      if (ticket && flyId) {
         switch (type) {
           case "business":
             newFare = Math.floor(defaultFare * business * passengers);
@@ -33,8 +33,9 @@ export default class TicketsController {
           departDate: flightData.departure.date,
           arrivalDate: flightData.arrival.date,
           fare: newFare,
+          purchased: new Date(),
           type: type,
-          passengers: passengers
+          passengers: passengers,
         };
       }
 
@@ -98,6 +99,8 @@ export default class TicketsController {
           return {
             _id: t._id,
             flight_id: flightID,
+            departDate: t.departDate,
+            arrivalDate: t.arrivalDate,
             type: t.type,
             fare: t.fare,
           };
@@ -151,6 +154,27 @@ export default class TicketsController {
       res.status(200).send("Creation");
     } catch (error) {
       res.status(500).json(error);
+    }
+  }
+
+  static async allTickets(req, res) {
+    try {
+      const result = await TicketsDAO.getAllTickets();
+
+      let tickets = result.map((e) => {
+        let flightID = e.flight_id;
+        let ticket = e.tickets.map((t) => {
+          return {
+            purchased: t.purchased,
+            fare: t.fare,
+          };
+        });
+        return ticket;
+      });
+
+      res.json(tickets.flat());
+    } catch (e) {
+      res.status(500).json(e);
     }
   }
 }
