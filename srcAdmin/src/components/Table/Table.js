@@ -10,7 +10,7 @@ import "./Table.css"
 import { useDispatch, useSelector } from "react-redux"
 import { getPackages } from "../../features/orders"
 import React, { useEffect, useState } from "react"
-import { Button, Modal } from "antd"
+import { Button, Modal, Spin } from "antd"
 import avioncillo2 from "../imgs/avioncillo2.png"
 import paquete from "../imgs/paquete.png"
 import moment from "moment"
@@ -63,18 +63,15 @@ const BasicTable = () => {
     return Math.abs(Math.round(diferencia))
   }
 
-  //console.log("soy funcion", calcularDiferenciaMinutos(x, y))
   const x = new Date()
   const y = new Date(timePackage).getFullYear()
-  console.log("soy la x", x)
-  console.log("soy la y", y)
 
   /*  var b = moment(x, "hh:mm A")
   var c = moment(y, "hh:mm A")
   var duration = b.diff(c)
   var sera = moment.duration(duration, "milliseconds")
   const diffInMinutes = b.diff(c, "m") */
-  console.log("soy avioncillo state", avioncilloState)
+
   useEffect(() => {
     dispatch(getPackages())
 
@@ -123,7 +120,6 @@ const BasicTable = () => {
   const lastPackage = packages.length && packages[packages.length - 1]
 
   const abrirModal = e => {
-    console.log("soy abrir", e)
     return Swal.fire({
       text: e,
 
@@ -132,15 +128,20 @@ const BasicTable = () => {
   }
   const cerrarModal = e => {
     setModal(false)
-    console.log(e)
   }
   const accion = () => {
     cerrarModal()
   }
 
   const description = splitPackages.map(e => e.description)
-  console.log("soy packages", packages)
-  console.log("soy splitpackages", splitPackages)
+
+  if (!packages.length) {
+    return (
+      <div className="spinToWin">
+        <Spin className="spin" tip="Loading..."></Spin>
+      </div>
+    )
+  }
 
   if (exist) {
     return (

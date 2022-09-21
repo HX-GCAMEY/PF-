@@ -20,8 +20,6 @@ const authProvider = ({ children, onUserLoggedIn, onUserNotLoggedIn }) => {
         } else {
           onUserNotRegistered(user)
         }
-
-        console.log(user.displayName)
       } else {
         onUserLoggedIn()
         console.log("no hay naide autenticado....")
@@ -33,4 +31,3 @@ const authProvider = ({ children, onUserLoggedIn, onUserNotLoggedIn }) => {
 }
 
 export default authProvider
- 

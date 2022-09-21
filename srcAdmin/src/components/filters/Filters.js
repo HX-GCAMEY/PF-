@@ -30,23 +30,18 @@ const Filters = ({ flightsComponent, dispatched }) => {
   }
   const filterChange = e => {
     const responde = flightsComponent.filter(d => d[defaultValue] === e)
-    console.log("soy filtered", responde)
+
     dispatch(dispatched(responde))
     //cerrarModal2()
   }
-  const putFlight = () => {
-    console.log("hola")
-  }
 
   const abrirModal2 = e => {
-    console.log("soy abrir", e)
     setDefaultValue(null)
     setFilter("filter by")
     setModal(true)
   }
   const cerrarModal2 = e => {
     setModal(false)
-    console.log(e)
   }
   const accion = () => {
     //cerrarModal2()
@@ -73,7 +68,6 @@ const Filters = ({ flightsComponent, dispatched }) => {
       }
     })
     dispatch(dispatched(soy))
-    console.log("soy soy", soy)
   }
 
   return (

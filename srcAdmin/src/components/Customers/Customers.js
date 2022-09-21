@@ -11,7 +11,7 @@ import { CgArrowDownR } from "react-icons/cg"
 import { MdDelete } from "react-icons/md"
 
 import "./Customers.css"
-import { getReviews, getTask } from "../../features/orders"
+import { getReviews, getTask, getTickets } from "../../features/orders"
 import axios from "axios"
 import {
   BsFillArrowDownSquareFill,
@@ -45,10 +45,10 @@ const Customers = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(getTickets())
     dispatch(getTask())
     dispatch(getReviews())
   }, [dispatch])
-  console.log("soy users", users)
 
   const upgrade = async (e, b) => {
     return Swal.fire({

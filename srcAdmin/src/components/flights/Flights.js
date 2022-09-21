@@ -12,7 +12,7 @@ import axios from "axios"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getFlights, getReviews } from "../../features/orders"
+import { getFlights, getReviews, getTickets } from "../../features/orders"
 import Filters from "../filters/Filters"
 import { filtered2 } from "../../features/tasks"
 import "./Flights.css"
@@ -34,18 +34,17 @@ const Flights = () => {
   const [right, setRight] = useState(false)
   const [left, setLeft] = useState(false)
   useEffect(() => {
+    dispatch(getTickets())
     dispatch(getFlights())
     dispatch(getReviews())
   }, [])
 
   const abrirModal = e => {
-    console.log("soy abrir", e)
     setModal(true)
     setPlace(e)
   }
   const cerrarModal = e => {
     setModal(false)
-    console.log(e)
   }
 
   const accion = () => {
@@ -120,8 +119,6 @@ const Flights = () => {
       </div>
     )
   }
-
-  console.log("soy flights", flights)
 
   return (
     <div className="Table2 ">

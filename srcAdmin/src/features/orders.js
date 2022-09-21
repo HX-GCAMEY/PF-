@@ -11,7 +11,6 @@ export const getTask = createAsyncThunk("tasks/getTasks", async () => {
 export const getFlights = createAsyncThunk("tasks/getFlights", async () => {
   const response = await axios("http://flymatepf.herokuapp.com/api/flights")
 
-  console.log("soy response", response.data)
   return response.data.flights
 })
 
@@ -25,7 +24,7 @@ export const getFlightsAvailables = createAsyncThunk(
     const response3 = response2.sort(
       (a, b) => parseInt(a.date) - parseInt(b.date)
     )
-    console.log("soy response3", response3)
+
     return response3
   }
 )
@@ -35,7 +34,6 @@ export const getReviews = createAsyncThunk("tasks/getReviews", async () => {
     "http://flymatepf.herokuapp.com/api/comments/allComments"
   )
 
-  console.log("soy response de getReviews", response.data)
   return response.data
 })
 
@@ -44,6 +42,13 @@ export const getPackages = createAsyncThunk("tasks/getPackages", async () => {
     "http://flymatepf.herokuapp.com/api/tickets/allPackages"
   )
 
-  console.log("soy response de getPackage", response.data)
+  return response.data
+})
+
+export const getTickets = createAsyncThunk("tasks/getTickets", async () => {
+  const response = await axios(
+    "http://flymatepf.herokuapp.com/api/tickets/allTickets"
+  )
+
   return response.data
 })

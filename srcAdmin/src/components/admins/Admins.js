@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper"
 import TableContainer from "@mui/material/TableContainer"
 
 import "./Admins.css"
-import { getReviews, getTask } from "../../features/orders"
+import { getReviews, getTask, getTickets } from "../../features/orders"
 import axios from "axios"
 import { FaArrowDown } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
@@ -36,6 +36,7 @@ const Admins = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(getTickets())
     dispatch(getTask())
     dispatch(getReviews())
   }, [dispatch])

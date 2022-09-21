@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react"
 import { BsFillArrowUpSquareFill } from "react-icons/bs"
 import { MdDelete } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
-import { getReviews, getTask } from "../../features/orders"
+import { getReviews, getTask, getTickets } from "../../features/orders"
 import { GiJumpAcross } from "react-icons/gi"
 import { bannedFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
@@ -36,6 +36,7 @@ const Banned = () => {
   const [left, setLeft] = useState(false)
 
   useEffect(() => {
+    dispatch(getTickets())
     dispatch(getTask())
     dispatch(getReviews())
   }, [dispatch])
