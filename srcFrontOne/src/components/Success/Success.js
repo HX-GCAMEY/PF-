@@ -21,6 +21,10 @@ const Success = () => {
         navigation.navigate('HomePage');
         //dispatch(clearCart());
     }
+
+    const seeAllMyFlights = () => {
+        navigation.navigate('Profile')
+    }
     
     const flightCart = useSelector((state) => state.flightsReducers.cart);
     const user = useSelector((state) => state.userReducer.session);
@@ -53,7 +57,7 @@ const Success = () => {
             <Text style={{color: "#FFFFFF", fontSize: 28, fontWeight: "bold", left: 82, top: 394}}>Payment Success</Text>
             <Text style={{color: "#FFFFFF", fontSize: 20, position: "absolute", left: 60, top: 440}}>Your payment was successful!</Text>
             <Text style={{color: "#FFFFFF", fontSize: 20, position: "absolute", left: 85, top: 470}}>Thanks for flight whit us</Text>
-            <Pressable style={{
+            <Pressable onPress={() => seeAllMyFlights()} style={{
                 backgroundColor: "#09ADB7", 
                 borderRadius: 10, 
                 position: "absolute", 
