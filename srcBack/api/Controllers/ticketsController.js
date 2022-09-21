@@ -93,7 +93,6 @@ export default class TicketsController {
       let {email} = req.params;
 
       const result = await TicketsDAO.getTicket(email);
-
       let tickets = result.map((e) => {
         let flightID = e.flight_id;
         let ticket = e.tickets.map((t) => {

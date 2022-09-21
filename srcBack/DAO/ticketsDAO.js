@@ -234,6 +234,8 @@ export default class TicketsDAO {
           "tickets._id": 1,
           "tickets.type": 1,
           "tickets.fare": 1,
+          "tickets.departDate": 1,
+          "tickets.arrivalDate": 1,
         },
       },
     ];
