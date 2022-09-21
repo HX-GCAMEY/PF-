@@ -9,10 +9,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     fadingContainer: {
-        top: 20,
+        top: -10,
         right: 2,
         padding: 20,
         backgroundColor: 'transparent'
+    },
+    loadingLogo: {
+        position: 'absolute',
+        left: 130,
+        top: 20,
     },
     imageSeeFavs: {
         zIndex: 0,
@@ -68,7 +73,6 @@ const styles = StyleSheet.create({
 
     },
     profilePicture: {
-        position: 'absolute',
         alignSelf: 'center',
         justifyContent: 'center',
         zIndex: 0,
@@ -241,7 +245,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     fullPriceText: {
-        textDecorationLine: 'line-through', 
+        textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
         color: '#252440',
         bottom: 120,

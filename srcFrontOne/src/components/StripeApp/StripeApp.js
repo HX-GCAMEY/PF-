@@ -15,10 +15,10 @@ const StripeApp = () => {
 
     const handlePayPress = async () => {
         //if(!email) {
-            //Alert.alert("Please log in to continue")
-            //return;
+        //Alert.alert("Please log in to continue")
+        //return;
         //}
-        if(!cardDetails?.complete) {
+        if (!cardDetails?.complete) {
             Alert.alert("Please enter complete card details")
             return;
         }
@@ -37,22 +37,22 @@ const StripeApp = () => {
         )
     }
 
-    return(
-        <View style={{top: 350}}>
+    return (
+        <View style={{ top: 350 }}>
             <CardField
-            postalCodeEnabled={false}
-            placeholder={{
-              number: "4242 4242 4242 4242",
-            }}
-            cardStyle={styles.card}
-            style={styles.cardContainer}
-            onCardChange={(cardDetails) => {
-              setCardDetails(cardDetails);
-            }}
+                postalCodeEnabled={false}
+                placeholder={{
+                    number: "4242 4242 4242 4242",
+                }}
+                cardStyle={styles.card}
+                style={styles.cardContainer}
+                onCardChange={(cardDetails) => {
+                    setCardDetails(cardDetails);
+                }}
             />
             <Pressable onPress={() => handlePayPress()}>
-                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20}}>
-                    <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF95", textAlign: "center", top: 8}}>Confirm</Text>
+                <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{ width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20 }}>
+                    <Text style={{ fontSize: 16, fontWeight: "bold", color: "#FFFFFF95", textAlign: "center", top: 8 }}>Confirm</Text>
                 </LinearGradient>
             </Pressable>
         </View>
