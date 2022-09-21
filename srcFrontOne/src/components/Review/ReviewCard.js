@@ -6,20 +6,15 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         position: 'relative',
-        backgroundColor: '#4EB6ED',
+        backgroundColor: '#40E0D0',
         alignSelf: 'center',
-        backgroundColor: '#7BB4E3',
         width: '90%',
         padding: 20,
         paddingBottom: 22,
-        borderRadius: 5,
+        borderRadius: 12,
         shadowOpacity: 80,
-        elevation: 15,
-        marginTop: 20,
-        borderBottomColor: 'black',
-        borderBottomWidth: 2,
-        borderLeftColor: 'black',
-        borderLeftWidth: 2
+        elevation: 5,
+        marginTop: 20
     },
     rating: {
         fontSize: 18,
@@ -42,11 +37,18 @@ const styles = StyleSheet.create({
 })
 
 const ReviewCard = ({text, rate}) => {
-    
+    let starx = [];
+    const stars = () => {
+        for (let i=0;i<rate;i++) {
+            starx.push('⭐');
+        }
+        return <Text>{starx}</Text>
+    }
+
     return (
             <View style={styles.card} >
                 <Text style={styles.comment} >Comment </Text>
-                <Text style={styles.rating} >Rating: <Text>{rate}</Text></Text>
+                <Text style={styles.rating} >{stars()}</Text>
                 <Text style={styles.text}>{text}</Text>
             </View>
     )

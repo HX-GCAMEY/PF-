@@ -14,6 +14,9 @@ import {
     CLEAR_TICKETS,
     POST_TICKET,
     FILTER_PRICE,
+    SET_FAVORITES,
+    DELETE_FAVORITES,
+    ADD_TICKET_TO_DB
 } from "../Constants/flights";
 
 const initialState = {
@@ -72,10 +75,11 @@ export default flightsReducers = (state = initialState, action) => {
         case ADD_TO_CART:
             let info = state.allFlights;
             let bookedFlight = info.find(f => f._id === action.payload.flyId);
-            const {departAirportCode, arrivalAirportCode, departDate, defaultFare} = action.payload;
+            const {departAirportCode, arrivalAirportCode, departDate, defaultFare, flyId} = action.payload;
 
             bookedFlight = {
                 ...bookedFlight,
+                flyId,
                 departAirportCode,
                 arrivalAirportCode,
                 departDate,
@@ -114,7 +118,7 @@ export default flightsReducers = (state = initialState, action) => {
             }
         case POST_TICKET:
             return {
-
+                ...state
             }
         case REMOVE_FROM_CART:
             let newCart = state.cart.filter(e => e._id !== action.payload);
@@ -212,6 +216,10 @@ export default flightsReducers = (state = initialState, action) => {
             return {
                 ...state,
                 flightsByRoute: final
+            }
+        case ADD_TICKET_TO_DB:
+            return {
+                ...state
             }
         default: {
             return state
