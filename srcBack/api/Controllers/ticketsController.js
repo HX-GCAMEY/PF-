@@ -27,7 +27,7 @@ export default class TicketsController {
             newFare = defaultFare * basic * passengers;
             break;
         }
-        const newDate = new Date().toISOString().slice(0,10);
+        const newDate = new Date().toISOString();
         newTicket = {
           email: email,
           flight_id: flyId,
