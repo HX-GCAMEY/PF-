@@ -3,7 +3,7 @@ import { Button, Modal, Select, Space, Input } from "antd"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlights } from "../../features/orders"
-import { ImFilter } from "react-icons/im"
+import { GoSearch } from "react-icons/go"
 import { filtered } from "../../features/tasks"
 const { Search } = Input
 
@@ -79,7 +79,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
   return (
     <div className="filterList">
       <Button size="small" type="primary" onClick={() => abrirModal2()}>
-        <ImFilter />
+        <GoSearch />
       </Button>
       <Modal
         style={window.innerWidth <= 768 ? { top: 400 } : { top: 12, right: 45 }}

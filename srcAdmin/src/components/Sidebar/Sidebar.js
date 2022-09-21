@@ -29,8 +29,10 @@ const Sidebar = ({ selected, setSelected }) => {
     <>
       <motion.div
         className="bars"
-        style={expanded ? { left: "60%" } : { left: "5%" }}
-        transition={{ duration: 1 }}
+        //style={expanded ? { left: "60%" } : { left: "5%" }}
+        initial={expanded ? { x: -200 } : { x: 0 }}
+        animate={expanded ? { x: 0 } : { x: -200 }}
+        transition={{ duration: 0.3 }}
         onClick={() => setExpaned(!expanded)}
       >
         <UilBars />

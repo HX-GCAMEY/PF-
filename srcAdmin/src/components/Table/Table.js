@@ -149,7 +149,7 @@ const BasicTable = () => {
           <motion.div
             className="avioncillo2"
             initial={{ x: -300, opacity: 1 }}
-            animate={{ x: 1300, opacity: 1 }}
+            animate={{ x: 1300, opacity: 0 }}
             transition={{ duration: 2.5 }}
           >
             <img src={avioncillo2} alt="ac" />

@@ -49,7 +49,7 @@
   height: 2.5rem;
   margin-left: 2rem;
   position: relative;
-  transition: all 300ms ease;
+  transition: all 300ms;
   border-radius: 0.7rem;
   font-size: 14px;
 }
@@ -76,12 +76,10 @@
   margin-right: calc(1rem - 8px);
 }
 
-
 .logoMini img {
   width: 100px;
   height: 35px;
 }
-
 
 /* Tablets */
 @media screen and (max-width: 1200px) {
@@ -112,7 +110,7 @@
   .bars {
     display: flex;
     position: fixed;
-    top: 2rem;
+    bottom: 2rem;
     left: 60%;
     background: #0184a0;
     padding: 10px;
