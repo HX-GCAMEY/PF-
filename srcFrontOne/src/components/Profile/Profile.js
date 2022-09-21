@@ -99,7 +99,7 @@ const Profile = ({ navigation }) => {
     const TicketsContainer = () => {
         return(
             <View style={styles.ticketContainer}>
-                <MyTickets />
+                <MyTickets email={user.email} />
             </View>
         );
     }
