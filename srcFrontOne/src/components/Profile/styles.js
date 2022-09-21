@@ -11,13 +11,14 @@ const styles = StyleSheet.create({
     avatarImg: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: 150,
-        marginTop: 80,
-        borderRadius: 45,
+        marginLeft: 145,
+        marginTop: 85,
+        backgroundColor: '#07C5C5',
+        borderRadius: 50
     },
     containerImage: {
-        backgroundColor: '#0E2F49',
-        height: 200
+        backgroundColor: '#00001a',
+        height: 160
     },
     imgUser: {
         alignItems: 'center',
@@ -26,13 +27,13 @@ const styles = StyleSheet.create({
         height: 100,
         marginLeft: 150,
         marginTop: 80,
-        borderRadius: 45
+        borderRadius: 50
     },
     textInfo: {
         alignSelf: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: '#7BB4E3',
+        backgroundColor: '#40E0D0',
         width: '90%',
         padding: 20,
         paddingBottom: 22,
@@ -57,13 +58,10 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     containerAdd: {
-        backgroundColor: 'white',
         width: 30,
-        marginLeft: 210,
-        marginTop: -50,
-        borderRadius: 30,
-        borderColor: 'black',
-        borderWidth: 1
+        marginLeft: 220,
+        marginTop: -10,
+    
     },
     categoryContainer2:{
         left: 2,
@@ -77,15 +75,16 @@ const styles = StyleSheet.create({
         right: 10,
         padding: 10,
         marginLeft: 20,
-        fontSize: 16,
+        fontSize: 18,
         color: '#1E1E1E',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     categoryTextSelected2: {
         color: 'black',
         paddingBottom: 5,
         borderBottomWidth: 2,
-        borderColor: 'orange'
+        borderColor: 'orange',
+
     },
     textCat:{
         fontSize: 18,
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: '#7BB4E3',
+        backgroundColor: '#40E0D0',
         width: '80%',
         padding: 8,
         paddingBottom: 10,
@@ -110,9 +109,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: '#7BB4E3',
+        backgroundColor: '#40E0D0',
         width: '80%',
-        padding: 8,
+        padding: 10,
         paddingBottom: 10,
         borderRadius: 5,
         shadowOpacity: 80,
