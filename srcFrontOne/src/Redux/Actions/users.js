@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export function getUser(email){
-    return async function(dispatch){
+export function getUser(email) {
+    return async function (dispatch) {
         let res = await axios.get(`https://flymatepf.herokuapp.com/api/users/findUser/${email}`)
         dispatch({
             type: "GET_USER",
@@ -10,9 +10,9 @@ export function getUser(email){
     }
 }
 
-export function updateUser (email, profile){
-    return async function(dispatch){
-        let res = await axios.put('https://flymatepf.herokuapp.com/api/users/updateProfile', {email, profile})
+export function updateUser(email, profile) {
+    return async function (dispatch) {
+        let res = await axios.put('https://flymatepf.herokuapp.com/api/users/updateProfile', { email, profile })
         dispatch({
             type: 'UPDATE_USER',
             payload: res.data
@@ -20,8 +20,8 @@ export function updateUser (email, profile){
     }
 }
 
-export function googleRegister(email){
-    return async function(dispatch){
+export function googleRegister(email) {
+    return async function (dispatch) {
         let res = await axios.post('https://flymatepf.herokuapp.com/api/users/googleRegister', email)
         dispatch({
             type: 'GOOGLE_REGISTER',
@@ -30,8 +30,8 @@ export function googleRegister(email){
     }
 }
 
-export function googleLogin(email){
-    return async function(dispatch){
+export function googleLogin(email) {
+    return async function (dispatch) {
         let res = await axios.post('https://flymatepf.herokuapp.com/api/users/googleLogin', email)
         dispatch({
             type: 'GOOGLE_LOGIN',
@@ -40,9 +40,9 @@ export function googleLogin(email){
     }
 }
 
-export function userLogout(email){
-    return async function(dispatch){
-        let res = await axios.post('https://flymatepf.herokuapp.com/api/users/logout', {user: email})
+export function userLogout(email) {
+    return async function (dispatch) {
+        let res = await axios.post('https://flymatepf.herokuapp.com/api/users/logout', { user: email })
         dispatch({
             type: 'LOGOUT',
             payload: res.data
@@ -50,8 +50,8 @@ export function userLogout(email){
     }
 }
 
-export function userDelete(email){
-    return async function(dispatch){
+export function userDelete(email) {
+    return async function (dispatch) {
         let res = await axios.post("https://flymatepf.herokuapp.com/api/users/delete", email)
         dispatch({
             type: 'DELETE',
@@ -79,8 +79,12 @@ export function deleteFavorites(payload) {
 }
 //database
 export function postFavorites(email, favorites) {
+    const favsData = {
+        email: email,
+        favorites: favorites
+    }
     return async function (dispatch) {
-        let res = await axios.post("https://flymatepf.herokuapp.com/api/users/saveFavorites", email, favorites)
+        let res = await axios.post("https://flymatepf.herokuapp.com/api/users/saveFavorites", favsData)
         dispatch({
             type: 'POST_FAVORITES',
             payload: res.data
@@ -91,6 +95,7 @@ export function postFavorites(email, favorites) {
 export function getFavorites(email) {
     return async function (dispatch) {
         let res = await axios.get(`https://flymatepf.herokuapp.com/api/users/getFavorites/${email}`)
+        console.log('datita\n\n', res.data)
         dispatch({
             type: 'GET_FAVORITES',
             payload: res.data
