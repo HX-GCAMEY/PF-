@@ -25,6 +25,7 @@ export default class TicketsDAO {
       await packages.insertOne({
         ...flight,
         code: code,
+        flight_id: flight_id,
         created: new Date(),
         fare: flight.defaultFare - flight.defaultFare * amount,
         amount: amount,
