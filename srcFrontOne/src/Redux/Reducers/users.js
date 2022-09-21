@@ -55,7 +55,6 @@ export const userReducer = (state = initialState, action) => {
                 ...state
             }
         case 'GET_FAVORITES':
-            console.log('reducer\n', action.payload)
             return {
                 ...state,
                 favorites: action.payload
