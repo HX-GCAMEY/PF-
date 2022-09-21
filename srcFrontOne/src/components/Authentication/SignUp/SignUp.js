@@ -14,7 +14,6 @@ import {LinearGradient} from "expo-linear-gradient";
 const SignUp = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
 
     const registerUser = async(email, password) => {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -61,15 +60,17 @@ const SignUp = ({navigation}) => {
         <View style={styles.root}>
             <Text style={styles.title}>Create an account</Text>
             <InputSignUp
-                placeholder="Email" 
+                iconName="email-outline"
+                placeholder="Enter your email address" 
                 value={email} 
                 setValue={(email) => setEmail(email)}
                 />
               <InputSignUp
-                placeholder="Password" 
+                iconName="onepassword"
+                placeholder="Enter your password" 
                 value={password} 
                 setValue={(password) => setPassword(password)}
-                secureTextEntry={true}
+                password
                 />    
 
 

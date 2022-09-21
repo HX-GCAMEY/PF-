@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Image, useWindowDimensions, View, Text } from "react-native";
 import logo from "../../../images/flymateLogo.png";
 import styles from "./styles";
@@ -14,28 +14,31 @@ import { LinearGradient } from "expo-linear-gradient";
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const findUser = useSelector((state) => state.userReducer.session)
-    // console.log("encontre a tu vieja",findUser)
+
     const dispatch = useDispatch();
 
 
 
-    const { height } = useWindowDimensions();
+   
+    
+    const {height} = useWindowDimensions();
+
 
     const login = async (email, password) => {
         return axios
-            .post("https://flymatepf.herokuapp.com/api/users/login", { email, password })
-            .then((response) => {
-                if (response.data.auth_token) {
-                    AsyncStorage.setItem("user", JSON.stringify(response.data));
-                    console.log(response.data)
-                    dispatch(getUser(email))
-                    navigation.navigate("HomePage")
-                }
-                return response.data;
 
-            })
-    };
+          .post("https://flymatepf.herokuapp.com/api/users/login", { email, password})
+          .then((response) => {
+            if (response.data.auth_token) {
+              AsyncStorage.setItem("user", JSON.stringify(response.data));
+              console.log(response.data)
+              dispatch(getUser(email))
+              navigation.navigate("HomePage")
+            }
+            return response.data;
+          })
+      };
+
 
     const onForgotPasswordPress = () => {
         navigation.navigate("ForgotPassword")
@@ -57,17 +60,20 @@ const LoginScreen = ({ navigation }) => {
             <View style={styles.rootLogin}>
                 <Image source={logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
 
-                <InputLogin
-                    placeholder="Email"
-                    value={email}
-                    setValue={(email) => setEmail(email)}
+
+            <InputLogin 
+                placeholder="Enter your email address"
+                iconName="email-outline"
+                value={email} 
+                setValue={(email) => setEmail(email)}
                 />
-                <InputLogin
-                    placeholder="Password"
-                    value={password}
-                    setValue={(password) => setPassword(password)}
-                    secureTextEntry={true}
-                />
+            <InputLogin 
+                placeholder="Enter your password" 
+                iconName="onepassword"
+                value={password} 
+                setValue={(password) => setPassword(password)}
+                password
+                 />
 
                 <ButtonLogin
                     text="Login"
