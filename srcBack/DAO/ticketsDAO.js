@@ -22,11 +22,10 @@ export default class TicketsDAO {
     try {
       const flight = await FlightsDAO.getFlightByID(flight_id);
 
-      console.log(flight);
-
       await packages.insertOne({
         ...flight,
         code: code,
+        flight_id: flight_id,
         created: new Date(),
         fare: flight.defaultFare - flight.defaultFare * amount,
         amount: amount,
@@ -42,10 +41,10 @@ export default class TicketsDAO {
     }
   }
 
-  static async addNewFlightTicket(number, totalTickets) {
+  static async addNewFlightTicket(flightId, totalTickets) {
     try {
       await tickets.insertOne({
-        flight_id: number,
+        flight_id: flightId,
         totalTickets: totalTickets,
         availableTickets: totalTickets,
       });
@@ -58,7 +57,7 @@ export default class TicketsDAO {
   }
 
   static async addFlightTicket(
-    {flight_id, user_id, type, fare},
+    {flight_id, email, type, fare, arrivalDate, departDate, passengers},
     availableTickets
   ) {
     try {
@@ -68,15 +67,18 @@ export default class TicketsDAO {
         },
         {
           $set: {
-            availableTickets: availableTickets - 1,
+            availableTickets: availableTickets - passengers,
           },
           $addToSet: {
             tickets: {
               _id: ObjectId(Math.random(1) * 1000000000)
                 .toString()
                 .replace(/[^0-9]/g, ""),
-              user_id: user_id,
+              email: email,
+              departDate: departDate,
+              arrivalDate: arrivalDate,
               type: type,
+              passengers: passengers,
               fare: fare,
             },
           },
@@ -195,13 +197,31 @@ export default class TicketsDAO {
     }
   }
 
+  static async getAllTickets() {
+    try {
+      const pipeline = [
+        {
+          $project: {
+            _id: 0,
+            "tickets.fare": 1,
+            "tickets.purchased": 1,
+          },
+        },
+      ];
+      return tickets.aggregate(pipeline).toArray();
+    } catch (error) {
+      console.error(`Error occurred while retrieving tickets, ${error}`);
+      return null;
+    }
+  }
+
   static async getTicket(email) {
     const pipeline = [
       {
         $match: {
           tickets: {
             $elemMatch: {
-              user_id: email,
+              email: email,
             },
           },
         },

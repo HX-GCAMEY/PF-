@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles'
 import avion from '../HomePage/img/backCard.jpg'
-import { setFavorites, deleteFavorites } from '../../Redux/Actions/flights';
+import { setFavorites, deleteFavorites } from '../../Redux/Actions/users';
 
 const ListItem = ({ item, onCloseModal }) => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const { _id, departure, arrival, defaultFare, totalSeats, duration, number } = item;
-  const favState = useSelector((state) => state.flightsReducers.favorites);
+  const favState = useSelector((state) => state.userReducer.favorites);
   const [fav, setFav] = useState(false)
 
   const flightData = {

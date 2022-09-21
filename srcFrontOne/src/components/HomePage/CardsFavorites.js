@@ -1,18 +1,18 @@
 import React from "react";
 import { View, Text, Image, Pressable, TouchableOpacity } from "react-native";
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
 import styles from "./styles";
 import avion from "./img/backCard.jpg"
 import card from './img/cardT.jpg'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { deleteFavorites } from '../../Redux/Actions/flights'
-import { useDispatch } from 'react-redux'
-const CardsFavorites = ({ item }) => {
-  const dispatch = useDispatch()
+import { deleteFavorites, postFavorites, getFavorites } from '../../Redux/Actions/users'
 
-  const onCloseFav = () => {
-    dispatch(deleteFavorites(flyId))
-  }
+
+const CardsFavorites = ({ item }) => {
+  const favState = useSelector((state) => state.userReducer.favorites);
+  const { email } = useSelector((state) => state.userReducer.session);
+  const dispatch = useDispatch()
 
   const navigation = useNavigation()
   const {
@@ -33,6 +33,14 @@ const CardsFavorites = ({ item }) => {
     duration,
     defaultFare
   } = item;
+
+  const onCloseFav = () => {
+    dispatch(deleteFavorites(flyId))
+    if (email) {
+      dispatch(postFavorites(email, favState.length === 1 ? [] : favState))
+      dispatch(getFavorites(email))
+    }
+  }
 
   const nav = () => {
     navigation.navigate('Detail', {
@@ -76,7 +84,6 @@ const CardsFavorites = ({ item }) => {
         </View>
       </View>
     </Pressable>
-
   )
 }
 

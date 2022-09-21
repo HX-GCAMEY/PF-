@@ -15,3 +15,4 @@ export const POST_TICKET = "POST_TICKET";
 export const FILTER_PRICE = "FILTER_PRICE";
 export const SET_FAVORITES = "SET_FAVORITES";
 export const DELETE_FAVORITES = "DELETE_FAVORITES";
+export const ADD_TICKET_TO_DB = "ADD_TICKET_TO_DB";

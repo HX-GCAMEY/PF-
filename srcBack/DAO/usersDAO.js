@@ -1,14 +1,16 @@
 let users;
 let session;
+let favorites;
 
 export default class UsersDAO {
   static async injectDB(conn) {
-    if (users && session) {
+    if (users && session && favorites) {
       return;
     }
     try {
       users = await conn.db(process.env.FLYMATE_NS).collection("users");
       session = await conn.db(process.env.FLYMATE_NS).collection("session");
+      favorites = await conn.db(process.env.FLYMATE_NS).collection("favorites");
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
     }
@@ -253,4 +255,48 @@ export default class UsersDAO {
       return [];
     }
   }
+
+  static async saveFavsInDB(email, favoritesFromBody){
+    try{
+      const resp = await favorites.replaceOne(
+        {
+          "email": email
+        },
+        {
+          "email": email,
+          "favorites": favoritesFromBody
+        },
+        {
+          upsert: true
+        }
+     )
+     return {succes: true};
+    }catch(e){
+      console.error(`Error occurred while saving favorites, ${error}.`);
+      return {error: error};
+    }
+  }
+
+  static async findFavsByEmail(email){
+    try{
+      const pipeline = [
+        {
+          $match: {
+            email: email,
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            favorites: 1
+          }
+        }
+      ];
+      return await favorites.aggregate(pipeline).toArray();
+    }catch(e){
+      console.error(`Error occurred while searching the user, ${error}.`);
+      return {error: error};
+    }
+  }
+
 }

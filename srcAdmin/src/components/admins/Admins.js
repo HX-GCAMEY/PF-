@@ -17,7 +17,7 @@ import { GiJumpAcross } from "react-icons/gi"
 import { adminFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
 import AddAdmins from "../addAdmins/AddAdmins"
-import { Button } from "antd"
+import { Button, Spin } from "antd"
 import { motion } from "framer-motion"
 
 import Swal from "sweetalert2"
@@ -25,6 +25,7 @@ import Swal from "sweetalert2"
 const Admins = () => {
   const customers = useSelector(state => state.tasks.users)
   const adminFiltered = useSelector(state => state.tasks.adminFiltered)
+  const loading = useSelector(state => state.tasks.isLoadingReviews)
   const users = customers.filter(e => e.isAdmin === true)
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
@@ -175,6 +176,14 @@ const Admins = () => {
     setSumador(e.target.value * 7)
   }
 
+  if (!customers.length) {
+    return (
+      <div className="spinToWin">
+        <Spin className="spin" tip="Loading..."></Spin>
+      </div>
+    )
+  }
+
   return (
     <div className="Table2">
       <h2 className="centrar title">Administrators</h2>
@@ -236,6 +245,7 @@ const Admins = () => {
           <span>Next</span>
         </button>
       </div>
+
       {exist && (
         <motion.div
           initial={left || right ? "" : { y: 500, opacity: 0 }}

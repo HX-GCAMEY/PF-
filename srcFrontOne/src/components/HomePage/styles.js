@@ -9,10 +9,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     fadingContainer: {
-        top: 20,
+        top: -10,
         right: 2,
         padding: 20,
         backgroundColor: 'transparent'
+    },
+    loadingLogo: {
+        position: 'absolute',
+        left: 130,
+        top: 20,
     },
     imageSeeFavs: {
         zIndex: 0,
@@ -68,7 +73,6 @@ const styles = StyleSheet.create({
 
     },
     profilePicture: {
-        position: 'absolute',
         alignSelf: 'center',
         justifyContent: 'center',
         zIndex: 0,
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
         opacity: 1
     },
     categoryContainer: {
-        // backgroundColor: 'red',
+        zIndex: 0,
         left: 2,
         justifyContent: 'center',
         flexDirection: 'row',
@@ -126,6 +130,7 @@ const styles = StyleSheet.create({
 
     },
     categoryText: {
+        zIndex: 1,
         bottom: -5,
         right: 10,
         padding: 10,
@@ -135,6 +140,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     categoryTextSelected: {
+        zIndex: 1,
         color: '#0183A0',
         paddingBottom: 5,
         borderBottomWidth: 2,
@@ -239,7 +245,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     fullPriceText: {
-        textDecorationLine: 'line-through', 
+        textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
         color: '#252440',
         bottom: 120,

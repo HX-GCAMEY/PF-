@@ -7,44 +7,48 @@ const premium = 2.2;
 
 export default class TicketsController {
   static async purchase(req, res) {
+    console.log("purchasing");
     try {
       let newTicket, newFare;
       let availableTickets = 0;
-      const ticketsFromBody = req.body;
-      const flightData = await FlightsDAO.getFlightByID(
-        ticketsFromBody.flightId
-      );
+      const {email, ticket} = req.body;
+      const {flyId, defaultFare, type, passengers} = ticket;
+      const flightData = await FlightsDAO.getFlightByID(flyId);
 
-      if (ticketsFromBody && flightData.number) {
-        switch (ticketsFromBody.type) {
+      if (ticket && flyId) {
+        switch (type) {
           case "business":
-            newFare = flightData.defaultFare * business;
+            newFare = Math.floor(defaultFare * business * passengers);
             break;
           case "premium":
-            newFare = flightData.defaultFare * premium;
+            newFare = Math.floor(defaultFare * premium * passengers);
             break;
           default:
-            newFare = flightData.defaultFare * basic;
+            newFare = defaultFare * basic * passengers;
             break;
         }
         newTicket = {
-          user_id: ticketsFromBody.email,
-          flight_id: flightData.number,
+          email: email,
+          flight_id: flyId,
+          departDate: flightData.departure.date,
+          arrivalDate: flightData.arrival.date,
           fare: newFare,
-          type: ticketsFromBody.type,
+          purchased: new Date(),
+          type: type,
+          passengers: passengers,
         };
       }
 
-      let flight = await TicketsDAO.getFlightTicket(flightData.number);
+      let flight = await TicketsDAO.getFlightTicket(flyId);
       let insertResult;
       if (flight) {
         insertResult = await TicketsDAO.addNewFlightTicket(
-          flightData.number,
+          flyId,
           flightData.totalSeats
         );
       }
 
-      availableTickets = await TicketsDAO.getAvailableTicket(flightData.number);
+      availableTickets = await TicketsDAO.getAvailableTicket(flyId);
       if (availableTickets > 0) {
         insertResult = await TicketsDAO.addFlightTicket(
           newTicket,
@@ -95,6 +99,8 @@ export default class TicketsController {
           return {
             _id: t._id,
             flight_id: flightID,
+            departDate: t.departDate,
+            arrivalDate: t.arrivalDate,
             type: t.type,
             fare: t.fare,
           };
@@ -148,6 +154,27 @@ export default class TicketsController {
       res.status(200).send("Creation");
     } catch (error) {
       res.status(500).json(error);
+    }
+  }
+
+  static async allTickets(req, res) {
+    try {
+      const result = await TicketsDAO.getAllTickets();
+
+      let tickets = result.map((e) => {
+        let flightID = e.flight_id;
+        let ticket = e.tickets.map((t) => {
+          return {
+            purchased: t.purchased,
+            fare: t.fare,
+          };
+        });
+        return ticket;
+      });
+
+      res.json(tickets.flat());
+    } catch (e) {
+      res.status(500).json(e);
     }
   }
 }

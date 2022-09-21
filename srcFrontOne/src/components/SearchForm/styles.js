@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   gradientContainerSearch: {
     height: 300,
     marginTop: 10,
-    marginLeft: 24,
+    marginLeft: 16,
     width: 330,
     borderTopLeftRadius: 36,
     borderTopRightRadius: 16,
@@ -427,7 +427,7 @@ const styles = StyleSheet.create({
     marginTop: -.5,
     width: 275,
     top: 47,
-    zIndex: 1,
+    zIndex: 100,
     position: 'absolute',
     backgroundColor: '#d3e7e7',
     flexDirection: 'column',

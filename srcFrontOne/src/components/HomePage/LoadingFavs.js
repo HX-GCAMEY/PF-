@@ -22,11 +22,11 @@ const LoadingFavs = () => {
   fadeIn()
 
   return (
-    <View style={{ position: 'absolute', top: 30 }} >
+    <View style={{ top: 20, right: 5 }} >
       <Animated.View
         style={[
           styles.fadingContainer,
-          { opacity: fadeAnim }]}>
+          { opacity: fadeAnim, minHeight: 300 }]}>
         <Image source={youWillSee} style={styles.imageSeeFavs} />
         <View style={styles.imgBorder} >
           <Image source={gif} style={styles.profilePicture} />

@@ -14,6 +14,7 @@ import { Dimensions } from 'react-native';
 import FlatListRender from './FlatListRender'
 import CustomInput from './CustomInput'
 import ModalLoading from './ModalLoading'
+import { postFavorites, getFavorites } from '../../Redux/Actions/users'
 
 let { width } = Dimensions.get('window');
 
@@ -24,10 +25,11 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
   const flightsByRoute = flightsByRoute1?.matchedFlights
   const flightSuggestions = flightsByRoute1?.sameDateFlights
   const userDate = useSelector((state) => state.userReducer.session)
+  const favState = useSelector((state) => state.userReducer.favorites);
+  const { email } = useSelector((state) => state.userReducer.session);
 
   const [depart, setDepart] = useState('')
   const [arrival, setArrival] = useState('')
-
   const today = new Date()
   const [date, setDate] = useState(today)
   const [view, setView] = useState(false);
@@ -91,6 +93,12 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
     setSortPrice('')
     setView(false);
     clearGetFlightsByRoute()
+    if (email) {
+      dispatch(postFavorites(email, favState))
+      setTimeout(() => {
+        dispatch(getFavorites(email))
+      }, 1000)
+    }
   }
 
   const CustomDatePicker = () => {
@@ -127,7 +135,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
       </View>
     )
   }
-  console.log('usuario\n\n', userDate)
+  // console.log('usuario\n\n', userDate)
   return (
     <NativeBaseProvider>
       <SafeAreaView style={styles.inputContainer} >
@@ -150,6 +158,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
                   const searchTerm = depart.toLowerCase();
                   const city = item.toLowerCase();
                   return searchTerm
+                    && searchTerm.length > 1
                     && city.includes(searchTerm)
                     && city !== searchTerm
                 })
@@ -184,6 +193,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
                   const searchTerm = arrival.toLowerCase();
                   const city = item.toLowerCase();
                   return searchTerm
+                    && searchTerm.length > 1
                     && city.includes(searchTerm)
                     && city !== searchTerm
                 })
@@ -233,8 +243,8 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
                           selectedValue={sortPrice}
                           backgroundColor={'#25235a10'}
                           borderRadius='5'
-                          minWidth='120'
-                          maxWidth='120'
+                          minWidth='100'
+                          maxWidth='100'
                           marginRight={2}
                           accessibilityLabel='Order'
                           placeholder='Order'
@@ -242,7 +252,7 @@ const SearchForm = ({ getFlights, getFlightsByRoute, clearGetFlightsByRoute }) =
                             bg: 'teal.600',
                             endIcon: <CheckIcon size='5' />
                           }} mt={1} onValueChange={itemValue => submitPrice(itemValue)}>
-                          <Select.Item label='Order Flights' value='' />
+                          <Select.Item label='Order' value='' />
                           <Select.Item label='💲 Lower Price' value='low' />
                           <Select.Item label='💲 Higher Price' value='high' />
                           <Select.Item label='🕑 Earlier' value='earlier' />

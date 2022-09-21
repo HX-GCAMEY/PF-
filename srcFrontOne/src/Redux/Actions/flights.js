@@ -12,14 +12,14 @@ import {
     REMOVE_FROM_CART,
     CLEAR_CART,
     SET_TICKET,
-    POST_TICKET,
     CLEAR_GET_FLIGHTS_BY_ROUTE,
     GET_CITIES,
     SORT_PRICE,
     CLEAR_TICKETS,
     FILTER_PRICE,
     SET_FAVORITES,
-    DELETE_FAVORITES
+    DELETE_FAVORITES,
+    ADD_TICKET_TO_DB
 } from "../Constants/flights";
 
 
@@ -90,24 +90,6 @@ export function filterPrice(payload) {
     }
 }
 
-export function setFavorites(payload) {
-    return async function (dispatch) {
-        dispatch({
-            type: SET_FAVORITES,
-            payload: payload
-        })
-    }
-}
-
-export function deleteFavorites(payload) {
-    return async function (dispatch) {
-        dispatch({
-            type: DELETE_FAVORITES,
-            payload: payload
-        })
-    }
-}
-
 export const getSuccess = payload => {
     return {
         type: GET_FLIGHTS_SUCCESS,
@@ -141,13 +123,6 @@ export const clearTickets = () => {
     }
 }
 
-export const postTicket = (ticket) => {
-    return {
-        type: POST_TICKET,
-        payload: ticket
-    }
-}
-
 export const removeFromCart = (id) => {
     return {
         type: REMOVE_FROM_CART,
@@ -161,3 +136,10 @@ export const clearCart = () => {
     }
 }
 
+export const addTicketsToDB = async (ticket) => {
+    res = await axios.put('http://flymatepf.herokuapp.com/api/tickets/purchase', ticket);
+    return {
+        type: ADD_TICKET_TO_DB,
+        payload: res.data
+    }
+}

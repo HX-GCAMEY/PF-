@@ -3,22 +3,24 @@ import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Animated, Dimensi
 import styles from "./styles";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Feather from "react-native-vector-icons/Feather"
-import slides from "./slides";
 import Cards from "./cards";
 import CardsFavorites from './CardsFavorites'
 import CardNews from "./cardNews";
 import SearchForm from "../SearchForm/SearchForm";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import logoMini from './img/logoMini.png'
 import dataCardNews from './dataCardNews';
 import LoadingHome from './LoadingHome';
 import LoadingFavs from './LoadingFavs';
-
+import { postFavorites, getFavorites } from '../../Redux/Actions/users'
 
 const HomePage = ({ navigation }) => {
 
+    const dispatch = useDispatch()
     const flights = useSelector((state) => state.flightsReducers.flights);
-    const favState = useSelector((state) => state.flightsReducers.favorites);
+    const favState = useSelector((state) => state.userReducer.favorites);
+    const session = useSelector((state) => state.userReducer.session);
+    const { email } = useSelector((state) => state.userReducer.session);
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height;
 
@@ -36,28 +38,16 @@ const HomePage = ({ navigation }) => {
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 });
     const categories = ["Featured", "Favorites", "Destinations"];
     const [categoryIndex, setCategoryIndex] = useState(0);
+    const [loadPack, setLoadPack] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoadPack(false)
+        }, 1000)
+    }, [])
 
     const navigateCart = () => {
-        navigation.navigate("ShoppingCart", {
-            flyId: "",
-            departCity: "",
-            departAirport: "",
-            departDate: "",
-            departTime: "",
-            departAirportCode: "",
-            arrivalCity: "",
-            arrivalAirport: "",
-            arrivalDate: "",
-            arrivalTime: "",
-            arrivalAirportCode: "",
-            backgroundImage: "",
-            flyNumber: "",
-            totalSeats: "",
-            duration: "",
-            defaultFare: "",
-            passengers: "",
-            type: ""
-        });
+        navigation.navigate("ShoppingCart");
     }
 
     const CategoryList = () => {
@@ -158,9 +148,9 @@ const HomePage = ({ navigation }) => {
                 <CategoryList />
                 <View style={styles.viewContainerFlat}>
                     {
-                        !flights
+                        categoryIndex === 0 && loadPack
                             ? <LoadingHome />
-                            : categoryIndex === 0
+                            : categoryIndex === 0 && !loadPack && flights
                                 ? <FlatListFlights />
                                 : categoryIndex === 1 && !favState[0]?.flyId
                                     ? <LoadingFavs />

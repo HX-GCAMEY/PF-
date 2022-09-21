@@ -59,7 +59,7 @@ const StripeApp = () => {
 
     return(
         <LinearGradient colors={["#06C5C5", "#14366F"]} style={{width: widthMax, height: heightMax * 1.2}}>
-            <View>
+            <View style={styles.rotation}>
                 <Image source={card} style={styles.cardContainer}/>
                 <Image source={visa} style={styles.visa}/>
                 <Text style={styles.cardNumber}>{cardNumber}</Text>

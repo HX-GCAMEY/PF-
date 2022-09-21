@@ -7,7 +7,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material"
-import { Button, DatePicker, Modal, TimePicker } from "antd"
+import { Button, DatePicker, Modal, Spin, TimePicker } from "antd"
 import axios from "axios"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
@@ -27,6 +27,7 @@ const Products = () => {
   const flightsFiltered = useSelector(state => state.tasks.flightsFiltered)
   const flightsAv = useSelector(state => state.tasks.flightsAv)
   const paginadoState = useSelector(state => state.tasks.paginado)
+  const loading = useSelector(state => state.tasks.isLoading)
 
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
@@ -127,6 +128,14 @@ const Products = () => {
 
     setInputPaginado(e.target.value)
     setSumador(e.target.value * 4)
+  }
+
+  if (!flights.length) {
+    return (
+      <div className="spinToWin">
+        <Spin className="spin" tip="Loading..."></Spin>
+      </div>
+    )
   }
 
   console.log("soy order", order)

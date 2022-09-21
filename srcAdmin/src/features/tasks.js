@@ -1,12 +1,20 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getFlights, getFlightsAvailables, getTask, getReviews } from "./orders"
+import { createSlice } from "@reduxjs/toolkit"
+import {
+  getFlights,
+  getFlightsAvailables,
+  getTask,
+  getReviews,
+  getPackages,
+} from "./orders"
 
 export const taskSlice = createSlice({
   name: "tasks",
   initialState: {
+    avioncillo: false,
     users: [],
     reviews: [],
     flights: [],
+    packages: [],
     flightsAv: [],
     flightsFiltered: null,
     flightsFiltered2: null,
@@ -18,6 +26,7 @@ export const taskSlice = createSlice({
       final: 7,
     },
     isLoading: false,
+    isLoadingReviews: false,
   },
   reducers: {
     filtered: (state, action) => {
@@ -48,6 +57,9 @@ export const taskSlice = createSlice({
       state.flightsFiltered2 = [...state.flights].filter(
         e => e === action.payload
       )
+    },
+    avioncilled: (state, action) => {
+      state.avioncillo = action.payload
     },
   },
   extraReducers: {
@@ -82,13 +94,23 @@ export const taskSlice = createSlice({
       state.isLoading = false
     },
     [getReviews.pending]: state => {
-      state.isLoading = true
+      state.isLoadingReviews = true
     },
     [getReviews.fulfilled]: (state, action) => {
-      state.isLoading = false
+      state.isLoadingReviews = false
       state.reviews = action.payload
     },
     [getReviews.rejected]: state => {
+      state.isLoadingReviews = false
+    },
+    [getPackages.pending]: state => {
+      state.isLoading = true
+    },
+    [getPackages.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.packages = action.payload
+    },
+    [getPackages.rejected]: state => {
       state.isLoading = false
     },
   },
@@ -102,5 +124,6 @@ export const {
   customerFiltering,
   bannedFiltering,
   paginadoFiltering,
+  avioncilled,
 } = taskSlice.actions
 export default taskSlice.reducer
