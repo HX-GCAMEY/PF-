@@ -14,6 +14,22 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     shadowOpacity: 40,
     elevation: 15,
+   },
+   inputSignUp: {
+      marginLeft: 30,
+      marginTop: -1,
+      marginBottom: -2,
+      paddingHorizontal: 2
+   },
+   iconUp: {
+      marginBottom: -23,
+      marginTop: 5,
+      color: 'orange'
+   },
+   eyePassword2: {
+      color: 'grey',
+      marginLeft: 200,
+      marginTop: -22
    }
 })
 

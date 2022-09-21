@@ -38,7 +38,8 @@ const ForgotPassword = ({navigation}) => {
 
 
             <InputSignUp
-                placeholder="Email" 
+                iconName="email-outline"
+                placeholder="Enter your email address" 
                 value={email} 
                 setValue={(email) => setEmail(email)}
                 />
