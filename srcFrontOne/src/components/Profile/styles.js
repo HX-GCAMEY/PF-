@@ -37,14 +37,9 @@ const styles = StyleSheet.create({
         width: '90%',
         padding: 20,
         paddingBottom: 22,
-        borderRadius: 5,
-        shadowOpacity: 80,
-        elevation: 15,
+        borderRadius: 12,
+        elevation: 5,
         marginTop: 20,
-        borderBottomColor: 'black',
-        borderBottomWidth: 2,
-        borderLeftColor: 'black',
-        borderLeftWidth: 2
     },
     editProfile: {
         fontSize: 18,
@@ -127,8 +122,95 @@ const styles = StyleSheet.create({
         borderRadius: 10, 
         alignItems: 'center', 
         marginRight: 140
+    },
+    ticketContainer: {
+        paddingTop: 20,
+        minHeight: 500
+    },
+    ticketCard: {
+        backgroundColor: '#f2f2f2',
+        width: '90%',
+        marginBottom: 15,
+        alignSelf: 'center',
+        minHeight: 160,
+        borderRadius: 12,
+        position: 'relative'
+    },
+    ticketBackground: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        borderRadius: 12,
+        left: 0,
+        right: 0,
+        zIndex: 0
+    },
+    ticketNumber: {
+        position: 'absolute',
+        zIndex: 10,
+        fontSize: 18,
+        top: 2,
+        alignSelf: 'center',
+        fontStyle: 'italic'
+    },
+    ticketType: {
+        position: 'absolute',
+        zIndex: 10,
+        left: 240,
+        top: '30%',
+        fontSize: 16,
+        fontStyle: 'italic',
+        fontWeight: 'bold'
+    },
+    ticketFare: {
+        position: 'absolute',
+        zIndex: 10,
+        left: 240,
+        top: '60%',
+        fontSize: 16,
+        fontStyle: 'italic',
+        fontWeight: 'bold'
+    },
+    ticketDepartDate: {
+        position: 'absolute',
+        top: '30%',
+        left: 12,
+        fontSize: 14,
+        fontWeight: 'bold'
+    },
+    ticketArrivalDate: {
+        position: 'absolute',
+        top: '60%',
+        left: 12,
+        fontSize: 14,
+        fontWeight: 'bold'
+    },
+    ticketState: {
+        position: 'absolute',
+        alignSelf: 'center',
+        bottom: 5,
+        fontSize: 18
+    },
+    stateFinished: {
+        color: 'green'
+    },
+    stateAwaiting: {
+        color: 'red'
+    },
+    ticketButton: {
+        fontSize: 15,
+        paddingVertical: 2,
+        paddingHorizontal: 10,
+        fontWeight: 'bold'
+    },
+    ButtonTick: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        borderBottomRightRadius: 12,
+        borderTopLeftRadius: 12,
+        backgroundColor: '#f0a10cde',
     }
-
 })
 
 export default styles;

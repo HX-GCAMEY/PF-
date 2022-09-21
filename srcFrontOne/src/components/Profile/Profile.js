@@ -12,6 +12,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { userLogout, userDelete } from "../../Redux/Actions/users";
 import FlatListReviews from "../Review/FlatListReviews";
+import MyTickets from "./MyTickets/MyTickets";
 //import Categories from "./categories/categories";
 
 
@@ -95,6 +96,14 @@ const Profile = ({ navigation }) => {
         alert('Account deleted successfully')
     }
 
+    const TicketsContainer = () => {
+        return(
+            <View style={styles.ticketContainer}>
+                <MyTickets />
+            </View>
+        );
+    }
+
     const ProfileCategory = () => {
         return (
             <View>
@@ -146,7 +155,6 @@ const Profile = ({ navigation }) => {
         )
     }
 
-
     return (
         <ScrollView>
             <LinearGradient colors={['#07C5C5', '#028DA4']} style={{ height: '100%' }}>
@@ -157,18 +165,28 @@ const Profile = ({ navigation }) => {
                         </View>
 
                         : <View style={styles.containerImage}>
-                            <Image source={avatar} style={[styles.avatarImg, { width: 110, height: 110 }]} />
-                        </View>
-                    }
-                    <MaterialIcons name="add-a-photo" color={'#072f4e'} size={25} style={{ marginLeft: 220, marginTop: -20 }} />
-                </Pressable>
-                <View>
-                    <CategoryList />
-                    <View style={{ height: '100%' }} >
-                        {!user ? <Text>Loading...</Text> : categoryIndex === 0 ? <ProfileCategory /> : categoryIndex === 1 ? <Text> tickets </Text> : categoryIndex === 2 ? <FlatListReviews /> : null}
-                    </View>
-                </View>
-            </LinearGradient>
+                <Image source={avatar} style={[styles.avatarImg, {width:110, height:110}]} />
+              </View>
+              }
+            <MaterialIcons name="add-a-photo" color={'#072f4e'} size={25} style={{marginLeft: 220, marginTop: -20}}/>
+        </Pressable>
+        <View>
+            <CategoryList />
+            <View style={{height: '100%'}} >
+            {
+                !user 
+                    ? <Text>Loading...</Text> 
+                    : categoryIndex === 0 
+                        ? <ProfileCategory/>
+                        : categoryIndex === 1
+                            ? <TicketsContainer />
+                            : categoryIndex === 2
+                                ? <FlatListReviews />
+                                : null
+            }
+              </View>
+        </View>
+        </LinearGradient>
         </ScrollView>
     )
 }

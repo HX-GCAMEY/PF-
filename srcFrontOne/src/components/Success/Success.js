@@ -1,25 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, Pressable, Dimensions, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import logo from "./img/Success.png"
-import { useDispatch } from "react-redux";
-import { clearCart } from "../../Redux/Actions/flights";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart, addTicketsToDB } from "../../Redux/Actions/flights";
+import axios from "axios";
 
 const Success = () => {
 
     const fullHeight = Dimensions.get('window').height;
     const fullWidth = Dimensions.get('window').width;
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const navigation = useNavigation();
 
     const back = () => {
         navigation.navigate('HomePage');
-        dispatch(clearCart())
+        //dispatch(clearCart());
     }
+    
+    const flightCart = useSelector((state) => state.flightsReducers.cart);
+    const user = useSelector((state) => state.userReducer.session);
+
+    function addTickets(cart){
+        cart.map(async e => {
+            const newTicket = {
+                email: user.email,
+                ticket: {
+                    flyId: e.flyId,
+                    type: e.type,
+                    defaultFare: e.defaultFare,
+                    passengers: e.passengers
+                }
+            };
+            //console.log('new ticket: ', newTicket);
+            await dispatch(addTicketsToDB(newTicket));
+        });
+    }
+
+    useEffect(()=>{
+        addTickets(flightCart);
+
+        return () => dispatch(clearCart());
+    },[]);
 
     return(
         <LinearGradient colors={["#06C5C5", "#14366F"]} style={{width: fullWidth, height: fullHeight * 1.2}}>
@@ -43,7 +69,6 @@ const Success = () => {
                 },
                 shadowOpacity: 0.23,
                 shadowRadius: 2.62,
-                
                 elevation: 4,
                 }}>
                 <Text style={{color: "#FFFFFF", fontSize: 16, fontWeight: "500", textAlign: "center", top: 12}}>See all my flights</Text>
@@ -63,7 +88,6 @@ const Success = () => {
                 },
                 shadowOpacity: 0.23,
                 shadowRadius: 2.62,
-                
                 elevation: 4,
                 }}>
                 <Text style={{color: "#FFFFFF", fontSize: 16, fontWeight: "500", textAlign: "center", top: 12}}>Back to home</Text>
