@@ -1,34 +1,47 @@
 import { ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect} from "react";
 import TicketCard from './TicketCard';
+import { useSelector, useDispatch } from "react-redux";
+import { getTickets } from "../../../Redux/Actions/users";
 
-const MyTickets = () => {
+const MyTickets = ({email}) => {
 
-    const data = [
-        {
-          "_id": "293464591147",
-          "flight_id": "63126f6365bdb0e76250689e",
-          "type": "basic",
-          "departDate": "2022-09-10",
-          "arrivalDate": "2022-09-11",
-          "fare": 296000
-        },
-        {
-          "_id": "35333010862107",
-          "flight_id": "6310c66c32f26de97cc0a441",
-          "type": "basic",
-          "departDate": "2022-09-29",
-          "arrivalDate": "2022-09-30",
-          "fare": 162000
-        },{
-            "_id": "293464591147",
-            "flight_id": "63126f6365bdb0e76250689e",
-            "type": "basic",
-            "departDate": "2022-09-10",
-            "arrivalDate": "2022-09-11",
-            "fare": 296000
-          }
-    ]
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTickets(email));
+        
+    },[dispatch]);
+
+    const data = useSelector((state) => state.userReducer.ticketsProfile);
+    
+
+
+    // const data = [
+    //     {
+    //       "_id": "293464591147",
+    //       "flight_id": "63126f6365bdb0e76250689e",
+    //       "type": "basic",
+    //       "departDate": "2022-09-10",
+    //       "arrivalDate": "2022-09-11",
+    //       "fare": 296000
+    //     },
+    //     {
+    //       "_id": "35333010862107",
+    //       "flight_id": "6310c66c32f26de97cc0a441",
+    //       "type": "basic",
+    //       "departDate": "2022-09-29",
+    //       "arrivalDate": "2022-09-30",
+    //       "fare": 162000
+    //     },{
+    //         "_id": "293464591147",
+    //         "flight_id": "63126f6365bdb0e76250689e",
+    //         "type": "basic",
+    //         "departDate": "2022-09-10",
+    //         "arrivalDate": "2022-09-11",
+    //         "fare": 296000
+    //       }
+    // ]
 
     return (
 

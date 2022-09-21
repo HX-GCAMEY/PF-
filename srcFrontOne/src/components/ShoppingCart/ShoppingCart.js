@@ -16,40 +16,20 @@ const ShoppingCart = () => {
 
     //todos los elementos del carrito
     const flightCart = useSelector((state) => state.flightsReducers.cart);
-    //console.log(flightCart);
 
     const tickets = useSelector((state) => state.flightsReducers.tickets);
     const usuario = useSelector((state) => state.userReducer.session);
+    const [cartState, setCartState] = useState(true);
 
     const [modalVisible, setModalVisible] = useState(false);
     
     const navigation = useNavigation();
 
     useEffect(() => {
-        dispatch(getFlights())
-    }, [dispatch])
+        dispatch(getFlights());
+        if(flightCart && flightCart.length > 0) setCartState(false);
 
-    //const route = useRoute();
-    // const {
-    //     flyId,
-    //     departCity,
-    //     departAirport,
-    //     departDate,
-    //     departTime,
-    //     departAirportCode,
-    //     arrivalCity,
-    //     arrivalAirport,
-    //     arrivalDate,
-    //     arrivalTime,
-    //     arrivalAirportCode,
-    //     backgroundImage,
-    //     flyNumber,
-    //     totalSeats,
-    //     duration,
-    //     defaultFare,
-    //     passengers,
-    //     type
-    // } = route.params;
+    }, [dispatch, setCartState])
     
     const del = (id) => {
         dispatch(removeFromCart(id))
@@ -76,20 +56,21 @@ const ShoppingCart = () => {
         else navigation.navigate('Login')
     }
 
+
     return (
         <ScrollView>
-            <Pressable onPress={() => back()} style={{width: 36, marginTop: 73, marginLeft: 34}}>
+            <Pressable onPress={back} style={{width: 36, marginTop: 73, marginLeft: 34}}>
                 <LinearGradient colors={["#06C5C5", "#0186A1"]} style={{borderRadius: 10}}>
                     <Ionicons name="chevron-back-outline" color="#FFFFFF" size={30}/>
                 </LinearGradient>
             </Pressable>
-            <Text style={{fontSize: 26, fontWeight: "bold", marginTop: 80, marginLeft: 36, marginBottom: 56}}>Shopping Cart</Text>
+            <Text style={{fontSize: 26, fontWeight: "bold", marginTop: 20, marginBottom: 20, alignSelf: 'center'}}>Shopping Cart</Text>
             {
                 flightCart && flightCart.map((item, index) => {
                     return <CartItem data={item} key={index} id={index} delFromCart={del}/>  
                 })
             }
-            <Pressable onPress={() => shop()}>
+            <Pressable disabled={cartState} onPress={() => shop()}>
                 <LinearGradient colors={['#06C5C5', '#06C5C5']} style={{width: 304, height: 42, borderRadius: 20, marginLeft: 60, marginTop: 20, marginBottom: 20}}>
                     <Text style={{fontSize: 16, fontWeight: "bold", color:"#FFFFFF90", textAlign: "center", top: 8}}>Confirm Payment</Text>
                 </LinearGradient>
