@@ -25,6 +25,7 @@ export default class TicketsDAO {
       await packages.insertOne({
         ...flight,
         code: code,
+        flight_id: flight_id,
         created: new Date(),
         fare: flight.defaultFare - flight.defaultFare * amount,
         amount: amount,
@@ -78,7 +79,7 @@ export default class TicketsDAO {
               arrivalDate: arrivalDate,
               type: type,
               passengers: passengers,
-              fare: fare
+              fare: fare,
             },
           },
         },
@@ -193,6 +194,24 @@ export default class TicketsDAO {
     } catch (error) {
       console.error(`An error ocurred while deleting ticket ${error}`);
       return {error: error};
+    }
+  }
+
+  static async getAllTickets() {
+    try {
+      const pipeline = [
+        {
+          $project: {
+            _id: 0,
+            "tickets.fare": 1,
+            "tickets.purchased": 1,
+          },
+        },
+      ];
+      return tickets.aggregate(pipeline).toArray();
+    } catch (error) {
+      console.error(`Error occurred while retrieving tickets, ${error}`);
+      return null;
     }
   }
 

@@ -156,6 +156,7 @@ export default class FlightsDAO {
             number: 1,
             departure: 1,
             arrival: 1,
+            duration: 1,
             totalSeats: 1,
             defaultFare: 1,
           },

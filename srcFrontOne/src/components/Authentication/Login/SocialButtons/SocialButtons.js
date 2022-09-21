@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
-import ButtonLogin from "../ButtonLogin/ButtonLogin";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { Image, View, Text, TouchableOpacity } from "react-native";
 import google from "../../imgs/google.png";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, googleLogin} from "../../../../Redux/Actions/users";
