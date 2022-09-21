@@ -27,13 +27,14 @@ export default class TicketsController {
             newFare = defaultFare * basic * passengers;
             break;
         }
+        const newDate = new Date().toISOString().slice(0,10);
         newTicket = {
           email: email,
           flight_id: flyId,
           departDate: flightData.departure.date,
           arrivalDate: flightData.arrival.date,
           fare: newFare,
-          purchased: new Date(),
+          purchased: newDate,
           type: type,
           passengers: passengers,
         };
