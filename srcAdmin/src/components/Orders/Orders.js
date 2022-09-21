@@ -146,9 +146,9 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     }
     if (
       visual.origin === "Monterrey, Mexico" &&
-      visual.destination === undefined
+      visual.destination === "Mar del Plata, Argentina"
     ) {
-      destiny = "63126f6365bdb0e7625068a5"
+      destiny = "632a854023c230b75a29cf0f"
     }
     if (
       visual.origin === "Ciudad de Mexico, Mexico" &&
@@ -164,9 +164,9 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     }
     if (
       visual.origin === "Cancun, Mexico" &&
-      visual.destination === undefined //laplata
+      visual.destination === "Mar del Plata, Argentina"
     ) {
-      destiny = undefined
+      destiny = "632a673323c230b75a21fc71"
     }
     if (
       visual.origin === "Cancun, Mexico" &&
@@ -178,7 +178,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       visual.origin === "Mar del Plata, Argentina" &&
       visual.destination === "San Jose Del Cabo, Mexico"
     ) {
-      destiny = undefined
+      destiny = "632a84aa23c230b75a29a903"
     }
     if (
       visual.origin === "Mar del Plata, Argentina" &&
@@ -190,7 +190,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       visual.origin === "Mar del Plata, Argentina" &&
       visual.destination === "Monterrey, Mexico"
     ) {
-      destiny = undefined
+      destiny = "632a65cc23c230b75a219fe0"
     }
     if (
       visual.origin === "Mar del Plata, Argentina" &&
@@ -228,6 +228,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       amount: visual.amount,
       description: visual.text,
       endDate: visual.end,
+      code: destiny,
     }
     console.log("soy final package", finalPackage)
     const response = await axios.post(

@@ -253,6 +253,7 @@ const Customers = () => {
       </div>
       {exist && (
         <motion.div
+          className="tableProduct"
           initial={left || right ? "" : { y: 500, opacity: 0 }}
           animate={left || right ? "" : { y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -275,7 +276,7 @@ const Customers = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>
-                        <div className="centrarfilter">
+                        <div className="centrarFilter3">
                           <Filters
                             flightsComponent={users}
                             dispatched={customerFiltering}
