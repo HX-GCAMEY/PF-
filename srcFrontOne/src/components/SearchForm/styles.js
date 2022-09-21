@@ -424,10 +424,10 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   dropdown: {
-    marginTop: -.5,
+        marginTop: -.5,
     width: 275,
     top: 47,
-    zIndex: 1,
+    zIndex: 100,
     position: 'absolute',
     backgroundColor: '#d3e7e7',
     flexDirection: 'column',

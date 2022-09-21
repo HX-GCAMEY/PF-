@@ -5,7 +5,7 @@ import styles from "./styles";
 import avion from "./img/backCard.jpg"
 import card from './img/cardT.jpg'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { deleteFavorites } from '../../Redux/Actions/flights'
+import { deleteFavorites } from '../../Redux/Actions/users'
 import { useDispatch } from 'react-redux'
 const CardsFavorites = ({ item }) => {
   const dispatch = useDispatch()
@@ -76,7 +76,6 @@ const CardsFavorites = ({ item }) => {
         </View>
       </View>
     </Pressable>
-
   )
 }
 
