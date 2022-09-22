@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import "./card.css"
 import { CircularProgressbar } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
@@ -6,22 +6,76 @@ import { motion, AnimateSharedLayout } from "framer-motion"
 import { UilTimes } from "@iconscout/react-unicons"
 import Chart from "react-apexcharts"
 import avionMet from "../imgs/avionMet.png"
+import { useDispatch, useSelector } from "react-redux"
+import { getTickets } from "../../features/orders"
 
 const Card = props => {
+  const tickets = useSelector(state => state.tasks.tickets)
   const [expanded, setExpanded] = useState(false)
+  const today = new Date().toISOString().slice(0, 10)
+  let datesNow = []
+
+  for (let i of tickets) {
+    let datenow = new Date(i.purchased).getFullYear()
+    let datenow1 = new Date(i.purchased).getMonth() + 1
+    let t1 = datenow1 < 10 ? "0" + datenow1 : datenow1
+    let datenow2 = new Date(i.purchased).getDate()
+    let t2 = datenow2 < 10 ? "0" + datenow2 : datenow2
+    let datenow3 = new Date(i.purchased).getHours()
+    let t3 = datenow3 < 10 ? "0" + datenow3 : datenow3
+    let datenow4 = new Date(i.purchased).getMinutes()
+    let t4 = datenow4 < 10 ? "0" + datenow4 : datenow4
+    let datenow5 = new Date(i.purchased).getSeconds()
+    let t5 = datenow5 < 10 ? "0" + datenow5 : datenow5
+    let result = `${datenow}-${t1}-${t2}T${t3}:${t4}:${t5}.655Z`
+    datesNow.push({ fare: i.fare, purchased: result })
+  }
+
+  const dates = datesNow.filter(e => e.purchased.slice(0, 10) === today)
+
+  const ordered = dates.sort((a, b) => {
+    var dateA = new Date(a.purchased).getTime()
+    var dateB = new Date(b.purchased).getTime()
+    return dateA > dateB ? 1 : -1
+  })
+
+  const percentage = (ordered.length * 100) / 200
+  const money = ordered.reduce((a, b) => a + b.fare, 0)
+  const datesFiltered = ordered.map(e => e.purchased)
+  const moneyFiltered = ordered.map(e => e.fare)
+
+  console.log("soy today", today)
+  console.log("soy tickets", tickets)
+  console.log("soy datesNow", datesNow)
+  console.log("soy dates", dates)
+  console.log("soy ordered", ordered)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getTickets())
+  }, [])
   return (
     <AnimateSharedLayout>
       {expanded ? (
-        <ExpandedCard param={props} setExpanded={() => setExpanded(false)} />
+        <ExpandedCard
+          moneyFiltered={moneyFiltered}
+          param={props}
+          datesFiltered={datesFiltered}
+          setExpanded={() => setExpanded(false)}
+        />
       ) : (
-        <CompactCard param={props} setExpanded={() => setExpanded(true)} />
+        <CompactCard
+          param={props}
+          percentage={percentage}
+          money={money}
+          setExpanded={() => setExpanded(true)}
+        />
       )}
     </AnimateSharedLayout>
   )
 }
 
 // Compact Card
-function CompactCard({ param, setExpanded }) {
+function CompactCard({ param, setExpanded, percentage, money }) {
   const Png = param.png
   return (
     <motion.div
@@ -39,11 +93,8 @@ function CompactCard({ param, setExpanded }) {
         transition={{ duration: 1 }}
         className="radialBar"
       >
-        <CircularProgressbar
-          value={param.barValue}
-          text={`${param.barValue}%`}
-        />
-        <span>{param.title}</span>
+        <CircularProgressbar value={percentage} text={`${percentage}%`} />
+        <span>Sales</span>
       </motion.div>
       <div className="avionMet">
         <motion.img
@@ -61,7 +112,7 @@ function CompactCard({ param, setExpanded }) {
         transition={{ duration: 1 }}
       >
         <Png />
-        <span>${param.value}</span>
+        <span>${money}</span>
         <span>Last 24 hours</span>
       </motion.div>
     </motion.div>
@@ -69,7 +120,7 @@ function CompactCard({ param, setExpanded }) {
 }
 
 // Expanded Card
-function ExpandedCard({ param, setExpanded }) {
+function ExpandedCard({ param, setExpanded, datesFiltered, moneyFiltered }) {
   const data = {
     options: {
       chart: {
@@ -108,15 +159,7 @@ function ExpandedCard({ param, setExpanded }) {
       },
       xaxis: {
         type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z",
-        ],
+        categories: datesFiltered,
       },
     },
   }
@@ -133,9 +176,18 @@ function ExpandedCard({ param, setExpanded }) {
       <div style={{ alignSelf: "flex-end", cursor: "pointer", color: "white" }}>
         <UilTimes onClick={setExpanded} />
       </div>
-      <span>{param.title}</span>
+      <span>Sales: {datesFiltered.length}</span>
       <div className="chartContainer">
-        <Chart options={data.options} series={param.series} type="area" />
+        <Chart
+          options={data.options}
+          series={[
+            {
+              name: "Sales",
+              data: moneyFiltered,
+            },
+          ]}
+          type="area"
+        />
       </div>
       <span>Last 24 hours</span>
     </motion.div>

@@ -15,13 +15,11 @@ const AddAdmins = () => {
   const dispatch = useDispatch()
 
   const abrirModal = e => {
-    console.log("soy abrir", e)
     setModal(true)
     setPlace(e)
   }
   const cerrarModal = e => {
     setModal(false)
-    console.log(e)
   }
   const accion = () => {
     cerrarModal()

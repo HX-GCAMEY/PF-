@@ -5,6 +5,7 @@ import {
   getTask,
   getReviews,
   getPackages,
+  getTickets,
 } from "./orders"
 
 export const taskSlice = createSlice({
@@ -12,6 +13,7 @@ export const taskSlice = createSlice({
   initialState: {
     avioncillo: false,
     users: [],
+    tickets: [],
     reviews: [],
     flights: [],
     packages: [],
@@ -111,6 +113,16 @@ export const taskSlice = createSlice({
       state.packages = action.payload
     },
     [getPackages.rejected]: state => {
+      state.isLoading = false
+    },
+    [getTickets.pending]: state => {
+      state.isLoading = true
+    },
+    [getTickets.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.tickets = action.payload
+    },
+    [getTickets.rejected]: state => {
       state.isLoading = false
     },
   },

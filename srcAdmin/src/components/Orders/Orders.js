@@ -6,7 +6,7 @@ import moment from "moment"
 import TextArea from "antd/lib/input/TextArea"
 import { AnimateSharedLayout, motion } from "framer-motion"
 import Swal from "sweetalert2"
-import { getReviews } from "../../features/orders"
+import { getReviews, getTickets } from "../../features/orders"
 import { useDispatch } from "react-redux"
 import { avioncilled } from "../../features/tasks"
 const { Option } = Select
@@ -31,6 +31,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     amount: "",
   }
   useEffect(() => {
+    dispatch(getTickets())
     setVisual(initialSate)
     dispatch(getReviews())
   }, [])
@@ -230,13 +231,12 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       endDate: visual.end,
       code: destiny,
     }
-    console.log("soy final package", finalPackage)
+
     const response = await axios.post(
       "http://flymatepf.herokuapp.com/api/tickets/createPackage",
       finalPackage
     )
 
-    console.log("soy response de axios put", response.data)
     setEffect2(true)
     setTimeout(() => {
       setEffect3(true)
@@ -262,8 +262,6 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       setEffect2(false)
       setEffect3(false)
     }, 2200)
-    console.log("soy destiny", destiny)
-    //console.log("soy response data axioas", response.data)
   }
 
   const textChange = e => {
@@ -287,7 +285,6 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     "Cancun, Mexico",
   ]
 
-  console.log("soy visual", visual)
   ////////////////////////////////////////////////////////
 
   return (

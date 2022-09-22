@@ -77,12 +77,8 @@ const Login = () => {
           confirmButtonColor: "#1890ff",
         })
       )
+  }
 
-    console.log("soy response de axios", response)
-  }
-  const responseGoogle = () => {
-    console.log("hola")
-  }
   /////////////////////////////////////////////////////////////
 
   const [current, setCurrent] = useState(null)
