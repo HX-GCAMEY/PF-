@@ -34,11 +34,12 @@ const CardsFavorites = ({ item }) => {
     defaultFare
   } = item;
 
-  const onCloseFav = () => {
+  const onCloseFav = async () => {
     dispatch(deleteFavorites(flyId))
+    let dataToDb = await favState.length === 1 ? [] : favState
     if (email) {
-      dispatch(postFavorites(email, favState.length === 1 ? [] : favState))
-      dispatch(getFavorites(email))
+      dispatch(postFavorites(email, dataToDb))
+      // dispatch(getFavorites(email))
     }
   }
 
