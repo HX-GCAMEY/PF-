@@ -12,8 +12,14 @@ import { getTickets } from "../../features/orders"
 const Card = props => {
   const tickets = useSelector(state => state.tasks.tickets)
   const [expanded, setExpanded] = useState(false)
-  const today = new Date().toISOString().slice(0, 10)
+
   let datesNow = []
+  let year = new Date().getFullYear()
+  let year2 = new Date().getMonth() + 1
+  let y1 = year2 < 10 ? "0" + year2 : year2
+  let year3 = new Date().getDate()
+  let y2 = year3 < 10 ? "0" + year3 : year3
+  let today = `${year}-${y1}-${y2}`
 
   for (let i of tickets) {
     let datenow = new Date(i.purchased).getFullYear()
@@ -47,6 +53,7 @@ const Card = props => {
   console.log("soy today", today)
   console.log("soy tickets", tickets)
   console.log("soy datesNow", datesNow)
+  console.log("soy today", today)
   console.log("soy dates", dates)
   console.log("soy ordered", ordered)
   const dispatch = useDispatch()
