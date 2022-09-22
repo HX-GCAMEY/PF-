@@ -140,10 +140,10 @@ const HomePage = ({ navigation }) => {
                         </View>
                         <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 310 }}> </Text>
                     </View>
-                    <View>
+                    {/* <View>
                         <EvilIcons name="user" size={53} style={{ marginTop: 30, right: 100 }} onPress={() => navigation.navigate("Login")} />
-                    </View>
-                    <Feather name="shopping-cart" size={30} style={{ marginTop: 38, right: 90 }} onPress={navigateCart} />
+                    </View> */}
+                    <Feather name="shopping-cart" size={30} style={{ marginTop: 38, right: 50 }} onPress={navigateCart} />
                 </View>
                 <CategoryList />
                 <View style={styles.viewContainerFlat}>

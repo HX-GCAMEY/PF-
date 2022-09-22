@@ -101,3 +101,14 @@ export function getFavorites(email) {
         })
     }
 }
+
+//Tickets Profile
+export function getTickets(email) {
+    return async function (dispatch) {
+        const res = await axios.get(`https://flymatepf.herokuapp.com/api/tickets/send/${email}`);
+        dispatch({
+            type: 'GET_TICKETS',
+            payload: res.data
+        })
+    }
+}

@@ -51,9 +51,6 @@ const CustomerReview = () => {
   let rate = reviews.map(e => e.rate)
   let response = rate.slice(-datesFiltered.length)
 
-  console.log("soy response", response)
-  console.log("soy dates fileterd", datesFiltered)
-
   //("Sep 14 2022 21:23:31 GMT-0300 (hora estándar de Argentina)")
   /* useEffect(() => {
     dispatch(getReviews())

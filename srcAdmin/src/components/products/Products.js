@@ -12,7 +12,11 @@ import axios from "axios"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getFlightsAvailables, getReviews } from "../../features/orders"
+import {
+  getFlightsAvailables,
+  getReviews,
+  getTickets,
+} from "../../features/orders"
 import { IoSettingsSharp } from "react-icons/io5"
 import { GrPowerReset } from "react-icons/gr"
 import Filters from "../filters/Filters"
@@ -41,18 +45,17 @@ const Products = () => {
 
   //const flights = flight.sort((a, b) => parseInt(a.date) - parseInt(b.date))
   useEffect(() => {
+    dispatch(getTickets())
     dispatch(getFlightsAvailables())
     dispatch(getReviews())
   }, [])
 
   const abrirModal = e => {
-    console.log("soy abrir", e)
     setModal(true)
     setPlace(e)
   }
   const cerrarModal = e => {
     setModal(false)
-    console.log(e)
   }
 
   const accion = () => {
@@ -138,11 +141,6 @@ const Products = () => {
     )
   }
 
-  console.log("soy order", order)
-  console.log("isNull length", isNull.length)
-
-  console.log("soy null", isNull)
-  console.log("soy isNull slice", isNull.slice(inicio, sumador))
   return (
     <div className="Table2 ">
       <h2 className="centrar title">Planned Trips</h2>

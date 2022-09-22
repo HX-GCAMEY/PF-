@@ -57,7 +57,7 @@ export default class TicketsDAO {
   }
 
   static async addFlightTicket(
-    {flight_id, email, type, fare, arrivalDate, departDate, passengers},
+    {flight_id, email, type, fare, arrivalDate, departDate, passengers, purchased},
     availableTickets
   ) {
     try {
@@ -77,6 +77,7 @@ export default class TicketsDAO {
               email: email,
               departDate: departDate,
               arrivalDate: arrivalDate,
+              purchased: purchased,
               type: type,
               passengers: passengers,
               fare: fare,
@@ -233,6 +234,8 @@ export default class TicketsDAO {
           "tickets._id": 1,
           "tickets.type": 1,
           "tickets.fare": 1,
+          "tickets.departDate": 1,
+          "tickets.arrivalDate": 1,
         },
       },
     ];

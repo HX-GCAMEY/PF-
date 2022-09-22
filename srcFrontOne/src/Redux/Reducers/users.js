@@ -1,7 +1,8 @@
 const initialState = {
     session: {},
     favorites: [],
-    favsToDb: {}
+    favsToDb: {},
+    ticketsProfile: []
 }
 
 
@@ -59,6 +60,14 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 favorites: action.payload
             }
+        //Tickets profile
+        case 'GET_TICKETS':
+            //console.log("b: ",action.payload);
+            return {
+                ...state,
+                ticketsProfile: action.payload
+            }
+
         default:
             return state
     }

@@ -27,13 +27,14 @@ export default class TicketsController {
             newFare = defaultFare * basic * passengers;
             break;
         }
+        const newDate = new Date().toISOString();
         newTicket = {
           email: email,
           flight_id: flyId,
           departDate: flightData.departure.date,
           arrivalDate: flightData.arrival.date,
           fare: newFare,
-          purchased: new Date(),
+          purchased: newDate,
           type: type,
           passengers: passengers,
         };
@@ -92,7 +93,6 @@ export default class TicketsController {
       let {email} = req.params;
 
       const result = await TicketsDAO.getTicket(email);
-
       let tickets = result.map((e) => {
         let flightID = e.flight_id;
         let ticket = e.tickets.map((t) => {

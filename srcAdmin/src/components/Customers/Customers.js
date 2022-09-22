@@ -11,7 +11,7 @@ import { CgArrowDownR } from "react-icons/cg"
 import { MdDelete } from "react-icons/md"
 
 import "./Customers.css"
-import { getReviews, getTask } from "../../features/orders"
+import { getReviews, getTask, getTickets } from "../../features/orders"
 import axios from "axios"
 import {
   BsFillArrowDownSquareFill,
@@ -45,10 +45,10 @@ const Customers = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(getTickets())
     dispatch(getTask())
     dispatch(getReviews())
   }, [dispatch])
-  console.log("soy users", users)
 
   const upgrade = async (e, b) => {
     return Swal.fire({
@@ -253,6 +253,7 @@ const Customers = () => {
       </div>
       {exist && (
         <motion.div
+          className="tableProduct"
           initial={left || right ? "" : { y: 500, opacity: 0 }}
           animate={left || right ? "" : { y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -275,7 +276,7 @@ const Customers = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>
-                        <div className="centrarfilter">
+                        <div className="centrarFilter3">
                           <Filters
                             flightsComponent={users}
                             dispatched={customerFiltering}

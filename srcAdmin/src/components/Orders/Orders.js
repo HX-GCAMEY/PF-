@@ -6,7 +6,7 @@ import moment from "moment"
 import TextArea from "antd/lib/input/TextArea"
 import { AnimateSharedLayout, motion } from "framer-motion"
 import Swal from "sweetalert2"
-import { getReviews } from "../../features/orders"
+import { getReviews, getTickets } from "../../features/orders"
 import { useDispatch } from "react-redux"
 import { avioncilled } from "../../features/tasks"
 const { Option } = Select
@@ -31,6 +31,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     amount: "",
   }
   useEffect(() => {
+    dispatch(getTickets())
     setVisual(initialSate)
     dispatch(getReviews())
   }, [])
@@ -146,9 +147,9 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     }
     if (
       visual.origin === "Monterrey, Mexico" &&
-      visual.destination === undefined
+      visual.destination === "Mar del Plata, Argentina"
     ) {
-      destiny = "63126f6365bdb0e7625068a5"
+      destiny = "632a854023c230b75a29cf0f"
     }
     if (
       visual.origin === "Ciudad de Mexico, Mexico" &&
@@ -164,9 +165,9 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     }
     if (
       visual.origin === "Cancun, Mexico" &&
-      visual.destination === undefined //laplata
+      visual.destination === "Mar del Plata, Argentina"
     ) {
-      destiny = undefined
+      destiny = "632a673323c230b75a21fc71"
     }
     if (
       visual.origin === "Cancun, Mexico" &&
@@ -178,7 +179,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       visual.origin === "Mar del Plata, Argentina" &&
       visual.destination === "San Jose Del Cabo, Mexico"
     ) {
-      destiny = undefined
+      destiny = "632a84aa23c230b75a29a903"
     }
     if (
       visual.origin === "Mar del Plata, Argentina" &&
@@ -190,7 +191,7 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       visual.origin === "Mar del Plata, Argentina" &&
       visual.destination === "Monterrey, Mexico"
     ) {
-      destiny = undefined
+      destiny = "632a65cc23c230b75a219fe0"
     }
     if (
       visual.origin === "Mar del Plata, Argentina" &&
@@ -228,14 +229,14 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       amount: visual.amount,
       description: visual.text,
       endDate: visual.end,
+      code: destiny,
     }
-    console.log("soy final package", finalPackage)
+
     const response = await axios.post(
       "http://flymatepf.herokuapp.com/api/tickets/createPackage",
       finalPackage
     )
 
-    console.log("soy response de axios put", response.data)
     setEffect2(true)
     setTimeout(() => {
       setEffect3(true)
@@ -261,8 +262,6 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       setEffect2(false)
       setEffect3(false)
     }, 2200)
-    console.log("soy destiny", destiny)
-    //console.log("soy response data axioas", response.data)
   }
 
   const textChange = e => {
@@ -286,7 +285,6 @@ const Orders = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     "Cancun, Mexico",
   ]
 
-  console.log("soy visual", visual)
   ////////////////////////////////////////////////////////
 
   return (

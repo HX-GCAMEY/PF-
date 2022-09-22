@@ -12,7 +12,7 @@ const Updates = () => {
   }, [])
   const results = reviews.slice(-3)
 
-  console.log("soy reviews", reviews)
+  
   return (
     <div className="Updates">
       {results.map((update, i) => {

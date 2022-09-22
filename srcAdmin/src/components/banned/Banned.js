@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react"
 import { BsFillArrowUpSquareFill } from "react-icons/bs"
 import { MdDelete } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
-import { getReviews, getTask } from "../../features/orders"
+import { getReviews, getTask, getTickets } from "../../features/orders"
 import { GiJumpAcross } from "react-icons/gi"
 import { bannedFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
@@ -21,6 +21,7 @@ import { FaArrowUp } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 import Swal from "sweetalert2"
 import { motion } from "framer-motion"
+import "./Banned.css"
 
 const Banned = () => {
   const dispatch = useDispatch()
@@ -35,6 +36,7 @@ const Banned = () => {
   const [left, setLeft] = useState(false)
 
   useEffect(() => {
+    dispatch(getTickets())
     dispatch(getTask())
     dispatch(getReviews())
   }, [dispatch])
@@ -243,6 +245,7 @@ const Banned = () => {
       </div>
       {exist && (
         <motion.div
+          className="tableProduct"
           initial={left || right ? "" : { y: 500, opacity: 0 }}
           animate={left || right ? "" : { y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -265,7 +268,7 @@ const Banned = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>
-                        <div className="centrarfilter">
+                        <div className="centrarFilter2">
                           <Filters
                             flightsComponent={banned}
                             dispatched={bannedFiltering}

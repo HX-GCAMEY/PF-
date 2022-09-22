@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getFlights } from "../../features/orders"
 import { ImFilter } from "react-icons/im"
 import { filtered } from "../../features/tasks"
+import { GoSearch } from "react-icons/go"
 const { Search } = Input
 
 const FilterProduct = ({ flightsComponent, dispatched }) => {
@@ -30,23 +31,18 @@ const FilterProduct = ({ flightsComponent, dispatched }) => {
   }
   const filterChange = e => {
     const responde = flightsComponent.filter(d => d[defaultValue] === e)
-    console.log("soy filtered", responde)
+
     dispatch(dispatched(responde))
     //cerrarModal2()
   }
-  const putFlight = () => {
-    console.log("hola")
-  }
 
   const abrirModal2 = e => {
-    console.log("soy abrir", e)
     setDefaultValue(null)
     setFilter("filter by")
     setModal(true)
   }
   const cerrarModal2 = e => {
     setModal(false)
-    console.log(e)
   }
   const accion = () => {
     //cerrarModal2()
@@ -140,13 +136,12 @@ const FilterProduct = ({ flightsComponent, dispatched }) => {
         return d
     })
     dispatch(dispatched(soy))
-    console.log("soy soy", soy)
   }
 
   return (
     <div className="filterList">
       <Button size="small" type="primary" onClick={() => abrirModal2()}>
-        <ImFilter />
+        <GoSearch />
       </Button>
       <Modal
         style={window.innerWidth <= 768 ? { top: 400 } : { top: 12, right: 35 }}
