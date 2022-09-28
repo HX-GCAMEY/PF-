@@ -1,4 +1,4 @@
-<h1 align="center">FlyMate</h1>
+<h1 align="center"> FlyMate</h1>
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/GamalielCamey/PF-/main/srcFrontOne/src/components/LandingPage/logo.png" height=70>
@@ -21,10 +21,10 @@ React js | React Native | Redux | CSS | Mongo DB | Express | Node js | FireBase
 </br>  
  
 Colaboradores:
-- Armella, Marcelo (https://www.linkedin.com/in/marcelo-armella/)
-- Camey, Gamaliel (https://www.linkedin.com/in/gamalielcamey/)
-- Leone, Jacqueline (https://www.linkedin.com/in/jacqueline-leone-b066b9229/)
-- Tavelli, Diego (https://www.linkedin.com/in/diegotavelli/)
-- Torrez, Candela (https://www.linkedin.com/in/candela-torrez-6b0b69204/)
-- Vedia, Franco (https://www.linkedin.com/in/franco-vedia-602877247/)  
+- 🌎 Armella, Marcelo (https://www.linkedin.com/in/marcelo-armella/)
+- ✈ Camey, Gamaliel (https://www.linkedin.com/in/gamalielcamey/)
+- 🌎 Leone, Jacqueline (https://www.linkedin.com/in/jacqueline-leone-b066b9229/)
+- ✈ Tavelli, Diego (https://www.linkedin.com/in/diegotavelli/)
+- 🌎 Torrez, Candela (https://www.linkedin.com/in/candela-torrez-6b0b69204/)
+- ✈ Vedia, Franco (https://www.linkedin.com/in/franco-vedia-602877247/)  
 </p>  
