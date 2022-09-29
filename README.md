@@ -26,5 +26,4 @@ Colaboradores:
 - 🌎 Leone, Jacqueline (https://www.linkedin.com/in/jacqueline-leone-b066b9229/)
 - ✈ Tavelli, Diego (https://www.linkedin.com/in/diegotavelli/)
 - 🌎 Torrez, Candela (https://www.linkedin.com/in/candela-torrez-6b0b69204/)
-- ✈ Vedia, Franco (https://www.linkedin.com/in/franco-vedia-602877247/)  
 </p>  
